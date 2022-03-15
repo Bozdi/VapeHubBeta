@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/managerOrders">
+
+    <fragment
+        android:id="@+id/managerOrders"
+        android:name="com.bozdi.vapehubbeta.ManagerOrders"
+        android:label="fragment_manager_orders"
+        tools:layout="@layout/fragment_manager_orders" />
+    <fragment
+        android:id="@+id/managerCouriers"
+        android:name="com.bozdi.vapehubbeta.ManagerCouriers"
+        android:label="fragment_manager_couriers"
+        tools:layout="@layout/fragment_manager_couriers" />
+    <fragment
+        android:id="@+id/managerMap"
+        android:name="com.bozdi.vapehubbeta.ManagerMap"
+        android:label="fragment_manager_map"
+        tools:layout="@layout/fragment_manager_map" />
+    <fragment
+        android:id="@+id/managerProfile"
+        android:name="com.bozdi.vapehubbeta.ManagerProfile"
+        android:label="fragment_manager_profile"
+        tools:layout="@layout/fragment_manager_profile" />
+</navigation>
