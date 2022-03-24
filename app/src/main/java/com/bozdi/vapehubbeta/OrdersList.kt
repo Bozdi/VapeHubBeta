@@ -75,10 +75,8 @@ class OrdersList : Fragment() {
         })
     }
 
-    @SuppressLint("SetTextI18n")
     fun setData()
     {
-
         val List = view?.findViewById<LinearLayout>(R.id.Order_List)
         val inflaters = LayoutInflater.from(view?.getContext())
         for (item in listOrders) {
