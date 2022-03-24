@@ -7,22 +7,22 @@
 
     <fragment
         android:id="@+id/managerOrders"
-        android:name="com.bozdi.vapehubbeta.ManagerOrders"
+        android:name="com.bozdi.vapehubbeta.OrdersList"
         android:label="fragment_manager_orders"
         tools:layout="@layout/fragment_manager_orders" />
     <fragment
         android:id="@+id/managerCouriers"
-        android:name="com.bozdi.vapehubbeta.ManagerCouriers"
+        android:name="com.bozdi.vapehubbeta.managerFragments.CouriersList"
         android:label="fragment_manager_couriers"
         tools:layout="@layout/fragment_manager_couriers" />
     <fragment
         android:id="@+id/managerMap"
-        android:name="com.bozdi.vapehubbeta.ManagerMap"
+        android:name="com.bozdi.vapehubbeta.Map"
         android:label="fragment_manager_map"
         tools:layout="@layout/fragment_manager_map" />
     <fragment
         android:id="@+id/managerProfile"
-        android:name="com.bozdi.vapehubbeta.ManagerProfile"
+        android:name="com.bozdi.vapehubbeta.Profile"
         android:label="fragment_manager_profile"
         tools:layout="@layout/fragment_manager_profile" />
 </navigation>

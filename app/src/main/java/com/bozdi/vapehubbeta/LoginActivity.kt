@@ -3,14 +3,15 @@ package com.bozdi.vapehubbeta
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.bozdi.vapehubbeta.managerFragments.CouriersList
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class LoginActivity : AppCompatActivity() {
 
-    private val managerOrders = ManagerOrders()
-    private val managerCouriers = ManagerCouriers()
-    private val managerMap = ManagerMap()
-    private val managerProfile = ManagerProfile()
+    private val managerOrders = OrdersList()
+    private val managerCouriers = CouriersList()
+    private val managerMap = Map()
+    private val managerProfile = Profile()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
