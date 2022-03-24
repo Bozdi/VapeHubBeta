@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
                 .add("password", password.text.toString())
                 .build()
             val request: Request = Request.Builder()
-                .url("http://178.20.45.151:3000/api/auth")
+                .url(globVar.URL + "auth/")
                 .addHeader("Content-Type", "application/x-www-form-urlencoded")
                 .post(formBody)
                 .build()
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
 
     public fun getUserType() {
         val request: Request = Request.Builder()
-            .url("http://178.20.45.151:3000/api/users/${globVar.UserId}/")
+            .url(globVar.URL + "users/${globVar.UserId}/")
             .addHeader("Content-Type", "application/x-www-form-urlencoded")
             .addHeader("auth-token", globVar.token)
             .get()

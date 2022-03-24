@@ -1,7 +1,7 @@
 package com.bozdi.vapehubbeta
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.bozdi.vapehubbeta.managerFragments.CouriersList
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -21,8 +21,8 @@ class LoginActivity : AppCompatActivity() {
         lateinit var bottomNavigationView: BottomNavigationView
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
 
-        bottomNavigationView.setOnNavigationItemSelectedListener{
-            when(it.itemId){
+        bottomNavigationView.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
                 R.id.nav_orders -> replaceFragment(managerOrders)
                 R.id.nav_couriers -> replaceFragment(managerCouriers)
                 R.id.nav_map -> replaceFragment(managerMap)
@@ -30,8 +30,6 @@ class LoginActivity : AppCompatActivity() {
             }
             true
         }
-
-
 
     }
 
