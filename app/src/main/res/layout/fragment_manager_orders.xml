@@ -6,20 +6,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".OrdersList">
 
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/Order_List"
         android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints">
-        <LinearLayout
-            android:id="@+id/Order_List"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-        </LinearLayout>
-    </ScrollView>
+        tools:ignore="MissingConstraints"
+        tools:listitem="@layout/order_item">
+    </androidx.recyclerview.widget.RecyclerView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
