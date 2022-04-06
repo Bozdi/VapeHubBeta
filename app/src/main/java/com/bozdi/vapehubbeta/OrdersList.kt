@@ -19,11 +19,9 @@ import java.io.IOException
 
 
 class OrdersList : Fragment() {
-    var globVar: GlobalVars = GlobalVars
-    var okHttpClient: OkHttpClient = OkHttpClient()
     private lateinit var adapter: OrdersAdapter
 
-    private val orderSevice: OrderListService
+    private val orderService: OrderListService
         get() = (getActivity()?.getApplicationContext() as App).ordersService
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,13 +34,13 @@ class OrdersList : Fragment() {
         adapter = OrdersAdapter();
         rv.adapter = adapter;
         rv.layoutManager = LinearLayoutManager(activity)
-        orderSevice.addListener(orderLister)
+        orderService.addListener(orderLister)
         return res
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        orderSevice.removeListener(orderLister)
+        orderService.removeListener(orderLister)
     }
 
     private val orderLister: ordersListener ={

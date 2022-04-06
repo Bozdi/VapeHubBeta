@@ -4,7 +4,7 @@ object GlobalVars {
     public var token : String = ""
     public var UserId : String = ""
     public var UserType : String = ""
-    public var URL : String = "http://178.20.45.151:3000/api/"
+    public var URL : String = "http://5.180.183.54:3000/api/"
     var listOrders = mutableListOf<ItemSizeDataModel>()
     data class ItemSizeDataModel(
         val OrderId: String?,

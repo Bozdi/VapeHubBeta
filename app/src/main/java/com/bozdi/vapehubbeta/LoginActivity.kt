@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.bozdi.vapehubbeta.managerFragments.CouriersList
+import com.bozdi.vapehubbeta.model.CouriersData
 import com.bozdi.vapehubbeta.model.Order
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import okhttp3.*
@@ -30,6 +31,7 @@ class LoginActivity : AppCompatActivity() {
         replaceFragment(managerOrders)
 
         getData()
+        getCouriersList()
         lateinit var bottomNavigationView: BottomNavigationView
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
 
@@ -74,14 +76,53 @@ class LoginActivity : AppCompatActivity() {
                 for (i in 0 until key.length()) {
                     val keys = key.getString(i)
                     val value: JSONObject = objects.getJSONObject(keys)
-                    (getApplicationContext() as App).ordersService.addOrder( Order(
-                        value.getString("OrderId"),
-                        value.getString("StreetName"),
-                        value.getString("Status"),
-                        "5000"
-                    )
+                    (getApplicationContext() as App).ordersService.add(
+                        Order(
+                            value.getString("OrderId"),
+                            value.getString("StreetName"),
+                            value.getString("Status"),
+                            "5000"
+                        )
                     )
                     Log.i(value.getString("StreetName"),value.getString("StreetName"));
+                }
+
+
+            }
+        })
+    }
+
+    fun getCouriersList()
+    {
+        val request: Request = Request.Builder()
+            .url(globVar.URL +"users/")//.url(globVar.URL +"Couriers/")
+            .addHeader("Content-Type", "application/x-www-form-urlencoded")
+            .addHeader("auth-token", globVar.token)
+            .get()
+            .build()
+        okHttpClient.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call?, e: IOException?) {
+                Log.e("json", e.toString())
+            }
+
+            override fun onResponse(call: Call?, response: Response?) {
+                var body = response?.body()?.string().toString()
+                Log.e("list", body)
+                val objects: JSONObject = JSONTokener(body).nextValue() as JSONObject
+                val key: JSONArray = objects.names()
+                for (i in 0 until key.length()) {
+                    val keys = key.getString(i)
+                    val value: JSONObject = objects.getJSONObject(keys)
+                    //------------------------------------------------------------------
+
+                    //------------------------------\|/\|/\|/\|/\|/--------// заменить на couriersService из класса App
+                    (getApplicationContext() as App).couriersService.add(
+                        CouriersData(
+                            value.getString("Name"),
+                            value.getString("Status"),
+                        )
+                    )
+                    //----------------------------------------------------------------------------
                 }
 
 

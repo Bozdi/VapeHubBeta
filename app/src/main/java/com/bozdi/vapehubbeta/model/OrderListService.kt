@@ -1,6 +1,11 @@
 package com.bozdi.vapehubbeta.model
 
 import java.util.*
+/*
+
+Все Order менять на свой дата класс
+
+ */
 
 typealias ordersListener = (orders : List<Order>) -> Unit
 
@@ -8,36 +13,17 @@ class OrderListService {
     private var orders = mutableListOf<Order>()
     private val listeners = mutableSetOf<ordersListener>()
 
-//    init {
-//        orders.add(
-//            Order(
-//                "324",
-//                "2",
-//                "3",
-//                "5"
-//            )
-//        )
-//        orders.add(
-//            Order(
-//                "324",
-//                "2",
-//                "3",
-//                "5"
-//            )
-//        )
-//    }
-
     fun getOrders(): List<Order> {
         return orders;
     }
 
-    fun addOrder(order: Order){
+    fun add(order: Order){
         orders.add(
             order
         )
     }
 
-    fun delOrder(order: Order) {
+    fun del(order: Order) {
         val indexToDel = orders.indexOfFirst { it.OrderId == order.OrderId }
         if (indexToDel != -1)
         {

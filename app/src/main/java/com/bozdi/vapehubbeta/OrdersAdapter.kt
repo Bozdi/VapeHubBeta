@@ -30,7 +30,7 @@ class OrdersAdapter :RecyclerView.Adapter<OrdersAdapter.OrderViewHolder>() {
         val order = orders[position]
         with(holder.binding) {
             orderIdTextView.text = order.OrderId
-            orderAdressTextView.text = order.From
+            orderAdressTextView.text = order.Address
             orderStatusTextView.text = order.Status
             orderTotalCostTextView.text = order.TotalCost
         }
