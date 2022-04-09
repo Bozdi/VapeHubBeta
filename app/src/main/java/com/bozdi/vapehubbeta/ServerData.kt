@@ -15,6 +15,7 @@ class ServerData(_context: Context) {
     var globVar: GlobalVars = GlobalVars
     var okHttpClient: OkHttpClient = OkHttpClient()
     var context: Context? = null
+
     init {
         context = _context
     }
@@ -33,7 +34,7 @@ class ServerData(_context: Context) {
 
             override fun onResponse(call: Call?, response: Response?) {
                 var body = response?.body()?.string().toString()
-                Log.e("list", body)
+                Log.i("OrderList JSON", body)
                 val objects: JSONObject = JSONTokener(body).nextValue() as JSONObject
                 val key: JSONArray = objects.names()
                 for (i in 0 until key.length()) {
@@ -46,7 +47,7 @@ class ServerData(_context: Context) {
                             value.getString("ClientName"),
                             value.getString("StoreId"),
                             value.getString("StoreLink"),
-                            value.getString("UserID"),
+                            value.getString("UserId"),
                             value.getString("ClientPhone"),
                             value.getString("StreetName"),
                             value.getString("BuildingNum"),
@@ -208,11 +209,11 @@ class ServerData(_context: Context) {
             override fun onResponse(call: Call?, response: Response?) {
                 var body = response?.body()?.string().toString()
                 Log.e("cities", body)
-                val objects: JSONObject = JSONTokener(body).nextValue() as JSONObject
-                val key: JSONArray = objects.names()
-                for (i in 0 until key.length()) {
-                    val keys = key.getString(i)
-                    val value: JSONObject = objects.getJSONObject(keys)
+                val objects: JSONArray = JSONTokener(body).nextValue() as JSONArray
+                //val key: JSONArray = objects.names()
+                for (i in 0 until objects.length()) {
+                    val keys = objects.getString(i)
+                    val value: JSONObject = JSONObject(keys);
 
                     (context as AppServices).citiesService.add(
                         CitiesData(
@@ -250,7 +251,7 @@ class ServerData(_context: Context) {
 
                     (context as AppServices).courierGoodsService.add(
                         CourierGoodsData(
-                            value.getString("GoodID"),
+                            value.getString("GoodId"),
                             value.getString("GoodLink"),
                             value.getString("Name"),
                             value.getString("Price"),
