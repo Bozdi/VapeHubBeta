@@ -4,21 +4,46 @@
     <item
         android:id="@+id/nav_orders"
         android:icon="@drawable/ic_baseline_list_alt_24"
-        android:title="Заказы" />
+        android:title="Заказы"
+        android:visible="false" />
 
     <item
         android:id="@+id/nav_couriers"
         android:icon="@drawable/ic_baseline_directions_car_24"
-        android:title="Курьеры" />
+        android:title="Курьеры"
+        android:visible="false" />
+    <item
+        android:id="@+id/nav_backpack"
+        android:icon="@drawable/ic_baseline_shopping_cart_24"
+        android:title="Рюкзак"
+        android:visible="false" />
+    <item
+        android:id="@+id/nav_cities"
+        android:icon="@drawable/ic_baseline_shopping_cart_24"
+        android:title="Города"
+        android:visible="false" />
+    <item
+        android:id="@+id/nav_managers"
+        android:icon="@drawable/ic_baseline_shopping_cart_24"
+        android:title="Менеджеры"
+        android:visible="false" />
+    <item
+        android:id="@+id/nav_stores"
+        android:icon="@drawable/ic_baseline_shopping_cart_24"
+        android:title="Магазины"
+        android:visible="false" />
 
     <item
         android:id="@+id/nav_map"
         android:icon="@drawable/ic_baseline_map_24"
-        android:title="Карта" />
+        android:title="Карта"
+        android:visible="false"/>
 
     <item
         android:id="@+id/nav_profile"
         android:icon="@drawable/ic_baseline_person_24"
-        android:title="Профиль" />
+        android:title="Профиль"
+        android:visible="false" />
+
 
 </menu>

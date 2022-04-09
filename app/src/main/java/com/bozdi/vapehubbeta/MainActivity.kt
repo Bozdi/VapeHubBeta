@@ -1,5 +1,6 @@
 package com.bozdi.vapehubbeta
 
+import android.content.ClipData
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -41,15 +42,8 @@ class MainActivity : AppCompatActivity() {
         lateinit var bottomNavigationView: BottomNavigationView
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
 
-        bottomNavigationView.setOnNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.nav_orders -> replaceFragment(managerOrders)
-                R.id.nav_couriers -> replaceFragment(managerCouriers)
-                R.id.nav_map -> replaceFragment(managerMap)
-                R.id.nav_profile -> replaceFragment(managerProfile)
-            }
-            true
-        }
+        setBottomNavigation(globVar.UserType, bottomNavigationView)
+
 
     }
 
@@ -62,21 +56,36 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setBottomNavigation(type: String)
+    private fun setBottomNavigation(type: String, bottomNav: BottomNavigationView)
     {
+        bottomNav.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.nav_orders -> replaceFragment(managerOrders)
+                R.id.nav_couriers -> replaceFragment(managerCouriers)
+                R.id.nav_map -> replaceFragment(managerMap)
+                R.id.nav_profile -> replaceFragment(managerProfile)
+            }
+            true
+        }
         when(type){
-            "" -> {
+            "ADMN" -> {
+                bottomNav.menu.findItem(R.id.nav_cities).isVisible = true;
+                bottomNav.menu.findItem(R.id.nav_stores).isVisible = true;
+                bottomNav.menu.findItem(R.id.nav_managers).isVisible = true;
+            }
+            "MNGR" -> {//*
+                bottomNav.menu.findItem(R.id.nav_orders).isVisible = true;
+                bottomNav.menu.findItem(R.id.nav_couriers).isVisible = true;
+                bottomNav.menu.findItem(R.id.nav_map).isVisible = true;
+                bottomNav.menu.findItem(R.id.nav_profile).isVisible = true;
+            }
+            "COUR" -> {
 
             }
-            "" -> {
-
-            }
-            "" -> {
+            "DELT" -> {
 
             }
 
         }
     }
-
-
 }
