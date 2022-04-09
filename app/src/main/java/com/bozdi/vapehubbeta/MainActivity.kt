@@ -1,11 +1,12 @@
 package com.bozdi.vapehubbeta
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import com.bozdi.vapehubbeta.managerFragments.CouriersList
+import com.bozdi.vapehubbeta.model.*
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import okhttp3.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -13,70 +14,68 @@ import org.json.JSONTokener
 import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
+
     var globVar: GlobalVars = GlobalVars
     var okHttpClient: OkHttpClient = OkHttpClient()
+
+    private val managerOrders = OrdersList()
+    private val managerCouriers = CouriersList()
+    private val managerMap = Map()
+    private val managerProfile = Profile()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        setContentView(R.layout.activity_main)
+        replaceFragment(managerOrders)
 
-        val login: EditText = findViewById(R.id.editTextLogin)
-        val password: EditText = findViewById(R.id.editTextPassword)
-        login.setText("TestUser");
-        password.setText("TestUser");
-        val button: Button = findViewById(R.id.loginButton)
-        button.setOnClickListener {
 
-            val formBody: RequestBody = FormBody.Builder()
-                .add("login", login.text.toString())
-                .add("password", password.text.toString())
-                .build()
-            val request: Request = Request.Builder()
-                .url(globVar.URL + "auth/")
-                .addHeader("Content-Type", "application/x-www-form-urlencoded")
-                .post(formBody)
-                .build()
-            okHttpClient.newCall(request).enqueue(object : Callback {
-                override fun onFailure(call: Call?, e: IOException?) {
-                    Log.e("json", e.toString())
-                }
+        (getApplicationContext() as AppServices).serverData.getOrdersList()
+        (getApplicationContext() as AppServices).serverData.getCouriersList()
+        (getApplicationContext() as AppServices).serverData.getManagersList()
+        (getApplicationContext() as AppServices).serverData.getStoresList()
+        (getApplicationContext() as AppServices).serverData.getCitiesList()
+        (getApplicationContext() as AppServices).serverData.getCourierBackpackList()
 
-                override fun onResponse(call: Call?, response: Response?) {
-                    var body: String = response?.body()?.string().toString();
-                    if (response?.code().toString() != "200") {
-                        Log.e("HTTP", "Error Auth")
-//                        Toast.makeText(applicationContext, "Неверный логин или пароль", Toast.LENGTH_SHORT);
-                    } else {
-                        globVar.token = (JSONObject(body).getString("AuthToken")).toString();
-                        globVar.UserId = (JSONObject(body).getString("UserId")).toString();
-                        Log.i("token", globVar.token)
-                        getUserType()
-                    }
-                }
-            })
+
+
+        lateinit var bottomNavigationView: BottomNavigationView
+        bottomNavigationView = findViewById(R.id.bottomNavigationView)
+
+        bottomNavigationView.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.nav_orders -> replaceFragment(managerOrders)
+                R.id.nav_couriers -> replaceFragment(managerCouriers)
+                R.id.nav_map -> replaceFragment(managerMap)
+                R.id.nav_profile -> replaceFragment(managerProfile)
+            }
+            true
         }
 
     }
 
-    public fun getUserType() {
-        val request: Request = Request.Builder()
-            .url(globVar.URL + "users/${globVar.UserId}/")
-            .addHeader("Content-Type", "application/x-www-form-urlencoded")
-            .addHeader("auth-token", globVar.token)
-            .get()
-            .build()
-        okHttpClient.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call?, e: IOException?) {
-                Log.e("json", e.toString())
+
+    private fun replaceFragment(fragment: Fragment) {
+        if (fragment != null) {
+            val transaction = supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.fragment_container, fragment)
+            transaction.commit()
+        }
+    }
+
+    private fun setBottomNavigation(type: String)
+    {
+        when(type){
+            "" -> {
+
+            }
+            "" -> {
+
+            }
+            "" -> {
+
             }
 
-            override fun onResponse(call: Call?, response: Response?) {
-                var body: String = response?.body()?.string().toString();
-                globVar.UserType = (JSONObject(body).getString("Type")).toString();
-
-                val intent = Intent(this@MainActivity, LoginActivity::class.java);
-                startActivity(intent)
-            }
-        })
+        }
     }
 
 
