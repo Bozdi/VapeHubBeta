@@ -1,15 +1,15 @@
-package com.bozdi.vapehubbeta
+package com.bozdi.vapehubbeta.adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bozdi.vapehubbeta.databinding.OrderItemBinding
-import com.bozdi.vapehubbeta.model.Order
+import com.bozdi.vapehubbeta.model.OrdersData
 
 class OrdersAdapter :RecyclerView.Adapter<OrdersAdapter.OrderViewHolder>() {
 
-    var orders:List<Order> = emptyList()
+    var ordersData:List<OrdersData> = emptyList()
         @SuppressLint("NotifyDataSetChanged")
         set(newValue) {
             field = newValue
@@ -27,15 +27,16 @@ class OrdersAdapter :RecyclerView.Adapter<OrdersAdapter.OrderViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
-        val order = orders[position]
+        val order = ordersData[position]
         with(holder.binding) {
             orderIdTextView.text = order.OrderId
-            orderAdressTextView.text = order.Address
+            orderStreetNameTextView.text = order.StreetName
+            orderBuildingNumTextView.text = order.BuildingNum
             orderStatusTextView.text = order.Status
             orderTotalCostTextView.text = order.TotalCost
         }
     }
 
-    override fun getItemCount(): Int = orders.size
+    override fun getItemCount(): Int = ordersData.size
 
 }

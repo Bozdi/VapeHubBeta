@@ -1,28 +1,22 @@
 package com.bozdi.vapehubbeta
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bozdi.vapehubbeta.model.Order
+import com.bozdi.vapehubbeta.adapters.OrdersAdapter
 import com.bozdi.vapehubbeta.model.OrderListService
 import com.bozdi.vapehubbeta.model.ordersListener
-import okhttp3.*
-import org.json.JSONArray
-import org.json.JSONObject
-import org.json.JSONTokener
-import java.io.IOException
 
 
 class OrdersList : Fragment() {
     private lateinit var adapter: OrdersAdapter
 
     private val orderService: OrderListService
-        get() = (getActivity()?.getApplicationContext() as App).ordersService
+        get() = (getActivity()?.getApplicationContext() as AppServices).ordersService
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,7 +38,7 @@ class OrdersList : Fragment() {
     }
 
     private val orderLister: ordersListener ={
-        adapter.orders = it
+        adapter.ordersData = it
     }
 
 

@@ -1,29 +1,24 @@
 package com.bozdi.vapehubbeta.model
 
-import java.util.*
-/*
 
-Все Order менять на свой дата класс
 
- */
-
-typealias ordersListener = (orders : List<Order>) -> Unit
+typealias ordersListener = (ordersData : List<OrdersData>) -> Unit
 
 class OrderListService {
-    private var orders = mutableListOf<Order>()
+    private var orders = mutableListOf<OrdersData>()
     private val listeners = mutableSetOf<ordersListener>()
 
-    fun getOrders(): List<Order> {
+    fun getOrders(): List<OrdersData> {
         return orders;
     }
 
-    fun add(order: Order){
+    fun add(order: OrdersData){
         orders.add(
             order
         )
     }
 
-    fun del(order: Order) {
+    fun del(order: OrdersData) {
         val indexToDel = orders.indexOfFirst { it.OrderId == order.OrderId }
         if (indexToDel != -1)
         {

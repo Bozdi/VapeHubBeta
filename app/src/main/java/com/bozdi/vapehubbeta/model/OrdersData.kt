@@ -1,0 +1,28 @@
+package com.bozdi.vapehubbeta.model
+
+data class OrdersData (
+    val OrderId: String?,
+    val OrderLink: String?,
+    val ClientName: String?,
+    val StoreId: String?,
+    val StoreLink: String?,
+    val UserId: String?,
+    val ClientPhone: String?,
+    val StreetName: String?,
+    val BuildingNum: String?,
+    val ApartNum: String?,
+    val EntranceNum: String?,
+    val TargetTime: String?,
+    val Status: String?,
+    val GMapPlaceID: String?,
+    val Lat: String?,
+    val Lng: String?,
+    val TotalCost: String?,
+    val DeliveryCost: String?,
+    val GoodsTotalCost: String?,
+    val CashPayment: String?,
+    val CardPayment: String?,
+    val PayedFromCourier: String?,
+    val DeliveredTime: String?,
+    val CreateAt: String?,
+)

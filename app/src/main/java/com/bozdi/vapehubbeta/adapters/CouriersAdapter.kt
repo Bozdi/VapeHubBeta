@@ -1,13 +1,11 @@
-package com.bozdi.vapehubbeta
+package com.bozdi.vapehubbeta.adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bozdi.vapehubbeta.databinding.CourierItemBinding
-import com.bozdi.vapehubbeta.databinding.OrderItemBinding
 import com.bozdi.vapehubbeta.model.CouriersData
-import com.bozdi.vapehubbeta.model.Order
 
 class CouriersAdapter : RecyclerView.Adapter<CouriersAdapter.CouriersViewHolder>() {
 
@@ -31,8 +29,8 @@ class CouriersAdapter : RecyclerView.Adapter<CouriersAdapter.CouriersViewHolder>
     override fun onBindViewHolder(holder: CouriersViewHolder, position: Int) {
         val courier = couriers[position]
         with(holder.binding) {
-            courierNameTextView.text = courier.Name
-            courierStatusTextView.text = courier.Status
+           // courierNameTextView.text = courier.Name
+            //courierStatusTextView.text = courier.Status
         }
     }
 

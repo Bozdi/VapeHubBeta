@@ -7,11 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bozdi.vapehubbeta.App
-import com.bozdi.vapehubbeta.CouriersAdapter
-import com.bozdi.vapehubbeta.OrdersAdapter
+import com.bozdi.vapehubbeta.AppServices
+import com.bozdi.vapehubbeta.adapters.CouriersAdapter
 import com.bozdi.vapehubbeta.R
-import com.bozdi.vapehubbeta.model.OrderListService
 import com.bozdi.vapehubbeta.model.CouriersListService
 import com.bozdi.vapehubbeta.model.couriersListener
 
@@ -20,7 +18,7 @@ class CouriersList : Fragment() {
     private lateinit var adapter: CouriersAdapter
 
     private val courierService: CouriersListService
-        get() = (getActivity()?.getApplicationContext() as App).couriersService
+        get() = (getActivity()?.getApplicationContext() as AppServices).couriersService
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

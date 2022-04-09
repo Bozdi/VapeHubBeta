@@ -2,7 +2,7 @@ package com.bozdi.vapehubbeta.model
 
 
 
-typealias couriersListener = (orders : List<CouriersData>) -> Unit
+typealias couriersListener = (ordersData : List<CouriersData>) -> Unit
 
 class CouriersListService {
     private var couriers = mutableListOf<CouriersData>()
@@ -12,14 +12,14 @@ class CouriersListService {
         return couriers;
     }
 
-    fun add(order: CouriersData){
+    fun add(courier: CouriersData){
         couriers.add(
-            order
+            courier
         )
     }
 
-    fun del(order: CouriersData) {
-        val indexToDel = couriers.indexOfFirst { it.Name == order.Name }
+    fun del(courier: CouriersData) {
+        val indexToDel = couriers.indexOfFirst { it.UserId == courier.UserId }
         if (indexToDel != -1)
         {
             couriers.removeAt(indexToDel)
