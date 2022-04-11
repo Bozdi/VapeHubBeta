@@ -1,18 +1,17 @@
 package com.bozdi.vapehubbeta
 
-import android.content.ClipData
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import com.bozdi.vapehubbeta.adminFragments.CitiesList
+import com.bozdi.vapehubbeta.adminFragments.ManagersList
+import com.bozdi.vapehubbeta.adminFragments.StoresList
+import com.bozdi.vapehubbeta.courierFragments.CourierGoods
 import com.bozdi.vapehubbeta.managerFragments.CouriersList
 import com.bozdi.vapehubbeta.model.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import okhttp3.*
-import org.json.JSONArray
-import org.json.JSONObject
-import org.json.JSONTokener
-import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,12 +22,15 @@ class MainActivity : AppCompatActivity() {
     private val managerCouriers = CouriersList()
     private val managerMap = Map()
     private val managerProfile = Profile()
+    private val adminCities = CitiesList()
+    private val adminStores = StoresList()
+    private val adminManagers = ManagersList()
+    private val courierGoods = CourierGoods()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         replaceFragment(managerOrders)
-
 
         (getApplicationContext() as AppServices).serverData.getOrdersList()
         (getApplicationContext() as AppServices).serverData.getCouriersList()
@@ -38,22 +40,22 @@ class MainActivity : AppCompatActivity() {
         (getApplicationContext() as AppServices).serverData.getCourierBackpackList()
 
 
-
-        lateinit var bottomNavigationView: BottomNavigationView
-        bottomNavigationView = findViewById(R.id.bottomNavigationView)
+        val bottomNavigationView: BottomNavigationView = when(globVar.UserType) {
+            "ADMN" -> findViewById(R.id.adminBottomNavigation)
+            "MNGR" -> findViewById(R.id.managersBottomNavigation)
+            "COUR" -> findViewById(R.id.couriersBottomNavigation)
+            else -> findViewById(R.id.couriersBottomNavigation)
+        }
 
         setBottomNavigation(globVar.UserType, bottomNavigationView)
 
 
     }
 
-
     private fun replaceFragment(fragment: Fragment) {
-        if (fragment != null) {
-            val transaction = supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.fragment_container, fragment)
-            transaction.commit()
-        }
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment_container, fragment)
+        transaction.commit()
     }
 
     private fun setBottomNavigation(type: String, bottomNav: BottomNavigationView)
@@ -64,28 +66,12 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_couriers -> replaceFragment(managerCouriers)
                 R.id.nav_map -> replaceFragment(managerMap)
                 R.id.nav_profile -> replaceFragment(managerProfile)
+                R.id.nav_cities -> replaceFragment(adminCities)
+                R.id.nav_managers -> replaceFragment(adminManagers)
+                R.id.nav_stores -> replaceFragment(adminStores)
+                R.id.nav_backpack -> replaceFragment(courierGoods)
             }
             true
-        }
-        when(type){
-            "ADMN" -> {
-                bottomNav.menu.findItem(R.id.nav_cities).isVisible = true;
-                bottomNav.menu.findItem(R.id.nav_stores).isVisible = true;
-                bottomNav.menu.findItem(R.id.nav_managers).isVisible = true;
-            }
-            "MNGR" -> {//*
-                bottomNav.menu.findItem(R.id.nav_orders).isVisible = true;
-                bottomNav.menu.findItem(R.id.nav_couriers).isVisible = true;
-                bottomNav.menu.findItem(R.id.nav_map).isVisible = true;
-                bottomNav.menu.findItem(R.id.nav_profile).isVisible = true;
-            }
-            "COUR" -> {
-
-            }
-            "DELT" -> {
-
-            }
-
         }
     }
 }

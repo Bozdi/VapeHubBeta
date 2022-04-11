@@ -29,8 +29,8 @@ class CouriersAdapter : RecyclerView.Adapter<CouriersAdapter.CouriersViewHolder>
     override fun onBindViewHolder(holder: CouriersViewHolder, position: Int) {
         val courier = couriers[position]
         with(holder.binding) {
-           // courierNameTextView.text = courier.Name
-            //courierStatusTextView.text = courier.Status
+            courierNameTextView.text = courier.Name
+            courierStatusTextView.text = courier.Status
         }
     }
 

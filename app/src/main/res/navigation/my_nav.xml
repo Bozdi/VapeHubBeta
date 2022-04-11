@@ -25,4 +25,19 @@
         android:name="com.bozdi.vapehubbeta.Profile"
         android:label="fragment_manager_profile"
         tools:layout="@layout/fragment_manager_profile" />
+    <fragment
+        android:id="@+id/citiesList"
+        android:name="com.bozdi.vapehubbeta.adminFragments.CitiesList"
+        android:label="fragment_cities_list"
+        tools:layout="@layout/fragment_cities_list" />
+    <fragment
+        android:id="@+id/managersList"
+        android:name="com.bozdi.vapehubbeta.adminFragments.ManagersList"
+        android:label="fragment_managers_list"
+        tools:layout="@layout/fragment_managers_list" />
+    <fragment
+        android:id="@+id/storesList"
+        android:name="com.bozdi.vapehubbeta.adminFragments.StoresList"
+        android:label="fragment_shops_list"
+        tools:layout="@layout/fragment_shops_list" />
 </navigation>

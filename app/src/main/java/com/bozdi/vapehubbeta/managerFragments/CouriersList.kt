@@ -13,18 +13,14 @@ import com.bozdi.vapehubbeta.R
 import com.bozdi.vapehubbeta.model.CouriersListService
 import com.bozdi.vapehubbeta.model.couriersListener
 
-
 class CouriersList : Fragment() {
     private lateinit var adapter: CouriersAdapter
 
     private val courierService: CouriersListService
         get() = (getActivity()?.getApplicationContext() as AppServices).couriersService
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         val res = inflater.inflate(R.layout.fragment_manager_couriers, container, false)
         var rv: RecyclerView = res.findViewById(R.id.Couriers_List)
         adapter = CouriersAdapter()
