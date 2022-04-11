@@ -7,7 +7,7 @@
     tools:context=".LoginActivity">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:visibility="visible"
+        android:visibility="invisible"
         android:id="@+id/managersBottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/managers_bottom_navigation"
+        app:menu="@menu/couriers_bottom_navigation"
         android:background="#313131"
         app:itemIconTint="@drawable/bottom_navigation_selector">
 

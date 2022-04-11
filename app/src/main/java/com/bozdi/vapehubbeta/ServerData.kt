@@ -116,6 +116,26 @@ class ServerData(_context: Context) {
         })
     }
 
+    fun createOrder() {
+        val request: Request = Request.Builder()
+            .url(globVar.URL + "users/")
+            .addHeader("Content-Type", "application/x-www-form-urlencoded")
+            .addHeader("auth-token", globVar.token)
+            .get()
+            .build()
+        okHttpClient.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call?, e: IOException?) {
+                Log.e("json", e.toString())
+            }
+
+            override fun onResponse(call: Call?, response: Response?) {
+                var body = response?.body()?.string().toString()
+                Log.e("list", body)
+
+            }
+        })
+    }
+
     fun getManagersList() {
         val request: Request = Request.Builder()
             .url(globVar.URL + "users/")

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import okhttp3.*
 import org.json.JSONObject
@@ -19,7 +20,7 @@ class LoginActivity : AppCompatActivity() {
 
         val login: EditText = findViewById(R.id.editTextLogin)
         val password: EditText = findViewById(R.id.editTextPassword)
-        login.setText("TestUser");
+        login.setText("NewUser");
         password.setText("1234");
         val button: Button = findViewById(R.id.loginButton)
         button.setOnClickListener {
@@ -42,6 +43,7 @@ class LoginActivity : AppCompatActivity() {
                     var body: String = response?.body()?.string().toString();
                     if (response?.code().toString() != "200") {
                         Log.e("HTTP", "Error Auth")
+//                        Toast.makeText(this@LoginActivity,"Неверный логин или пароль",Toast.LENGTH_SHORT).show();
 //                        Toast.makeText(applicationContext, "Неверный логин или пароль", Toast.LENGTH_SHORT);
                     } else {
                         globVar.token = (JSONObject(body).getString("AuthToken")).toString();

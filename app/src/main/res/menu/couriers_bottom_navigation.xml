@@ -11,7 +11,7 @@
         android:id="@+id/nav_backpack"
         android:icon="@drawable/ic_baseline_shopping_cart_24"
         android:title="Рюкзак"
-        android:visible="false" />
+        android:visible="true" />
 
     <item
         android:id="@+id/nav_map"

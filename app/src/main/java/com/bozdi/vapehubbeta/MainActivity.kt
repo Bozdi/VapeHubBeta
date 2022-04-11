@@ -1,6 +1,7 @@
 package com.bozdi.vapehubbeta
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -32,22 +33,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         replaceFragment(managerOrders)
 
-        (getApplicationContext() as AppServices).serverData.getOrdersList()
-        (getApplicationContext() as AppServices).serverData.getCouriersList()
-        (getApplicationContext() as AppServices).serverData.getManagersList()
-        (getApplicationContext() as AppServices).serverData.getStoresList()
-        (getApplicationContext() as AppServices).serverData.getCitiesList()
-        (getApplicationContext() as AppServices).serverData.getCourierBackpackList()
 
 
-        val bottomNavigationView: BottomNavigationView = when(globVar.UserType) {
-            "ADMN" -> findViewById(R.id.adminBottomNavigation)
-            "MNGR" -> findViewById(R.id.managersBottomNavigation)
-            "COUR" -> findViewById(R.id.couriersBottomNavigation)
-            else -> findViewById(R.id.couriersBottomNavigation)
-        }
 
-        setBottomNavigation(globVar.UserType, bottomNavigationView)
+        val bottomNavigationView: BottomNavigationView = setBottomNavigation(GlobalVars.UserType);
 
 
     }
@@ -58,20 +47,52 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
     }
 
-    private fun setBottomNavigation(type: String, bottomNav: BottomNavigationView)
-    {
-        bottomNav.setOnNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.nav_orders -> replaceFragment(managerOrders)
-                R.id.nav_couriers -> replaceFragment(managerCouriers)
-                R.id.nav_map -> replaceFragment(managerMap)
-                R.id.nav_profile -> replaceFragment(managerProfile)
-                R.id.nav_cities -> replaceFragment(adminCities)
-                R.id.nav_managers -> replaceFragment(adminManagers)
-                R.id.nav_stores -> replaceFragment(adminStores)
-                R.id.nav_backpack -> replaceFragment(courierGoods)
+    private fun setBottomNavigation(type: String): BottomNavigationView {
+        val result : BottomNavigationView;
+
+        if (type == "ADMN"){
+            result = findViewById(R.id.adminBottomNavigation);
+            result.setOnNavigationItemSelectedListener {
+                when (it.itemId) {
+                    R.id.nav_cities -> replaceFragment(adminCities)
+                    R.id.nav_managers -> replaceFragment(adminManagers)
+                    R.id.nav_stores -> replaceFragment(adminStores)
+                }
+                true
             }
-            true
+            (getApplicationContext() as AppServices).serverData.getManagersList()
+            (getApplicationContext() as AppServices).serverData.getStoresList()
+            (getApplicationContext() as AppServices).serverData.getCitiesList()
+
+        } else if(type == "MNGR"){
+            result = findViewById(R.id.managersBottomNavigation);
+            result.setOnNavigationItemSelectedListener {
+                when (it.itemId) {
+                    R.id.nav_orders -> replaceFragment(managerOrders)
+                    R.id.nav_couriers -> replaceFragment(managerCouriers)
+                    R.id.nav_map -> replaceFragment(managerMap)
+                    R.id.nav_profile -> replaceFragment(managerProfile)
+                }
+                true
+            }
+            (getApplicationContext() as AppServices).serverData.getOrdersList()
+            (getApplicationContext() as AppServices).serverData.getCouriersList()
+        }else{
+            result = findViewById(R.id.couriersBottomNavigation);
+            result.setOnNavigationItemSelectedListener {
+                when (it.itemId) {
+                    R.id.nav_orders -> replaceFragment(managerOrders)
+                    R.id.nav_backpack -> replaceFragment(courierGoods)
+                    R.id.nav_map -> replaceFragment(managerMap)
+                    R.id.nav_profile -> replaceFragment(managerProfile)
+                }
+                true
+            }
+            (getApplicationContext() as AppServices).serverData.getOrdersList()
+            (getApplicationContext() as AppServices).serverData.getCourierBackpackList()
         }
+        result.isVisible = true;
+
+        return result;
     }
 }
