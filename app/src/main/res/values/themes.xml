@@ -15,4 +15,5 @@
         <item name="android:windowBackground">@color/vapeHubBackground</item>
         <item name="android:colorPrimaryDark">@color/vapeHubOrange</item>
     </style>
+
 </resources>

@@ -38,7 +38,7 @@ class OrdersList : Fragment() {
         rv.adapter = adapter;
         rv.layoutManager = LinearLayoutManager(activity)
 
-        var addButton : FloatingActionButton = res.findViewById<FloatingActionButton>(R.id.floatingActionButton);
+        var addButton : FloatingActionButton = res.findViewById(R.id.newOrderButton);
         addButton.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()
                 ?.replace(R.id.fragment_container, OrderNew())
