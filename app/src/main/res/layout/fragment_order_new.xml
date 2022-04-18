@@ -120,6 +120,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/newOrderTargetTimeET" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/selectedGoodList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/vapeHubBackground"
+            android:scrollbars="none"
+            app:layout_constraintTop_toBottomOf="@+id/addGoodButton"
+            tools:ignore="MissingConstraints"
+            tools:listitem="@layout/selected_good_item" />
+
+        <Button
+            android:id="@+id/saveGoodButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Создать Заказ"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/selectedGoodList" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </ScrollView>

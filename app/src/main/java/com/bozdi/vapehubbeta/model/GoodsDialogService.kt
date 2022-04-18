@@ -1,29 +1,33 @@
 package com.bozdi.vapehubbeta.model
 
-typealias goodsDialogListener = (goodsDialogData : List<GoodsDialogData>) -> Unit
+typealias goodsDialogListener = (goodsDialogData : List<GoodsData>) -> Unit
 
 class GoodsDialogService {
-    private var goods = mutableListOf<GoodsDialogData>()
+    private var goods = mutableListOf<GoodsData>()
     private val listeners = mutableSetOf<goodsDialogListener>()
 
-    fun getOrders(): List<GoodsDialogData> {
+    fun getOrders(): List<GoodsData> {
         return goods;
     }
 
-    fun add(order: GoodsDialogData){
+    fun add(order: GoodsData){
         goods.add(
             order
         )
-        //notifyChanges()
+        notifyChanges()
     }
 
-    fun del(order: GoodsDialogData) {
+    fun del(order: GoodsData) {
         val indexToDel = goods.indexOfFirst { it.GoodId == order.GoodId }
         if (indexToDel != -1)
         {
             goods.removeAt(indexToDel)
             notifyChanges()
         }
+    }
+
+    fun count(): Int {
+       return goods.count();
     }
 
     fun addListener(listener: goodsDialogListener) {

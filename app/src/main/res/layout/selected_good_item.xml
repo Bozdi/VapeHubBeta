@@ -53,6 +53,25 @@
                 app:layout_constraintEnd_toStartOf="@+id/courierGoodsQuantityTextView"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <Button
+                android:id="@+id/minusSelectedGood"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="100dp"
+                android:text="-"
+                android:padding="10dp"
+                app:layout_constraintStart_toEndOf="@+id/courierGoodsNameTextView"
+                tools:ignore="MissingConstraints" />
+            <Button
+                android:id="@+id/plusSelectedGood"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:padding="10dp"
+                android:text="+"
+                app:layout_constraintStart_toEndOf="@+id/minusSelectedGood"
+                tools:ignore="MissingConstraints" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

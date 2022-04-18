@@ -1,8 +1,8 @@
 package com.bozdi.vapehubbeta.model
 
-data class GoodsDialogData(
+data class GoodsData(
     val GoodId: String?,
     val GoodLink: String?,
     val Name: String?,
     val Price: String?,
-    val Available: String?)
+    var Available: String?)

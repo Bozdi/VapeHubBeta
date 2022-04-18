@@ -294,12 +294,12 @@ class ServerData(_context: Context) {
             .build()
         okHttpClient.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call?, e: IOException?) {
-                Log.e("json", e.toString())
+                Log.e("GoodDialog", e.toString())
             }
 
             override fun onResponse(call: Call?, response: Response?) {
                 var body = response?.body()?.string().toString()
-                Log.e("list", body)
+                Log.e("GoodDialog", body)
                 val objects: JSONObject = JSONTokener(body).nextValue() as JSONObject
                 val key: JSONArray = objects.names()
                 for (i in 0 until key.length()) {
@@ -307,7 +307,7 @@ class ServerData(_context: Context) {
                     val value: JSONObject = objects.getJSONObject(keys)
 
                     (context as AppServices).goodsDialogService.add(
-                        GoodsDialogData(
+                        GoodsData(
                             value.getString("GoodId"),
                             value.getString("GoodLink"),
                             value.getString("Name"),
