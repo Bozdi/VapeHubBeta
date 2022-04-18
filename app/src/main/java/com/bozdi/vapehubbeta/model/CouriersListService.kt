@@ -16,6 +16,7 @@ class CouriersListService {
         couriers.add(
             courier
         )
+        //notifyChanges()
     }
 
     fun del(courier: CouriersData) {

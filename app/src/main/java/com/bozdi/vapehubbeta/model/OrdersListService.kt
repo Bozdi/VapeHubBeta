@@ -16,6 +16,7 @@ class OrderListService {
         orders.add(
             order
         )
+      //  notifyChanges()
     }
 
     fun del(order: OrdersData) {

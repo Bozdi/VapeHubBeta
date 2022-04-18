@@ -20,6 +20,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 class OrdersList : Fragment() {
     private lateinit var adapter: OrdersAdapter
 
+
+
     private val orderService: OrderListService
         get() = (getActivity()?.getApplicationContext() as AppServices).ordersService
 
@@ -29,21 +31,22 @@ class OrdersList : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         val res = inflater.inflate(R.layout.fragment_manager_orders, container, false)
-        val rv: RecyclerView = res.findViewById(R.id.Order_List);
+        val rv: RecyclerView = res.findViewById(R.id.Order_List)
         adapter = OrdersAdapter(object : OrderActionListener {
             override fun onOrderClick(order: OrdersData) {
-                Toast.makeText(activity,"${order.OrderId}",Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity,"${order.OrderId}",Toast.LENGTH_SHORT).show()
             }
-        });
-        rv.adapter = adapter;
+        })
+        rv.adapter = adapter
         rv.layoutManager = LinearLayoutManager(activity)
 
-        var addButton : FloatingActionButton = res.findViewById(R.id.newOrderButton);
+
+        val addButton : FloatingActionButton = res.findViewById(R.id.newOrderButton)
         addButton.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()
                 ?.replace(R.id.fragment_container, OrderNew())
                 ?.addToBackStack(null)
-                ?.commit();
+                ?.commit()
         }
         orderService.addListener(orderLister)
         return res
@@ -57,6 +60,7 @@ class OrdersList : Fragment() {
     private val orderLister: ordersListener ={
         adapter.ordersData = it
     }
+
 
 
 }

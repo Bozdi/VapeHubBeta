@@ -11,5 +11,6 @@ class AppServices : Application() {
     val managersService = ManagersListService()
     val storesService = StoresListService()
     val courierGoodsService = CourierGoodsListService()
+    val goodsDialogService = GoodsDialogService()
     val serverData = ServerData(this)
 }

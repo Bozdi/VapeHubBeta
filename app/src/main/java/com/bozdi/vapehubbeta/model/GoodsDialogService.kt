@@ -1,22 +1,23 @@
 package com.bozdi.vapehubbeta.model
 
-typealias courierGoodsListener = (orderData : List<CourierGoodsData>) -> Unit
+typealias goodsDialogListener = (goodsDialogData : List<GoodsDialogData>) -> Unit
 
-class CourierGoodsListService {
-    private var goods = mutableListOf<CourierGoodsData>()
-    private val listeners = mutableSetOf<courierGoodsListener>()
+class GoodsDialogService {
+    private var goods = mutableListOf<GoodsDialogData>()
+    private val listeners = mutableSetOf<goodsDialogListener>()
 
-    fun getOrders(): List<CourierGoodsData> {
+    fun getOrders(): List<GoodsDialogData> {
         return goods;
     }
 
-    fun add(order: CourierGoodsData){
+    fun add(order: GoodsDialogData){
         goods.add(
             order
         )
+        //notifyChanges()
     }
 
-    fun del(order: CourierGoodsData) {
+    fun del(order: GoodsDialogData) {
         val indexToDel = goods.indexOfFirst { it.GoodId == order.GoodId }
         if (indexToDel != -1)
         {
@@ -25,12 +26,12 @@ class CourierGoodsListService {
         }
     }
 
-    fun addListener(listener: courierGoodsListener) {
+    fun addListener(listener: goodsDialogListener) {
         listeners.add(listener)
         listener.invoke(goods)
     }
 
-    fun removeListener(listener: courierGoodsListener) {
+    fun removeListener(listener: goodsDialogListener) {
         listeners.remove(listener)
     }
 

@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bozdi.vapehubbeta.databinding.CourierGoodItemBinding
-import com.bozdi.vapehubbeta.model.CourierGoodsData
+import com.bozdi.vapehubbeta.model.GoodsDialogData
 
 class NewOrderAdapter : RecyclerView.Adapter<NewOrderAdapter.GoodsDialogViewHolder>() {
 
-    private var goodsData:List<CourierGoodsData> = emptyList()
+    var goodsData:List<GoodsDialogData> = emptyList()
         @SuppressLint("NotifyDataSetChanged")
         set(newValue) {
             field = newValue

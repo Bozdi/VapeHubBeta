@@ -14,6 +14,7 @@ class CitiesListService {
         cities.add(
             city
         )
+        //notifyChanges()
     }
 
     fun del(city: CitiesData) {

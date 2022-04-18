@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        val bottomNavigationView: BottomNavigationView = setBottomNavigation(GlobalVars.UserType);
+        setBottomNavigation(GlobalVars.UserType);
 
 
     }
@@ -50,46 +50,51 @@ class MainActivity : AppCompatActivity() {
     private fun setBottomNavigation(type: String): BottomNavigationView {
         val result : BottomNavigationView;
 
-        if (type == "ADMN"){
-            result = findViewById(R.id.adminBottomNavigation);
-            result.setOnNavigationItemSelectedListener {
-                when (it.itemId) {
-                    R.id.nav_cities -> replaceFragment(adminCities)
-                    R.id.nav_managers -> replaceFragment(adminManagers)
-                    R.id.nav_stores -> replaceFragment(adminStores)
+        when (type) {
+            "ADMN" -> {
+                result = findViewById(R.id.adminBottomNavigation);
+                result.setOnNavigationItemSelectedListener {
+                    when (it.itemId) {
+                        R.id.nav_cities -> replaceFragment(adminCities)
+                        R.id.nav_managers -> replaceFragment(adminManagers)
+                        R.id.nav_stores -> replaceFragment(adminStores)
+                    }
+                    true
                 }
-                true
-            }
-            (getApplicationContext() as AppServices).serverData.getManagersList()
-            (getApplicationContext() as AppServices).serverData.getStoresList()
-            (getApplicationContext() as AppServices).serverData.getCitiesList()
+                (getApplicationContext() as AppServices).serverData.getManagersList()
+                (getApplicationContext() as AppServices).serverData.getStoresList()
+                (getApplicationContext() as AppServices).serverData.getCitiesList()
 
-        } else if(type == "MNGR"){
-            result = findViewById(R.id.managersBottomNavigation);
-            result.setOnNavigationItemSelectedListener {
-                when (it.itemId) {
-                    R.id.nav_orders -> replaceFragment(managerOrders)
-                    R.id.nav_couriers -> replaceFragment(managerCouriers)
-                    R.id.nav_map -> replaceFragment(managerMap)
-                    R.id.nav_profile -> replaceFragment(managerProfile)
-                }
-                true
             }
-            (getApplicationContext() as AppServices).serverData.getOrdersList()
-            (getApplicationContext() as AppServices).serverData.getCouriersList()
-        }else{
-            result = findViewById(R.id.couriersBottomNavigation);
-            result.setOnNavigationItemSelectedListener {
-                when (it.itemId) {
-                    R.id.nav_orders -> replaceFragment(managerOrders)
-                    R.id.nav_backpack -> replaceFragment(courierGoods)
-                    R.id.nav_map -> replaceFragment(managerMap)
-                    R.id.nav_profile -> replaceFragment(managerProfile)
+            "MNGR" -> {
+                result = findViewById(R.id.managersBottomNavigation);
+                result.setOnNavigationItemSelectedListener {
+                    when (it.itemId) {
+                        R.id.nav_orders -> replaceFragment(managerOrders)
+                        R.id.nav_couriers -> replaceFragment(managerCouriers)
+                        R.id.nav_map -> replaceFragment(managerMap)
+                        R.id.nav_profile -> replaceFragment(managerProfile)
+                    }
+                    true
                 }
-                true
+                (getApplicationContext() as AppServices).serverData.getGoodDialogList()
+                (getApplicationContext() as AppServices).serverData.getOrdersList()
+                (getApplicationContext() as AppServices).serverData.getCouriersList()
             }
-            (getApplicationContext() as AppServices).serverData.getOrdersList()
-            (getApplicationContext() as AppServices).serverData.getCourierBackpackList()
+            else -> {
+                result = findViewById(R.id.couriersBottomNavigation);
+                result.setOnNavigationItemSelectedListener {
+                    when (it.itemId) {
+                        R.id.nav_orders -> replaceFragment(managerOrders)
+                        R.id.nav_backpack -> replaceFragment(courierGoods)
+                        R.id.nav_map -> replaceFragment(managerMap)
+                        R.id.nav_profile -> replaceFragment(managerProfile)
+                    }
+                    true
+                }
+                (getApplicationContext() as AppServices).serverData.getOrdersList()
+                (getApplicationContext() as AppServices).serverData.getCourierBackpackList()
+            }
         }
         result.isVisible = true;
 

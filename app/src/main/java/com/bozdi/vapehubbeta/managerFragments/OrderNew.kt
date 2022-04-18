@@ -18,8 +18,8 @@ class OrderNew : Fragment() {
         super.onCreate(savedInstanceState)
 
         dialog = context?.let { Dialog(it) }
-
-
+        dialog?.setTitle("Пидр")
+        dialog?.setContentView(R.layout.fragment_goods_list_dialog)
     }
 
     override fun onCreateView(
@@ -30,9 +30,7 @@ class OrderNew : Fragment() {
         val res = inflater.inflate(R.layout.fragment_order_new, container, false)
 
         res.findViewById<Button>(R.id.addGoodButton).setOnClickListener {
-            val myDialogFragment = GoodsListDialog()
-            val manager = supportFragmentManager
-            myDialogFragment.show(manager, "myDialog")
+            dialog?.show();
         }
         return res
     }

@@ -13,8 +13,8 @@
         >
 
         <EditText
+            android:id="@+id/newOrderNameET"
             style="@style/EditTextStyle"
-            android:id="@+id/editTextTextPersonName3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -22,88 +22,103 @@
             android:ems="10"
             android:hint="Имя"
             android:inputType="textPersonName"
+            android:minHeight="48dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
+            android:id="@+id/newOrderPhoneNumberET"
             style="@style/EditTextStyle"
-            android:id="@+id/editTextTextPersonName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:ems="10"
-            android:hint="Адрес"
-            android:inputType="textPersonName"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3" />
-
-        <EditText
-            style="@style/EditTextStyle"
-            android:id="@+id/editTextTextPersonName2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:ems="10"
             android:hint="Номер"
-            android:inputType="textPersonName"
+            android:inputType="phone"
+            android:minHeight="48dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+            app:layout_constraintTop_toBottomOf="@+id/newOrderNameET" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName4"
+            android:id="@+id/newOrderStreetNameET"
+            style="@style/EditTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:ems="10"
+            android:hint="Улица"
             android:inputType="textPersonName"
-            android:text="Name"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+            android:minHeight="48dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/newOrderPhoneNumberET" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName5"
+            android:id="@+id/newOrderBuildingNumberET"
+            style="@style/EditTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName4" />
+            android:inputType="number"
+            android:minHeight="48dp"
+            android:hint="Дом"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/newOrderStreetNameET" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName6"
+            android:id="@+id/newOrderApartNumET"
+            style="@style/EditTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName5" />
+            android:inputType="number"
+            android:minHeight="48dp"
+            android:hint="Квартира"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/newOrderBuildingNumberET" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName7"
+            android:id="@+id/newOrderEntranceNumET"
+            style="@style/EditTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Name"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName6" />
+            android:minHeight="48dp"
+            android:hint="Подъезд"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/newOrderApartNumET" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName8"
+            android:id="@+id/newOrderTargetTimeET"
+            style="@style/EditTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName7" />
+            android:inputType="time"
+            android:minHeight="48dp"
+            android:hint="Во сколько доставить?"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/newOrderEntranceNumET" />
 
         <Button
             android:id="@+id/addGoodButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Добавить товар"
+            android:layout_marginTop="16dp"
+            android:hint="Добавить товар"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName8" />
+            app:layout_constraintTop_toBottomOf="@+id/newOrderTargetTimeET" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -14,6 +14,7 @@ class ManagersListService {
         managers.add(
             manager
         )
+        //notifyChanges()
     }
 
     fun del(order: ManagersData) {

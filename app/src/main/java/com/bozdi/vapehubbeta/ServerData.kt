@@ -68,7 +68,7 @@ class ServerData(_context: Context) {
                             value.getString("CreateAt")
                         )
                     )
-                    Log.i(value.getString("StreetName"), value.getString("StreetName"));
+                    Log.i(value.getString("StreetName"), value.getString("StreetName"))
                 }
 
 
@@ -271,6 +271,43 @@ class ServerData(_context: Context) {
 
                     (context as AppServices).courierGoodsService.add(
                         CourierGoodsData(
+                            value.getString("GoodId"),
+                            value.getString("GoodLink"),
+                            value.getString("Name"),
+                            value.getString("Price"),
+                            value.getString("Available")
+                        )
+                    )
+                }
+
+
+            }
+        })
+    }
+
+    fun getGoodDialogList() {
+        val request: Request = Request.Builder()
+            .url(globVar.URL + "goods/")
+            .addHeader("Content-Type", "application/x-www-form-urlencoded")
+            .addHeader("auth-token", globVar.token)
+            .get()
+            .build()
+        okHttpClient.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call?, e: IOException?) {
+                Log.e("json", e.toString())
+            }
+
+            override fun onResponse(call: Call?, response: Response?) {
+                var body = response?.body()?.string().toString()
+                Log.e("list", body)
+                val objects: JSONObject = JSONTokener(body).nextValue() as JSONObject
+                val key: JSONArray = objects.names()
+                for (i in 0 until key.length()) {
+                    val keys = key.getString(i)
+                    val value: JSONObject = objects.getJSONObject(keys)
+
+                    (context as AppServices).goodsDialogService.add(
+                        GoodsDialogData(
                             value.getString("GoodId"),
                             value.getString("GoodLink"),
                             value.getString("Name"),

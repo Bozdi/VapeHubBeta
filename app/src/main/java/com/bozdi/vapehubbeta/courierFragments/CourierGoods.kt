@@ -10,9 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bozdi.vapehubbeta.AppServices
 import com.bozdi.vapehubbeta.R
 import com.bozdi.vapehubbeta.adapters.CourierGoodsAdapter
-import com.bozdi.vapehubbeta.adapters.CouriersAdapter
 import com.bozdi.vapehubbeta.model.CourierGoodsListService
-import com.bozdi.vapehubbeta.model.CouriersListService
 import com.bozdi.vapehubbeta.model.courierGoodsListener
 
 

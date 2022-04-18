@@ -14,6 +14,7 @@ class StoresListService {
         stores.add(
             store
         )
+        //notifyChanges()
     }
 
     fun del(store: StoresData) {

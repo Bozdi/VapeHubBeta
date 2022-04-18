@@ -11,12 +11,13 @@
         <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/layout/courier_good_item.xml" value="0.4270833333333333" />
         <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/layout/fragment_cities_list.xml" value="0.4270833333333333" />
         <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/layout/fragment_courier_backpack.xml" value="0.2879999900124293" />
+        <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/layout/fragment_goods_list_dialog.xml" value="0.4270833333333333" />
         <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/layout/fragment_manager_couriers.xml" value="0.175" />
         <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/layout/fragment_manager_edit.xml" value="0.3925925925925926" />
         <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/layout/fragment_manager_order_review.xml" value="0.2390625" />
         <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/layout/fragment_manager_orders.xml" value="0.2879999900124293" />
         <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/layout/fragment_managers_list.xml" value="0.4270833333333333" />
-        <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/layout/fragment_order_new.xml" value="0.2879999900124293" />
+        <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/layout/fragment_order_new.xml" value="0.4363636212309535" />
         <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/layout/fragment_shops_list.xml" value="0.4270833333333333" />
         <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/layout/manager_item.xml" value="0.1361111111111111" />
         <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/layout/order_item.xml" value="0.25184094256259204" />
@@ -25,8 +26,16 @@
         <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/layout/vape_item.xml" value="0.2879999900124293" />
         <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/menu/admin_bottom_navigation.xml" value="0.4270833333333333" />
         <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/menu/bottom_navigation.xml" value="0.4265625" />
+        <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/menu/courier_edit_menu.xml" value="0.1" />
+        <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/menu/courier_review_menu.xml" value="0.1" />
         <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/menu/couriers_bottom_navigation.xml" value="0.4270833333333333" />
         <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/menu/managers_bottom_navigation.xml" value="0.4270833333333333" />
+        <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/menu/new_courier_menu.xml" value="0.1" />
+        <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/menu/new_order_menu.xml" value="0.1" />
+        <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/menu/order_edit_menu.xml" value="0.1" />
+        <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/menu/order_review_menu.xml" value="0.1" />
+        <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/menu/profile_edit_menu.xml" value="0.1" />
+        <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/menu/profile_menu.xml" value="0.1" />
         <entry key="..\:/Users/TomFo/Desktop/VapeHubBeta/app/src/main/res/drawable-v24/ic_baseline_list_alt_24.xml" value="0.2355" />
         <entry key="..\:/Users/TomFo/Desktop/VapeHubBeta/app/src/main/res/drawable-v24/ic_baseline_shopping_cart_24.xml" value="0.2355" />
         <entry key="..\:/Users/TomFo/Desktop/VapeHubBeta/app/src/main/res/layout/activity_main.xml" value="0.17882472137791286" />
