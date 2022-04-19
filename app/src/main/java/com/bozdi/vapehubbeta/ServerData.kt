@@ -312,7 +312,8 @@ class ServerData(_context: Context) {
                             value.getString("GoodLink"),
                             value.getString("Name"),
                             value.getString("Price"),
-                            value.getString("Available")
+                            value.getString("Available"),
+                            value.getString("Available"),
                         )
                     )
                 }

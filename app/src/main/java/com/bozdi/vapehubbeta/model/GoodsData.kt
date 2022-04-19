@@ -5,4 +5,5 @@ data class GoodsData(
     val GoodLink: String?,
     val Name: String?,
     val Price: String?,
-    var Available: String?)
+    var Available: String?,
+    var defaultAvailable: String?)
