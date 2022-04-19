@@ -2,6 +2,7 @@ package com.bozdi.vapehubbeta
 
 object GlobalVars {
     public var token : String = ""
+    public var Login : String = ""
     public var UserId : String = ""
     public var UserType : String = ""
     public var StoreId : Int = -1

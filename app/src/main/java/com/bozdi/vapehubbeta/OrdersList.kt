@@ -35,6 +35,7 @@ class OrdersList : Fragment() {
         val rv: RecyclerView = res.findViewById(R.id.Order_List)
         adapter = OrdersAdapter(object : OrderActionListener {
             override fun onOrderClick(order: OrdersData) {
+                //Здесь реализуется клик по заказу, order содержит данные заказа по которму нажали
                 Toast.makeText(activity,"${order.OrderId}",Toast.LENGTH_SHORT).show()
             }
         })

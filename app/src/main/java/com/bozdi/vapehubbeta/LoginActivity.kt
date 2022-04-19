@@ -73,6 +73,13 @@ class LoginActivity : AppCompatActivity() {
                 var body: String = response?.body()?.string().toString();
                 Log.e("StoreId", body)
                 globVar.UserType = (JSONObject(body).getString("Type")).toString();
+
+
+                //-------------------------------------
+                globVar.Login = (JSONObject(body).getString("Login")).toString();
+                //-------------------------------------
+
+
                 globVar.StoreId = JSONObject(body).getInt("StoreID");
                 Log.e("StoreId", globVar.StoreId.toString())
 
