@@ -71,7 +71,10 @@ class LoginActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call?, response: Response?) {
                 var body: String = response?.body()?.string().toString();
+                Log.e("StoreId", body)
                 globVar.UserType = (JSONObject(body).getString("Type")).toString();
+                globVar.StoreId = JSONObject(body).getInt("StoreID");
+                Log.e("StoreId", globVar.StoreId.toString())
 
                 val intent = Intent(this@LoginActivity, MainActivity::class.java);
                 startActivity(intent)

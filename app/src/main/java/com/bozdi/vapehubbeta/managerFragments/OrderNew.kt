@@ -7,12 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bozdi.vapehubbeta.AppServices
-import com.bozdi.vapehubbeta.GoodsListDialog
-import com.bozdi.vapehubbeta.R
+import com.bozdi.vapehubbeta.*
 import com.bozdi.vapehubbeta.adapters.*
 import com.bozdi.vapehubbeta.model.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -83,8 +82,38 @@ class OrderNew : Fragment() {
             if ((getActivity()?.getApplicationContext() as AppServices).goodsDialogService.count() > 0) {
                 dialog?.show();
             } else{
-                Toast.makeText(activity,"Нет товаров, ты Пидр",Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity,"Нет товаров",Toast.LENGTH_SHORT).show()
             }
+        }
+
+        res.findViewById<Button>(R.id.createOrderButton).setOnClickListener {
+
+            (getActivity()?.getApplicationContext() as AppServices).serverData.createOrder(
+                GlobalVars.StoreId,
+                res.findViewById<EditText>(R.id.newOrderStreetNameET).text.toString(),
+                res.findViewById<EditText>(R.id.newOrderBuildingNumberET).text.toString(),
+                res.findViewById<EditText>(R.id.newOrderApartNumET).text.toString().toInt(),
+                (getActivity()?.getApplicationContext() as AppServices).selectedGoodsService.getOrders(),
+                res.findViewById<EditText>(R.id.newOrderNameET).text.toString(),
+                res.findViewById<EditText>(R.id.newOrderPhoneNumberET).text.toString(),
+                res.findViewById<EditText>(R.id.newOrderEntranceNumET).text.toString(),
+                0,
+                object : CreateOrderCallBack {
+                    override fun onSuccess() {
+                        (getActivity()?.getApplicationContext() as AppServices).serverData.getOrdersList();
+                        activity?.supportFragmentManager?.beginTransaction()
+                            ?.replace(R.id.fragment_container, OrdersList())
+                            ?.addToBackStack(null)
+                            ?.commit()
+                        //Toast.makeText(activity,"Товар успешно добавлен",Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun onError(text: String) {
+                        //Toast.makeText(activity,text,Toast.LENGTH_SHORT).show()
+                    }
+                }
+            )
+
         }
         return res
     }

@@ -2,6 +2,7 @@ package com.bozdi.vapehubbeta
 
 import android.content.Context
 import android.util.Log
+import com.bozdi.vapehubbeta.adapters.SelectedGoodsActionListener
 import com.bozdi.vapehubbeta.model.*
 import okhttp3.*
 import org.json.JSONArray
@@ -9,12 +10,17 @@ import org.json.JSONObject
 import org.json.JSONTokener
 import java.io.IOException
 
+interface CreateOrderCallBack {
+    fun onSuccess()
+    fun onError(text: String)
+}
 
 class ServerData(_context: Context) {
 
     var globVar: GlobalVars = GlobalVars
     var okHttpClient: OkHttpClient = OkHttpClient()
     var context: Context? = null
+    var lastOrderNumber: Int = -1;
 
     init {
         context = _context
@@ -176,6 +182,83 @@ class ServerData(_context: Context) {
         })
     }
 
+    fun createOrder(
+        StoreId: Int,
+        StreetName: String,
+        BuildingNum: String,
+        ApartNum: Int,
+        goodsList: List<GoodsData>,
+        ClientName: String = "",
+        ClientPhone: String = "",
+        EntranceNum: String = "",
+        TargetTime: Int = 0,
+        actionListener: CreateOrderCallBack
+    ){
+        val formBody: RequestBody = FormBody.Builder()
+            .add("StoreId", StoreId.toString())
+            .add("StreetName", StreetName)
+            .add("BuildingNum", BuildingNum)
+            .add("ApartNum", ApartNum.toString())
+            .add("ClientName", ClientName)
+            .add("ClientPhone", ClientPhone)
+            .add("EntranceNum", EntranceNum)
+            .add("TargetTime", TargetTime.toString())
+            .build()
+        val request: Request = Request.Builder()
+            .url(globVar.URL + "orders/")
+            .addHeader("Content-Type", "application/x-www-form-urlencoded")
+            .addHeader("auth-token", globVar.token)
+            .post(formBody)
+            .build()
+        okHttpClient.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call?, e: IOException?) {
+                Log.e("json", e.toString())
+            }
+
+            override fun onResponse(call: Call?, response: Response?) {
+                Log.e("Code Create Order", response?.code().toString());
+                if (response?.code() != 201)
+                {
+                    actionListener.onError("Ошибка добавления заказа")
+                } else{
+                    val body = response.body()?.string().toString()
+                    val storeId = (JSONObject(body).getString("ID")).toString()
+                    addGoodsOrder(goodsList, storeId, actionListener)
+                }
+            }
+        })
+    }
+
+    fun addGoodsOrder(goodsList: List<GoodsData>, storeId: String, actionListener: CreateOrderCallBack){
+        val formBody: FormBody.Builder = FormBody.Builder()
+
+        goodsList.forEach {
+            formBody.add(it.GoodId.toString(), it.Available.toString())
+        }
+
+        val request: Request = Request.Builder()
+            .url(globVar.URL + "orders/" + storeId + "/goods")
+            .addHeader("Content-Type", "application/x-www-form-urlencoded")
+            .addHeader("auth-token", globVar.token)
+            .post(formBody.build())
+            .build()
+        okHttpClient.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call?, e: IOException?) {
+                Log.e("json", e.toString())
+            }
+
+            override fun onResponse(call: Call?, response: Response?) {
+                Log.e("Add goods Order", response?.code().toString());
+                if (response?.code() != 201)
+                {
+                    actionListener.onError("Ошибка добавления заказа")
+                } else{
+                    actionListener.onSuccess()
+                }
+            }
+        })
+    }
+
     fun getStoresList() {
         val request: Request = Request.Builder()
             .url(globVar.URL + "stores/")
@@ -312,7 +395,8 @@ class ServerData(_context: Context) {
                             value.getString("GoodLink"),
                             value.getString("Name"),
                             value.getString("Price"),
-                            value.getString("Available")
+                            value.getString("Available"),
+                            value.getInt("Available"),
                         )
                     )
                 }

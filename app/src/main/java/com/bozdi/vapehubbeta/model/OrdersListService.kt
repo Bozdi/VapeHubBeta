@@ -13,9 +13,12 @@ class OrderListService {
     }
 
     fun add(order: OrdersData){
-        orders.add(
-            order
-        )
+        val index = orders.indexOfFirst { it.OrderId == order.OrderId }
+        if (index  == -1) {
+            orders.add(
+                order
+            )
+        }
       //  notifyChanges()
     }
 
