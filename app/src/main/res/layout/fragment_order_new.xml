@@ -9,12 +9,12 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         >
 
         <EditText
             android:id="@+id/newOrderNameET"
-            style="@style/EditTextStyle"
+            style="@style/EditTextStyle17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -28,7 +28,7 @@
 
         <EditText
             android:id="@+id/newOrderPhoneNumberET"
-            style="@style/EditTextStyle"
+            style="@style/EditTextStyle17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -42,7 +42,7 @@
 
         <EditText
             android:id="@+id/newOrderStreetNameET"
-            style="@style/EditTextStyle"
+            style="@style/EditTextStyle17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -56,7 +56,7 @@
 
         <EditText
             android:id="@+id/newOrderBuildingNumberET"
-            style="@style/EditTextStyle"
+            style="@style/EditTextStyle17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -70,7 +70,7 @@
 
         <EditText
             android:id="@+id/newOrderApartNumET"
-            style="@style/EditTextStyle"
+            style="@style/EditTextStyle17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -84,7 +84,7 @@
 
         <EditText
             android:id="@+id/newOrderEntranceNumET"
-            style="@style/EditTextStyle"
+            style="@style/EditTextStyle17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -98,7 +98,7 @@
 
         <EditText
             android:id="@+id/newOrderTargetTimeET"
-            style="@style/EditTextStyle"
+            style="@style/EditTextStyle17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -115,7 +115,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="Добавить товар"
+            android:text="Добавить товар"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/newOrderTargetTimeET" />
@@ -124,6 +124,7 @@
             android:id="@+id/selectedGoodList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:background="@color/vapeHubBackground"
             android:scrollbars="none"
             app:layout_constraintTop_toBottomOf="@+id/addGoodButton"
@@ -131,11 +132,13 @@
             tools:listitem="@layout/selected_good_item" />
 
         <Button
-            android:id="@+id/saveGoodButton"
+            android:id="@+id/createOrderButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="Создать Заказ"
+            android:layout_marginBottom="16dp"
+            android:text="Создать Заказ"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/selectedGoodList" />

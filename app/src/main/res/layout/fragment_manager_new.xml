@@ -1,14 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".adminFragments.ManagerNew">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+   <androidx.constraintlayout.widget.ConstraintLayout
+       android:layout_height="wrap_content"
+       android:layout_width="match_parent">
 
-</FrameLayout>
+       <EditText
+           android:id="@+id/newManagerNameET"
+           style="@style/EditTextStyle17"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginStart="16dp"
+           android:layout_marginTop="16dp"
+           android:ems="10"
+           android:hint="Имя"
+           android:inputType="textPersonName"
+           android:minHeight="48dp"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toTopOf="parent" />
+
+       <EditText
+           android:id="@+id/newManagerLoginET"
+           style="@style/EditTextStyle17"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginStart="16dp"
+           android:layout_marginTop="16dp"
+           android:ems="10"
+           android:inputType="number"
+           android:minHeight="48dp"
+           android:hint="Логин"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@+id/newManagerNameET" />
+
+       <EditText
+           android:id="@+id/newManagerPasswordET"
+           style="@style/EditTextStyle17"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginStart="16dp"
+           android:layout_marginTop="16dp"
+           android:ems="10"
+           android:inputType="textPassword"
+           android:minHeight="48dp"
+           android:hint="Пароль"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@+id/newManagerLoginET" />
+
+       <EditText
+           android:id="@+id/newManagerPhoneNumberET"
+           style="@style/EditTextStyle17"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginStart="16dp"
+           android:layout_marginTop="16dp"
+           android:ems="10"
+           android:inputType="phone"
+           android:minHeight="48dp"
+           android:hint="Подъезд"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@+id/newManagerPasswordET" />
+
+       <Spinner
+           android:id="@+id/citiesListSpinner"
+           android:layout_width="200dp"
+           android:layout_height="wrap_content"
+           android:layout_marginStart="16dp"
+           android:layout_marginTop="16dp"
+           android:minHeight="48dp"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@+id/newManagerPhoneNumberET"
+           tools:ignore="SpeakableTextPresentCheck" />
+
+       <Spinner
+           android:id="@+id/storesListSpinner"
+           android:layout_width="200dp"
+           android:layout_height="wrap_content"
+           android:layout_marginStart="16dp"
+           android:layout_marginTop="16dp"
+           android:autofillHints="Store"
+           android:minHeight="48dp"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@+id/citiesListSpinner"
+           tools:ignore="SpeakableTextPresentCheck" />
+
+       <Button
+           android:id="@+id/createManagerButton"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="16dp"
+           android:text="Создать менеджера"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@+id/storesListSpinner" />
+   </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

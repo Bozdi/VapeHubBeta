@@ -24,7 +24,7 @@
         android:id="@+id/managerProfile"
         android:name="com.bozdi.vapehubbeta.Profile"
         android:label="fragment_manager_profile"
-        tools:layout="@layout/fragment_manager_profile" />
+        tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/citiesList"
         android:name="com.bozdi.vapehubbeta.adminFragments.CitiesList"
