@@ -38,7 +38,7 @@ class NewOrderAdapter(private val actionListener: NewOrderActionListener) : Recy
         with(holder.binding) {
             holder.itemView.tag = good
             courierGoodsNameTextView.text = good.Name
-            courierGoodsQuantityTextView.text = good.defaultAvailable
+            courierGoodsQuantityTextView.text = good.defaultAvailable.toString()
         }
     }
 

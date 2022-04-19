@@ -313,7 +313,7 @@ class ServerData(_context: Context) {
                             value.getString("Name"),
                             value.getString("Price"),
                             value.getString("Available"),
-                            value.getString("Available"),
+                            value.getInt("Available"),
                         )
                     )
                 }

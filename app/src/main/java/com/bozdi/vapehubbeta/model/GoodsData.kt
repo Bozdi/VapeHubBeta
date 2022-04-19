@@ -6,4 +6,4 @@ data class GoodsData(
     val Name: String?,
     val Price: String?,
     var Available: String?,
-    var defaultAvailable: String?)
+    var defaultAvailable: Int?)
