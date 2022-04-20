@@ -16,7 +16,7 @@ import com.bozdi.vapehubbeta.adapters.*
 import com.bozdi.vapehubbeta.model.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class OrderNew : Fragment() {
+class OrderNew() : Fragment() {
     private lateinit var NewOrderadapter: NewOrderAdapter
     private lateinit var selectedOrderadapter: SelectedGoodsAdapter
 

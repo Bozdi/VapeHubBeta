@@ -8,9 +8,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bozdi.vapehubbeta.adapters.OrderActionListener
 import com.bozdi.vapehubbeta.adapters.OrdersAdapter
 import com.bozdi.vapehubbeta.managerFragments.OrderNew
+import com.bozdi.vapehubbeta.managerFragments.OrderReviewManager
 import com.bozdi.vapehubbeta.model.OrderListService
 import com.bozdi.vapehubbeta.model.OrdersData
 import com.bozdi.vapehubbeta.model.ordersListener
@@ -37,10 +39,9 @@ class OrdersList : Fragment() {
             override fun onOrderClick(order: OrdersData) {
                 //Здесь реализуется клик по заказу, order содержит данные заказа по которму нажали
                 activity?.supportFragmentManager?.beginTransaction()
-                    ?.replace(R.id.fragment_container, OrderNew())
+                    ?.replace(R.id.fragment_container, OrderReviewManager(order))
                     ?.addToBackStack(null)
                     ?.commit()
-
                 //Toast.makeText(activity,"${order.OrderId}",Toast.LENGTH_SHORT).show()
             }
         })
@@ -56,6 +57,16 @@ class OrdersList : Fragment() {
                 ?.commit()
         }
         orderService.addListener(orderLister)
+        var refrash =res.findViewById<SwipeRefreshLayout>(R.id.refresh_Order_List)
+
+        refrash.setOnRefreshListener {
+            Toast.makeText(activity,"Обновляем",Toast.LENGTH_SHORT).show()
+            (getActivity()?.getApplicationContext() as AppServices).serverData.getOrdersList()
+            adapter.notifyDataSetChanged()
+            refrash.isRefreshing = false;
+        }
+
+
         return res
     }
 

@@ -19,7 +19,7 @@ class OrderListService {
                 order
             )
         }
-     // notifyChanges()
+        notifyChanges()
     }
 
     fun del(order: OrdersData) {
@@ -41,7 +41,9 @@ class OrderListService {
     }
 
     private fun notifyChanges(){
-        listeners.forEach{it.invoke(orders)}
+        listeners.forEach{
+            it.invoke(orders)
+        }
     }
 
 }

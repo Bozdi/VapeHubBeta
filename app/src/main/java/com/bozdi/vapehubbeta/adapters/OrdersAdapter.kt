@@ -18,7 +18,7 @@ class OrdersAdapter(private val actionListener: OrderActionListener) :RecyclerVi
         @SuppressLint("NotifyDataSetChanged")
         set(newValue) {
             field = newValue
-            notifyDataSetChanged()
+            //notifyDataSetChanged()
         }
 
     override fun onClick(v: View) {

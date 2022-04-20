@@ -6,13 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.inflate
 import android.view.ViewGroup
+import android.widget.TextView
 import com.bozdi.vapehubbeta.OrdersList
 import com.bozdi.vapehubbeta.R
 import com.bozdi.vapehubbeta.databinding.ActivityLoginBinding.inflate
 import com.bozdi.vapehubbeta.databinding.CourierGoodItemBinding.inflate
 import com.bozdi.vapehubbeta.databinding.FragmentOrderEditBinding
+import com.bozdi.vapehubbeta.model.OrdersData
 
-class OrderEdit : Fragment() {
+class OrderEdit(public var selectOrder: OrdersData) : Fragment() {
     private lateinit var binding: FragmentOrderEditBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +28,11 @@ class OrderEdit : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_order_edit, container, false)
+        var res = inflater.inflate(R.layout.fragment_order_edit, container, false)
+
+        res.findViewById<TextView>(R.id.textView2222222222222).setText(selectOrder.StreetName)
+
+        return res
 
     }
 
