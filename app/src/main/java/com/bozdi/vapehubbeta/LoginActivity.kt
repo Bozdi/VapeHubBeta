@@ -70,20 +70,16 @@ class LoginActivity : AppCompatActivity() {
             }
 
             override fun onResponse(call: Call?, response: Response?) {
-                var body: String = response?.body()?.string().toString();
+                var body: String = response?.body()?.string().toString()
                 Log.e("StoreId", body)
-                globVar.UserType = (JSONObject(body).getString("Type")).toString();
-
-
-                //-------------------------------------
-                globVar.Login = (JSONObject(body).getString("Login")).toString();
-                //-------------------------------------
-
-
-                globVar.StoreId = JSONObject(body).getInt("StoreID");
+                globVar.UserType = (JSONObject(body).getString("Type")).toString()
+                globVar.Login = (JSONObject(body).getString("Login")).toString()
+                globVar.ProfileName = (JSONObject(body).getString("Name")).toString()
+                globVar.ProfilePhoneNumber = (JSONObject(body).getString("Phone")).toString()
+                globVar.StoreId = JSONObject(body).getInt("StoreID")
                 Log.e("StoreId", globVar.StoreId.toString())
 
-                val intent = Intent(this@LoginActivity, MainActivity::class.java);
+                val intent = Intent(this@LoginActivity, MainActivity::class.java)
                 startActivity(intent)
             }
         })

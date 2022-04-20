@@ -52,5 +52,4 @@ class OrdersAdapter(private val actionListener: OrderActionListener) :RecyclerVi
 
     override fun getItemCount(): Int = ordersData.size
 
-
 }

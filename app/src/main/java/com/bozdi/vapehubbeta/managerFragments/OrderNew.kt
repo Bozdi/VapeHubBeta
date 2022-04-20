@@ -33,7 +33,7 @@ class OrderNew : Fragment() {
         super.onCreate(savedInstanceState)
 
         dialog = context?.let { Dialog(it) }
-        dialog?.setTitle("Пидр")
+        dialog?.setTitle("Dialog")
         dialog?.setContentView(R.layout.fragment_goods_list_dialog)
         val rv: RecyclerView? = dialog?.findViewById<RecyclerView>(R.id.Dialog_Goods_List)
         NewOrderadapter = NewOrderAdapter(object : NewOrderActionListener {
@@ -87,12 +87,17 @@ class OrderNew : Fragment() {
         }
 
         res.findViewById<Button>(R.id.createOrderButton).setOnClickListener {
+            var apartNum = res.findViewById<EditText>(R.id.newOrderApartNumET).text.toString()
 
+            var apartNumInt = 0
+            if (apartNum != "") {
+                apartNumInt = apartNum.toInt()
+            }
             (getActivity()?.getApplicationContext() as AppServices).serverData.createOrder(
                 GlobalVars.StoreId,
                 res.findViewById<EditText>(R.id.newOrderStreetNameET).text.toString(),
                 res.findViewById<EditText>(R.id.newOrderBuildingNumberET).text.toString(),
-                res.findViewById<EditText>(R.id.newOrderApartNumET).text.toString().toInt(),
+                apartNumInt,
                 (getActivity()?.getApplicationContext() as AppServices).selectedGoodsService.getOrders(),
                 res.findViewById<EditText>(R.id.newOrderNameET).text.toString(),
                 res.findViewById<EditText>(R.id.newOrderPhoneNumberET).text.toString(),

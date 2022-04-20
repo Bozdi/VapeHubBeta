@@ -36,7 +36,12 @@ class OrdersList : Fragment() {
         adapter = OrdersAdapter(object : OrderActionListener {
             override fun onOrderClick(order: OrdersData) {
                 //Здесь реализуется клик по заказу, order содержит данные заказа по которму нажали
-                Toast.makeText(activity,"${order.OrderId}",Toast.LENGTH_SHORT).show()
+                activity?.supportFragmentManager?.beginTransaction()
+                    ?.replace(R.id.fragment_container, OrderNew())
+                    ?.addToBackStack(null)
+                    ?.commit()
+
+                //Toast.makeText(activity,"${order.OrderId}",Toast.LENGTH_SHORT).show()
             }
         })
         rv.adapter = adapter

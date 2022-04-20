@@ -16,6 +16,9 @@ class Profile : Fragment() {
         val res =  inflater.inflate(R.layout.fragment_profile, container, false)
 
         res.findViewById<TextView>(R.id.profileLoginTV).setText(GlobalVars.Login)
+        res.findViewById<TextView>(R.id.profileNameTV).setText(GlobalVars.ProfileName)
+        res.findViewById<TextView>(R.id.profilePhoneNumberTV).setText(GlobalVars.ProfilePhoneNumber)
+//        res.findViewById<TextView>(R.id.profileNameTV).setText(GlobalVars.Login)
 
         return res;
     }

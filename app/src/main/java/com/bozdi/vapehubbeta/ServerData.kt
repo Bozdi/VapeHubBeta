@@ -46,6 +46,12 @@ class ServerData(_context: Context) {
                 for (i in 0 until key.length()) {
                     val keys = key.getString(i)
                     val value: JSONObject = objects.getJSONObject(keys)
+                    var Status = "Ожидает"
+                    when(value.getString("Status")) {
+                        "PEND" -> Status = "Ожидает"
+                        "ACCEPT" -> Status = "В работе"
+                        "DONE" -> Status = "Доставлен"
+                    }
                     (context as AppServices).ordersService.add(
                         OrdersData(
                             value.getString("OrderId"),
@@ -60,7 +66,7 @@ class ServerData(_context: Context) {
                             value.getString("ApartNum"),
                             value.getString("EntranceNum"),
                             value.getString("TargetTime"),
-                            value.getString("Status"),
+                            Status,
                             value.getString("GMapPlaceID"),
                             value.getString("Lat"),
                             value.getString("Lng"),
