@@ -13,10 +13,13 @@ class CouriersListService {
     }
 
     fun add(courier: CouriersData){
-        couriers.add(
-            courier
-        )
-        //notifyChanges()
+        val index = couriers.indexOfFirst { it.UserId == courier.UserId }
+        if (index  == -1) {
+            couriers.add(
+                courier
+            )
+            //notifyChanges()
+        }
     }
 
     fun del(courier: CouriersData) {

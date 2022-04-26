@@ -14,23 +14,27 @@ import com.bozdi.vapehubbeta.databinding.CourierGoodItemBinding.inflate
 import com.bozdi.vapehubbeta.databinding.FragmentOrderEditBinding
 import com.bozdi.vapehubbeta.model.OrdersData
 
-class OrderEdit(public var selectOrder: OrdersData) : Fragment() {
+class OrderEdit(private var selectOrder: OrdersData) : Fragment() {
     private lateinit var binding: FragmentOrderEditBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = FragmentOrderEditBinding.inflate(layoutInflater)
-       // setContentView(binding.root)
-       // val item = intent.getSerializableExtra("item")
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var res = inflater.inflate(R.layout.fragment_order_edit, container, false)
+        val res = inflater.inflate(R.layout.fragment_order_edit, container, false)
 
-        res.findViewById<TextView>(R.id.textView2222222222222).setText(selectOrder.StreetName)
+        res.findViewById<TextView>(R.id.editOrderNameET).setText(selectOrder.ClientName)
+        res.findViewById<TextView>(R.id.editOrderPhoneNumberET).setText(selectOrder.ClientPhone)
+        res.findViewById<TextView>(R.id.editOrderBuildingNumberET).setText(selectOrder.BuildingNum)
+        res.findViewById<TextView>(R.id.editOrderStreetNameET).setText(selectOrder.StreetName)
+        res.findViewById<TextView>(R.id.editOrderApartNumET).setText(selectOrder.ApartNum)
+        res.findViewById<TextView>(R.id.editOrderEntranceNumET).setText(selectOrder.EntranceNum)
 
         return res
 

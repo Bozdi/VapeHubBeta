@@ -11,12 +11,7 @@ import android.widget.TextView
 import com.bozdi.vapehubbeta.R
 import com.bozdi.vapehubbeta.model.OrdersData
 
-class OrderReviewManager(public var selectOrder: OrdersData) : Fragment() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+class OrderReviewManager(private var selectOrder: OrdersData) : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,6 +21,12 @@ class OrderReviewManager(public var selectOrder: OrdersData) : Fragment() {
 
         res.findViewById<TextView>(R.id.orderReviewNameET).setText(selectOrder.ClientName)
         res.findViewById<TextView>(R.id.orderReviewStreetET).setText(selectOrder.StreetName)
+        res.findViewById<TextView>(R.id.orderReviewApartNumberET).setText(selectOrder.ApartNum)
+        res.findViewById<TextView>(R.id.orderReviewBuildingNumberET).setText(selectOrder.BuildingNum)
+        res.findViewById<TextView>(R.id.orderReviewStatusET).setText(selectOrder.Status)
+        res.findViewById<TextView>(R.id.orderReviewPhoneNumberET).setText(selectOrder.ClientPhone)
+        res.findViewById<TextView>(R.id.orderReviewEntranceET).setText(selectOrder.EntranceNum)
+
 
         res.findViewById<Button>(R.id.orderReviewEditButton).setOnClickListener{
             activity?.supportFragmentManager?.beginTransaction()

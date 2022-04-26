@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".managerFragments.ManagerCourierReview">
+    tools:context=".adminFragments.ManagerReview">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -12,7 +12,7 @@
 
 
         <TextView
-            android:id="@+id/courierReviewNameET"
+            android:id="@+id/managerReviewNameET"
             style="@style/EditTextStyle17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/courierReviewPhoneNumberET"
+            android:id="@+id/managerReviewPhoneNumberET"
             style="@style/EditTextStyle17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,10 +31,10 @@
             android:layout_marginEnd="16dp"
             android:text="87054659542"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/courierReviewNameET" />
+            app:layout_constraintTop_toBottomOf="@+id/managerReviewNameET" />
 
         <TextView
-            android:id="@+id/courierReviewStoreAddressET"
+            android:id="@+id/managerReviewStoreAddressET"
             style="@style/EditTextStyle17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -42,10 +42,10 @@
             android:layout_marginEnd="16dp"
             android:text="Казахстан 70"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/courierReviewPhoneNumberET" />
+            app:layout_constraintTop_toBottomOf="@+id/managerReviewPhoneNumberET" />
 
         <TextView
-            android:id="@+id/courierReviewLoginET"
+            android:id="@+id/managerReviewLoginET"
             style="@style/EditTextStyle17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -53,10 +53,10 @@
             android:layout_marginEnd="16dp"
             android:text="Ivan"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/courierReviewStoreAddressET" />
+            app:layout_constraintTop_toBottomOf="@+id/managerReviewStoreAddressET" />
 
         <TextView
-            android:id="@+id/courierReviewNameStringET"
+            android:id="@+id/managerReviewNameStringET"
             style="@style/EditTextStyle17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/courierReviewPhoneNumberStringET"
+            android:id="@+id/managerReviewPhoneNumberStringET"
             style="@style/EditTextStyle17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,10 +75,10 @@
             android:layout_marginTop="16dp"
             android:text="Номер телефона"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/courierReviewNameStringET" />
+            app:layout_constraintTop_toBottomOf="@+id/managerReviewNameStringET" />
 
         <TextView
-            android:id="@+id/courierReviewAddressStringET"
+            android:id="@+id/managerReviewAddressStringET"
             style="@style/EditTextStyle17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -86,10 +86,10 @@
             android:layout_marginTop="16dp"
             android:text="Адрес магазина"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/courierReviewPhoneNumberStringET" />
+            app:layout_constraintTop_toBottomOf="@+id/managerReviewPhoneNumberStringET" />
 
         <TextView
-            android:id="@+id/courierReviewLoginStringET"
+            android:id="@+id/managerReviewLoginStringET"
             style="@style/EditTextStyle17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -97,17 +97,17 @@
             android:layout_marginTop="16dp"
             android:text="Логин"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/courierReviewAddressStringET" />
+            app:layout_constraintTop_toBottomOf="@+id/managerReviewAddressStringET" />
 
         <Button
-            android:id="@+id/courierReviewEditButton"
+            android:id="@+id/managerReviewEditButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Редактировать курьера"
+            android:text="Редактировать менеджера"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/courierReviewLoginStringET" />
+            app:layout_constraintTop_toBottomOf="@+id/managerReviewLoginStringET" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

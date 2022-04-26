@@ -39,5 +39,5 @@
         android:id="@+id/storesList"
         android:name="com.bozdi.vapehubbeta.adminFragments.StoresList"
         android:label="fragment_shops_list"
-        tools:layout="@layout/fragment_shops_list" />
+        tools:layout="@layout/fragment_stores_list" />
 </navigation>

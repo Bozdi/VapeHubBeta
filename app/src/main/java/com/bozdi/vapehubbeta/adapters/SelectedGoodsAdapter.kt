@@ -9,8 +9,8 @@ import com.bozdi.vapehubbeta.R
 import com.bozdi.vapehubbeta.databinding.SelectedGoodItemBinding
 import com.bozdi.vapehubbeta.model.GoodsData
 interface SelectedGoodsActionListener {
-    fun onPlusArturPidorClick(good: GoodsData)
-    fun onMinusArturSinSobakyClick(good: GoodsData)
+    fun onPlusClick(good: GoodsData)
+    fun onMinusClick(good: GoodsData)
 }
 class SelectedGoodsAdapter(private val actionListener: SelectedGoodsActionListener) : RecyclerView.Adapter<SelectedGoodsAdapter.SelectedGoodsViewHolder>(), View.OnClickListener   {
 
@@ -48,10 +48,10 @@ class SelectedGoodsAdapter(private val actionListener: SelectedGoodsActionListen
        val good = v.tag as GoodsData
         when (v.id) {
             R.id.minusSelectedGood -> {
-                actionListener.onMinusArturSinSobakyClick(good)
+                actionListener.onMinusClick(good)
             }
             R.id.plusSelectedGood -> {
-                actionListener.onPlusArturPidorClick(good)
+                actionListener.onPlusClick(good)
             }
         }
 

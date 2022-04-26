@@ -14,11 +14,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bozdi.vapehubbeta.*
 import com.bozdi.vapehubbeta.adapters.*
 import com.bozdi.vapehubbeta.model.*
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class OrderNew() : Fragment() {
-    private lateinit var NewOrderadapter: NewOrderAdapter
-    private lateinit var selectedOrderadapter: SelectedGoodsAdapter
+    private lateinit var newOrderAdapter: NewOrderAdapter
+    private lateinit var selectedOrderAdapter: SelectedGoodsAdapter
 
 
     private val goodDialogService: GoodsDialogService
@@ -36,17 +35,17 @@ class OrderNew() : Fragment() {
         dialog?.setTitle("Dialog")
         dialog?.setContentView(R.layout.fragment_goods_list_dialog)
         val rv: RecyclerView? = dialog?.findViewById<RecyclerView>(R.id.Dialog_Goods_List)
-        NewOrderadapter = NewOrderAdapter(object : NewOrderActionListener {
+        newOrderAdapter = NewOrderAdapter(object : NewOrderActionListener {
             override fun onGoodClick(good: GoodsData) {
                 (getActivity()?.getApplicationContext() as AppServices).selectedGoodsService.add(good)
                 (getActivity()?.getApplicationContext() as AppServices).goodsDialogService.del(good)
-                dialog?.cancel();
+                dialog?.cancel()
             }
         })
-        rv?.adapter = NewOrderadapter
+        rv?.adapter = newOrderAdapter
         rv?.layoutManager = LinearLayoutManager(activity)
         goodDialogService.addListener {
-            NewOrderadapter.goodsData = it
+            newOrderAdapter.goodsData = it
         }
 
     }
@@ -59,12 +58,12 @@ class OrderNew() : Fragment() {
         val res = inflater.inflate(R.layout.fragment_order_new, container, false)
 
         val rv: RecyclerView = res.findViewById(R.id.selectedGoodList)
-        selectedOrderadapter = SelectedGoodsAdapter(object : SelectedGoodsActionListener {
-            override fun onPlusArturPidorClick(good: GoodsData) {
+        selectedOrderAdapter = SelectedGoodsAdapter(object : SelectedGoodsActionListener {
+            override fun onPlusClick(good: GoodsData) {
                 (getActivity()?.getApplicationContext() as AppServices).selectedGoodsService.add(good)
             }
 
-            override fun onMinusArturSinSobakyClick(good: GoodsData) {
+            override fun onMinusClick(good: GoodsData) {
                 if (good.Available?.toInt() == 1) {
                     (getActivity()?.getApplicationContext() as AppServices).goodsDialogService.add(good)
                 }
@@ -74,7 +73,7 @@ class OrderNew() : Fragment() {
             }
 
         })
-        rv.adapter = selectedOrderadapter
+        rv.adapter = selectedOrderAdapter
         rv.layoutManager = LinearLayoutManager(activity)
         selectedGoodsService.addListener(selectedLister)
 
@@ -105,7 +104,7 @@ class OrderNew() : Fragment() {
                 0,
                 object : CreateOrderCallBack {
                     override fun onSuccess() {
-                        (getActivity()?.getApplicationContext() as AppServices).serverData.getOrdersList();
+                        (getActivity()?.getApplicationContext() as AppServices).serverData.getOrdersList()
                         activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.fragment_container, OrdersList())
                             ?.addToBackStack(null)
@@ -128,7 +127,7 @@ class OrderNew() : Fragment() {
         selectedGoodsService.removeListener (selectedLister)
     }
     private val selectedLister: selectedGoodsListener ={
-        selectedOrderadapter.goodsData = it
+        selectedOrderAdapter.goodsData = it
     }
 
 

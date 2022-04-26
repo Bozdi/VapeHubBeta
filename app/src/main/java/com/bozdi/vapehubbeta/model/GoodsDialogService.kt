@@ -11,10 +11,13 @@ class GoodsDialogService {
     }
 
     fun add(order: GoodsData){
-        goods.add(
-            order
-        )
-        notifyChanges()
+        val index = goods.indexOfFirst { it.GoodId == order.GoodId }
+        if (index  == -1) {
+            goods.add(
+                order
+            )
+            notifyChanges()
+        }
     }
 
     fun del(order: GoodsData) {

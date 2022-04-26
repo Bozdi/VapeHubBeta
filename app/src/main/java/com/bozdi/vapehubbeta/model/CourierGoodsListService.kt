@@ -11,10 +11,13 @@ class CourierGoodsListService {
     }
 
     fun add(order: CourierGoodsData){
-        goods.add(
-            order
-        )
-        //notifyChanges()
+        val index = goods.indexOfFirst { it.GoodId == order.GoodId }
+        if (index  == -1) {
+            goods.add(
+                order
+            )
+          //  notifyChanges()
+        }
     }
 
     fun del(order: CourierGoodsData) {
@@ -35,7 +38,7 @@ class CourierGoodsListService {
         listeners.remove(listener)
     }
 
-    private fun notifyChanges(){
+    fun notifyChanges(){
         listeners.forEach{it.invoke(goods)}
     }
 

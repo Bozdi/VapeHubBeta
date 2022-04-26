@@ -4,92 +4,63 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ProfileEdit">
+    tools:context=".adminFragments.StoreEdit">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/editProfileNameET"
+            android:id="@+id/editStoreCityET"
             style="@style/EditTextStyle17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:ems="10"
-            android:hint="Имя"
+            android:hint="Город"
             android:inputType="textPersonName"
             android:minHeight="48dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/editProfilePhoneNumberET"
+            android:id="@+id/editStoreStreetET"
             style="@style/EditTextStyle17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:ems="10"
-            android:hint="Номер телефона"
+            android:hint="Улица"
             android:inputType="phone"
             android:minHeight="48dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editProfileNameET" />
+            app:layout_constraintTop_toBottomOf="@+id/editStoreCityET" />
 
         <EditText
-            android:id="@+id/editProfileStoreAddressET"
+            android:id="@+id/editStoreBuildingNumET"
             style="@style/EditTextStyle17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:ems="10"
+            android:hint="Дом"
             android:inputType="number"
             android:minHeight="48dp"
-            android:hint="Адрес магазина"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editProfilePhoneNumberET" />
-
-        <EditText
-            android:id="@+id/editProfileLoginET"
-            style="@style/EditTextStyle17"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:ems="10"
-            android:hint="Логин"
-            android:inputType="textPersonName"
-            android:minHeight="48dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editProfileStoreAddressET" />
-
-        <EditText
-            android:id="@+id/editProfilePasswordET"
-            style="@style/EditTextStyle17"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:ems="10"
-            android:inputType="textPassword"
-            android:minHeight="48dp"
-            android:hint="Пароль"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editProfileLoginET" />
-
+            app:layout_constraintTop_toBottomOf="@+id/editStoreStreetET" />
 
         <Button
-            android:id="@+id/editProfileSaveChangesButton"
+            android:id="@+id/editStoreSaveChangesButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Сохранить изменения"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editProfilePasswordET" />
+            app:layout_constraintTop_toBottomOf="@+id/editStoreBuildingNumET" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

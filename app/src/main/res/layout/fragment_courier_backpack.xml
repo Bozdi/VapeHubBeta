@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".courierFragments.CourierGoods">
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/Goods_List"
         android:layout_width="match_parent"

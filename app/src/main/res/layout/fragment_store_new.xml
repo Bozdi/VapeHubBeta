@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".adminFragments.NewShop">
+    tools:context=".adminFragments.StoreNew">
 
     <EditText
         android:id="@+id/newStoreCityET"
@@ -49,7 +49,7 @@
         app:layout_constraintTop_toBottomOf="@+id/newStoreStreetET" />
 
     <Button
-        android:id="@+id/addGoodButton"
+        android:id="@+id/createStoreButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"

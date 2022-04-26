@@ -11,10 +11,13 @@ class ManagersListService {
     }
 
     fun add(manager: ManagersData){
+        val index = managers.indexOfFirst { it.UserId == manager.UserId }
+        if (index  == -1) {
         managers.add(
             manager
         )
         //notifyChanges()
+        }
     }
 
     fun del(order: ManagersData) {

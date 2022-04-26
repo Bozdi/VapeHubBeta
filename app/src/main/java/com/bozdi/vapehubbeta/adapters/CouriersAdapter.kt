@@ -9,7 +9,7 @@ import com.bozdi.vapehubbeta.databinding.CourierItemBinding
 import com.bozdi.vapehubbeta.model.CouriersData
 
 interface CouriersActionListener{
-    fun onClick(courier: CouriersData)
+    fun onCourierClick(courier: CouriersData)
 }
 
 class CouriersAdapter(private val actionListener: CouriersActionListener) : RecyclerView.Adapter<CouriersAdapter.CouriersViewHolder>(), View.OnClickListener {
@@ -20,6 +20,10 @@ class CouriersAdapter(private val actionListener: CouriersActionListener) : Recy
             field = newValue
             notifyDataSetChanged()
         }
+
+    override fun onClick(v: View) {
+        actionListener.onCourierClick(v.tag as CouriersData)
+    }
 
     class CouriersViewHolder(
         val binding: CourierItemBinding
@@ -42,8 +46,6 @@ class CouriersAdapter(private val actionListener: CouriersActionListener) : Recy
     }
 
     override fun getItemCount(): Int = couriers.size
-    override fun onClick(v: View) {
-        actionListener.onClick(v.tag as CouriersData)
-    }
+
 
 }

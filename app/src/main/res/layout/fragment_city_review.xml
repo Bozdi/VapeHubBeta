@@ -4,30 +4,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".adminFragments.CityEdit">
+    tools:context=".adminFragments.CityReview">
 
-    <EditText
-        android:id="@+id/editCityNameET"
+    <TextView
+        android:id="@+id/cityReviewNameET"
         style="@style/EditTextStyle17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:ems="10"
-        android:hint="Город"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
+        android:text="Город"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/editCitySaveChangesButton"
+    <TextView
+        android:id="@+id/cityReviewNameStringET"
+        style="@style/EditTextStyle17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Сохранить изменения"
+        android:layout_marginEnd="16dp"
+        android:text="Усть-Каменогорск"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/cityReviewEditButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Редактировать город"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editCityNameET" />
+        app:layout_constraintTop_toBottomOf="@+id/cityReviewNameStringET" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

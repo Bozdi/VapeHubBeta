@@ -7,10 +7,118 @@
     tools:context=".managerFragments.OrderEdit"
     tools:ignore="SpeakableTextPresentCheck">
 
-
-    <TextView
-        android:id="@+id/textView2222222222222"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/editOrderNameET"
+            style="@style/EditTextStyle17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:hint="Имя"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/editOrderPhoneNumberET"
+            style="@style/EditTextStyle17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:hint="Номер"
+            android:inputType="phone"
+            android:minHeight="48dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editOrderNameET" />
+
+        <EditText
+            android:id="@+id/editOrderStreetNameET"
+            style="@style/EditTextStyle17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:hint="Улица"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editOrderPhoneNumberET" />
+
+        <EditText
+            android:id="@+id/editOrderBuildingNumberET"
+            style="@style/EditTextStyle17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:inputType="number"
+            android:minHeight="48dp"
+            android:hint="Дом"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editOrderStreetNameET" />
+
+        <EditText
+            android:id="@+id/editOrderApartNumET"
+            style="@style/EditTextStyle17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:inputType="number"
+            android:minHeight="48dp"
+            android:hint="Квартира"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editOrderBuildingNumberET" />
+
+        <EditText
+            android:id="@+id/editOrderEntranceNumET"
+            style="@style/EditTextStyle17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            android:hint="Подъезд"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editOrderApartNumET" />
+
+        <EditText
+            android:id="@+id/editOrderTargetTimeET"
+            style="@style/EditTextStyle17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:hint="Во сколько доставить?"
+            android:inputType="time"
+            android:minHeight="48dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editOrderEntranceNumET"
+            tools:text="10:00" />
+
+        <Button
+            android:id="@+id/editOrderSaveChangesButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Сохранить изменения"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editOrderTargetTimeET" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

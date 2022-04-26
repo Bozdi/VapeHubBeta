@@ -20,7 +20,7 @@ class LoginActivity : AppCompatActivity() {
 
         val login: EditText = findViewById(R.id.editTextLogin)
         val password: EditText = findViewById(R.id.editTextPassword)
-        login.setText("NewUser");
+        login.setText("TestUser");
         password.setText("1234");
         val button: Button = findViewById(R.id.loginButton)
         button.setOnClickListener {
@@ -76,7 +76,8 @@ class LoginActivity : AppCompatActivity() {
                 globVar.Login = (JSONObject(body).getString("Login")).toString()
                 globVar.ProfileName = (JSONObject(body).getString("Name")).toString()
                 globVar.ProfilePhoneNumber = (JSONObject(body).getString("Phone")).toString()
-                globVar.StoreId = JSONObject(body).getInt("StoreID")
+                if(globVar.UserType == "MNGR" || globVar.UserType == "COUR")
+                globVar.StoreId = (JSONObject(body).getInt("StoreID"))
                 Log.e("StoreId", globVar.StoreId.toString())
 
                 val intent = Intent(this@LoginActivity, MainActivity::class.java)

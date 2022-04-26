@@ -1,14 +1,234 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".courierFragments.OrderReviewCourier">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/orderReviewCourierNameET"
+            style="@style/EditTextStyle17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="Иван"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/orderReviewCourierPhoneNumberET"
+            style="@style/EditTextStyle17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="87054659542"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/orderReviewCourierNameET" />
+
+        <TextView
+            android:id="@+id/orderReviewCourierStreetET"
+            style="@style/EditTextStyle17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="4dp"
+            android:text="Бурова"
+            app:layout_constraintEnd_toStartOf="@+id/orderReviewCourierBuildingNumberET"
+            app:layout_constraintTop_toBottomOf="@+id/orderReviewCourierPhoneNumberET" />
+
+        <TextView
+            android:id="@+id/orderReviewCourierBuildingNumberET"
+            style="@style/EditTextStyle17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="37"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/orderReviewCourierPhoneNumberET" />
+
+        <TextView
+            android:id="@+id/orderReviewCourierApartNumberET"
+            style="@style/EditTextStyle17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="56"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/orderReviewCourierBuildingNumberET" />
+
+        <TextView
+            android:id="@+id/orderReviewCourierEntranceET"
+            style="@style/EditTextStyle17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/orderReviewCourierApartNumberET" />
+
+        <TextView
+            android:id="@+id/orderReviewCourierStatusET"
+            style="@style/EditTextStyle17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="Ожидает"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/orderReviewCourierEntranceET" />
+
+        <TextView
+            android:id="@+id/orderReviewCourierDeliveryCostET"
+            style="@style/EditTextStyle17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="800"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/orderReviewCourierStatusET" />
+
+        <TextView
+            android:id="@+id/orderReviewCourierGoodsCostET"
+            style="@style/EditTextStyle17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="10000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/orderReviewCourierDeliveryCostET" />
+
+        <TextView
+            android:id="@+id/orderReviewCourierTotalCostET"
+            style="@style/EditTextStyle17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="10800"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/orderReviewCourierGoodsCostET" />
+
+        <TextView
+            android:id="@+id/orderReviewCourierNameStringET"
+            style="@style/EditTextStyle17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Имя"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/orderReviewCourierPhoneNumberStringET"
+            style="@style/EditTextStyle17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Номер телефона"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/orderReviewCourierNameStringET" />
+
+        <TextView
+            android:id="@+id/orderReviewCourierAddressStringET"
+            style="@style/EditTextStyle17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Адрес"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/orderReviewCourierPhoneNumberStringET" />
+
+        <TextView
+            android:id="@+id/orderReviewCourierApartNumberStringET"
+            style="@style/EditTextStyle17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Квартира"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/orderReviewCourierAddressStringET" />
+
+        <TextView
+            android:id="@+id/orderReviewCourierEntranceStringET"
+            style="@style/EditTextStyle17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Подъезд"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/orderReviewCourierApartNumberStringET" />
+
+        <TextView
+            android:id="@+id/orderReviewCourierStatusStringET"
+            style="@style/EditTextStyle17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Статус доставки"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/orderReviewCourierEntranceStringET" />
+
+        <TextView
+            android:id="@+id/orderReviewCourierDeliveryCostStringET"
+            style="@style/EditTextStyle17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Стоимость доставки"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/orderReviewCourierStatusStringET" />
+
+        <TextView
+            android:id="@+id/orderReviewCourierGoodsCostStringET"
+            style="@style/EditTextStyle17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Стоимость товаров"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/orderReviewCourierDeliveryCostStringET" />
+
+        <TextView
+            android:id="@+id/orderReviewCourierTotalCostStringET"
+            style="@style/EditTextStyle17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Итого"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/orderReviewCourierGoodsCostStringET" />
+
+        <Button
+            android:id="@+id/orderReviewCourierTakeOrderButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Принять заказ"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/orderReviewCourierTotalCostStringET" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>

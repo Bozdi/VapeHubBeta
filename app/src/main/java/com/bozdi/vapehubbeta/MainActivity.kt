@@ -31,8 +31,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        replaceFragment(managerOrders)
-        setBottomNavigation(GlobalVars.UserType);
+        when(globVar.UserType) {
+            "ADMN" -> replaceFragment(adminCities)
+            else -> replaceFragment(managerOrders)
+        }
+        setBottomNavigation(GlobalVars.UserType)
 
 
     }
@@ -44,11 +47,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setBottomNavigation(type: String): BottomNavigationView {
-        val result : BottomNavigationView;
+        val result : BottomNavigationView
 
         when (type) {
             "ADMN" -> {
-                result = findViewById(R.id.adminBottomNavigation);
+                result = findViewById(R.id.adminBottomNavigation)
                 result.setOnNavigationItemSelectedListener {
                     when (it.itemId) {
                         R.id.nav_cities -> replaceFragment(adminCities)
@@ -63,7 +66,7 @@ class MainActivity : AppCompatActivity() {
 
             }
             "MNGR" -> {
-                result = findViewById(R.id.managersBottomNavigation);
+                result = findViewById(R.id.managersBottomNavigation)
                 result.setOnNavigationItemSelectedListener {
                     when (it.itemId) {
                         R.id.nav_orders -> replaceFragment(managerOrders)
@@ -76,9 +79,11 @@ class MainActivity : AppCompatActivity() {
                 (getApplicationContext() as AppServices).serverData.getGoodDialogList()
                 (getApplicationContext() as AppServices).serverData.getOrdersList()
                 (getApplicationContext() as AppServices).serverData.getCouriersList()
+                (getApplicationContext() as AppServices).serverData.getStoresList()
+                (getApplicationContext() as AppServices).serverData.getCitiesList()
             }
             else -> {
-                result = findViewById(R.id.couriersBottomNavigation);
+                result = findViewById(R.id.couriersBottomNavigation)
                 result.setOnNavigationItemSelectedListener {
                     when (it.itemId) {
                         R.id.nav_orders -> replaceFragment(managerOrders)
@@ -90,10 +95,12 @@ class MainActivity : AppCompatActivity() {
                 }
                 (getApplicationContext() as AppServices).serverData.getOrdersList()
                 (getApplicationContext() as AppServices).serverData.getCourierBackpackList()
+                (getApplicationContext() as AppServices).serverData.getStoresList()
+                (getApplicationContext() as AppServices).serverData.getCitiesList()
             }
         }
-        result.isVisible = true;
+        result.isVisible = true
 
-        return result;
+        return result
     }
 }

@@ -11,10 +11,13 @@ class StoresListService {
     }
 
     fun add(store: StoresData){
-        stores.add(
-            store
-        )
-        //notifyChanges()
+        val index = stores.indexOfFirst { it.StoreId == store.StoreId }
+        if (index  == -1) {
+            stores.add(
+                store
+            )
+            //notifyChanges()
+        }
     }
 
     fun del(store: StoresData) {

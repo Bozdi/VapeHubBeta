@@ -5,16 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bozdi.vapehubbeta.AppServices
 import com.bozdi.vapehubbeta.R
-import com.bozdi.vapehubbeta.adapters.CouriersAdapter
-import com.bozdi.vapehubbeta.adapters.OrdersAdapter
-import com.bozdi.vapehubbeta.adapters.StoresAdapter
-import com.bozdi.vapehubbeta.model.CouriersListService
-import com.bozdi.vapehubbeta.model.StoresListService
-import com.bozdi.vapehubbeta.model.storesListener
+import com.bozdi.vapehubbeta.adapters.*
+import com.bozdi.vapehubbeta.managerFragments.OrderNew
+import com.bozdi.vapehubbeta.model.*
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class StoresList : Fragment() {
     private lateinit var adapter: StoresAdapter
@@ -23,14 +23,40 @@ class StoresList : Fragment() {
         get() = (getActivity()?.getApplicationContext() as AppServices).storesService
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
-        val res = inflater.inflate(R.layout.fragment_shops_list, container, false)
-        var rv: RecyclerView = res.findViewById(R.id.Stores_List)
-        adapter = StoresAdapter()
+        val res = inflater.inflate(R.layout.fragment_stores_list, container, false)
+        val rv: RecyclerView = res.findViewById(R.id.Stores_List)
+
+        adapter = StoresAdapter(object : StoreActionListener {
+            override fun onStoreClick(store: StoresData) {
+                activity?.supportFragmentManager?.beginTransaction()
+                    ?.replace(R.id.fragment_container, StoreReview(store))
+                    ?.addToBackStack(null)
+                    ?.commit()
+            }
+        })
+
         rv.adapter = adapter
         rv.layoutManager = LinearLayoutManager(activity)
         storesService.addListener(storesListener)
+
+        val addStoreButton : FloatingActionButton = res.findViewById(R.id.newStoreButton)
+        addStoreButton.setOnClickListener {
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.replace(R.id.fragment_container, StoreNew())
+                ?.addToBackStack(null)
+                ?.commit()
+        }
+
+        val refresh = res.findViewById<SwipeRefreshLayout>(R.id.refresh_Stores_List)
+        refresh.setOnRefreshListener {
+            Toast.makeText(activity,"Список обновлён", Toast.LENGTH_SHORT).show()
+            (getActivity()?.getApplicationContext() as AppServices).serverData.getStoresList()
+            adapter.notifyDataSetChanged()
+            refresh.isRefreshing = false
+        }
         return res
     }
+
 
     override fun onDestroy() {
         super.onDestroy()

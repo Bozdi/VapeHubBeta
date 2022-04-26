@@ -11,10 +11,14 @@ class CitiesListService {
     }
 
     fun add(city: CitiesData){
-        cities.add(
-            city
-        )
-        //notifyChanges()
+        val index = cities.indexOfFirst { it.CityId == city.CityId }
+        if (index  == -1){
+            cities.add(
+                city
+            )
+            //notifyChanges()
+        }
+
     }
 
     fun del(city: CitiesData) {

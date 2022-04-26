@@ -1,14 +1,15 @@
 package com.bozdi.vapehubbeta
 
 object GlobalVars {
-    public var token : String = ""
-    public var Login : String = ""
-    public var ProfileName : String = ""
-    public var ProfilePhoneNumber : String = ""
-    public var UserId : String = ""
-    public var UserType : String = ""
-    public var StoreId : Int = -1
-    public var URL : String = "http://5.180.183.54:3000/api/"
+    var token : String = ""
+    var Login : String = ""
+    var ProfileName : String = ""
+    var ProfilePhoneNumber : String = ""
+    var UserId : String = ""
+    var UserType : String = ""
+    var StoreId : Int = -1
+    var CityId: Int = 3
+    var URL : String = "http://5.180.183.54:3000/api/"
     var listOrders = mutableListOf<ItemSizeDataModel>()
     data class ItemSizeDataModel(
         val OrderId: String?,

@@ -5,56 +5,34 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.bozdi.vapehubbeta.R
+import com.bozdi.vapehubbeta.databinding.FragmentManagerEditBinding
+import com.bozdi.vapehubbeta.databinding.FragmentOrderEditBinding
+import com.bozdi.vapehubbeta.model.ManagersData
+import com.bozdi.vapehubbeta.model.OrdersData
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ManagerEdit.newInstance] factory method to
- * create an instance of this fragment.
- */
-class ManagerEdit : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class ManagerEdit(private var selectManager: ManagersData) : Fragment() {
+    private lateinit var binding: FragmentManagerEditBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+        binding = FragmentManagerEditBinding.inflate(layoutInflater)
 
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_manager_edit, container, false)
+        val res = inflater.inflate(R.layout.fragment_manager_edit, container, false)
+
+        res.findViewById<TextView>(R.id.editManagerNameET).setText(selectManager.Name)
+        res.findViewById<TextView>(R.id.editManagerLoginET).setText(selectManager.Login)
+        res.findViewById<TextView>(R.id.editManagerStoreAddressET).setText("Казахстан 70")
+        res.findViewById<TextView>(R.id.editManagerPhoneNumberET).setText(selectManager.Phone)
+
+        return res
+
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ManagerEdit.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ManagerEdit().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }

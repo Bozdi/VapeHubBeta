@@ -23,8 +23,7 @@ class OrdersAdapter(private val actionListener: OrderActionListener) :RecyclerVi
 
     override fun onClick(v: View) {
         val order = v.tag as OrdersData
-        actionListener.onOrderClick(order);
-
+        actionListener.onOrderClick(order)
     }
 
     class OrderViewHolder(

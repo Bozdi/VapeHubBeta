@@ -18,36 +18,29 @@ import com.bozdi.vapehubbeta.model.OrdersData
 import com.bozdi.vapehubbeta.model.ordersListener
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-
 class OrdersList : Fragment() {
     private lateinit var adapter: OrdersAdapter
-
-
 
     private val orderService: OrderListService
         get() = (getActivity()?.getApplicationContext() as AppServices).ordersService
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         val res = inflater.inflate(R.layout.fragment_manager_orders, container, false)
         val rv: RecyclerView = res.findViewById(R.id.Order_List)
+
         adapter = OrdersAdapter(object : OrderActionListener {
             override fun onOrderClick(order: OrdersData) {
-                //Здесь реализуется клик по заказу, order содержит данные заказа по которму нажали
                 activity?.supportFragmentManager?.beginTransaction()
                     ?.replace(R.id.fragment_container, OrderReviewManager(order))
                     ?.addToBackStack(null)
                     ?.commit()
-                //Toast.makeText(activity,"${order.OrderId}",Toast.LENGTH_SHORT).show()
             }
         })
+
         rv.adapter = adapter
         rv.layoutManager = LinearLayoutManager(activity)
-
+        orderService.addListener(orderLister)
 
         val addButton : FloatingActionButton = res.findViewById(R.id.newOrderButton)
         addButton.setOnClickListener {
@@ -56,16 +49,15 @@ class OrdersList : Fragment() {
                 ?.addToBackStack(null)
                 ?.commit()
         }
-        orderService.addListener(orderLister)
-        var refrash =res.findViewById<SwipeRefreshLayout>(R.id.refresh_Order_List)
 
-        refrash.setOnRefreshListener {
-            Toast.makeText(activity,"Обновляем",Toast.LENGTH_SHORT).show()
+        val refresh = res.findViewById<SwipeRefreshLayout>(R.id.refresh_Order_List)
+
+        refresh.setOnRefreshListener {
+            Toast.makeText(activity,"Список обновлён",Toast.LENGTH_SHORT).show()
             (getActivity()?.getApplicationContext() as AppServices).serverData.getOrdersList()
             adapter.notifyDataSetChanged()
-            refrash.isRefreshing = false;
+            refresh.isRefreshing = false
         }
-
 
         return res
     }

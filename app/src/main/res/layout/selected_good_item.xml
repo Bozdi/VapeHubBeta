@@ -6,18 +6,18 @@
     android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
-        app:strokeColor="@color/vapeHubOrange"
-        app:cardBackgroundColor="@color/vapeHubBackground"
-        app:strokeWidth="2dp"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        app:cardBackgroundColor="@color/vapeHubBackground"
         app:cardCornerRadius="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/vapeHubOrange"
+        app:strokeWidth="2dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -63,7 +63,7 @@
                 android:id="@+id/minusSelectedGood"
                 android:layout_width="40dp"
                 android:layout_height="50dp"
-                android:layout_marginEnd="24dp"
+                android:layout_marginEnd="12dp"
                 android:padding="10dp"
                 android:text="-"
                 app:layout_constraintBottom_toBottomOf="@+id/courierGoodsNameTextView"
