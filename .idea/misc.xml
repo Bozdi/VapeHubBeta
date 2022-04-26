@@ -43,6 +43,8 @@
         <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/layout/order_item.xml" value="0.25184094256259204" />
         <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/layout/orders_item.xml" value="0.31574074074074077" />
         <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/layout/selected_good_item.xml" value="0.4363636212309535" />
+        <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/layout/spinner_dropdown_item.xml" value="0.4270833333333333" />
+        <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/layout/spinner_item.xml" value="0.4270833333333333" />
         <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/layout/store_item.xml" value="0.3860045146726862" />
         <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/layout/vape_item.xml" value="0.2879999900124293" />
         <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/menu/admin_bottom_navigation.xml" value="0.4270833333333333" />
@@ -59,6 +61,7 @@
         <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/menu/profile_edit_menu.xml" value="0.1" />
         <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/menu/profile_menu.xml" value="0.1" />
         <entry key="..\:/Codeing/Applications/VapeHubBeta/app/src/main/res/menu/profile_review_menu.xml" value="0.4270833333333333" />
+        <entry key="..\:/Codeing/SDK/platforms/android-31/data/res/layout/simple_spinner_item.xml" value="0.4270833333333333" />
         <entry key="..\:/Users/TomFo/Desktop/222222/app/src/main/res/layout/courier_good_item.xml" value="0.371875" />
         <entry key="..\:/Users/TomFo/Desktop/222222/app/src/main/res/layout/fragment_courier_new.xml" value="0.18085106382978725" />
         <entry key="..\:/Users/TomFo/Desktop/222222/app/src/main/res/layout/fragment_goods_list_dialog.xml" value="0.1" />
@@ -68,16 +71,12 @@
         <entry key="..\:/Users/TomFo/Desktop/VapeHubBeta/app/src/main/res/drawable-v24/ic_baseline_list_alt_24.xml" value="0.2355" />
         <entry key="..\:/Users/TomFo/Desktop/VapeHubBeta/app/src/main/res/drawable-v24/ic_baseline_shopping_cart_24.xml" value="0.2355" />
         <entry key="..\:/Users/TomFo/Desktop/VapeHubBeta/app/src/main/res/layout/activity_main.xml" value="0.17882472137791286" />
-        <entry key="..\:/Users/TomFo/Desktop/VapeHubBeta/app/src/main/res/layout/city_item.xml" value="0.18085106382978725" />
         <entry key="..\:/Users/TomFo/Desktop/VapeHubBeta/app/src/main/res/layout/courier_item.xml" value="0.5" />
         <entry key="..\:/Users/TomFo/Desktop/VapeHubBeta/app/src/main/res/layout/fragment_manager_courier_review.xml" value="0.371875" />
         <entry key="..\:/Users/TomFo/Desktop/VapeHubBeta/app/src/main/res/layout/fragment_manager_couriers.xml" value="0.371875" />
-        <entry key="..\:/Users/TomFo/Desktop/VapeHubBeta/app/src/main/res/layout/fragment_manager_new.xml" value="0.25" />
         <entry key="..\:/Users/TomFo/Desktop/VapeHubBeta/app/src/main/res/layout/fragment_manager_orders.xml" value="0.36770833333333336" />
-        <entry key="..\:/Users/TomFo/Desktop/VapeHubBeta/app/src/main/res/layout/fragment_manager_review.xml" value="0.18085106382978725" />
         <entry key="..\:/Users/TomFo/Desktop/VapeHubBeta/app/src/main/res/layout/fragment_order_edit.xml" value="0.18085106382978725" />
         <entry key="..\:/Users/TomFo/Desktop/VapeHubBeta/app/src/main/res/layout/fragment_profile.xml" value="0.27219202898550726" />
-        <entry key="..\:/Users/TomFo/Desktop/VapeHubBeta/app/src/main/res/layout/manager_item.xml" value="0.1" />
         <entry key="..\:/Users/TomFo/Desktop/VapeHubBeta/app/src/main/res/layout/order_item.xml" value="0.36770833333333336" />
         <entry key="..\:/Users/TomFo/Desktop/VapeHubBeta/app/src/main/res/menu/admin_bottom_navigation.xml" value="0.19166666666666668" />
         <entry key="..\:/Users/TomFo/Desktop/VapeHubBeta/app/src/main/res/menu/bottom_navigation.xml" value="0.371875" />

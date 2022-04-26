@@ -12,13 +12,18 @@ class CouriersListService {
         return couriers;
     }
 
-    fun add(courier: CouriersData){
+    fun add(courier: CouriersData) {
+        if (courier.Type != "COUR")
+            return
+
         val index = couriers.indexOfFirst { it.UserId == courier.UserId }
         if (index  == -1) {
             couriers.add(
                 courier
             )
             //notifyChanges()
+        } else {
+            couriers[index].Name = courier.Name;
         }
     }
 

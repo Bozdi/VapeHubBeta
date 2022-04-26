@@ -18,6 +18,8 @@ class OrderListService {
             orders.add(
                 order
             )
+        } else {
+            orders[index].OrderId = order.OrderId;
         }
         notifyChanges()
     }

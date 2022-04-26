@@ -5,7 +5,7 @@ data class ManagersData(
     val Login: String?,
     val StoreId: String?,
     val StoreLink: String?,
-    val Name: String?,
+    var Name: String?,
     val Phone: String?,
     val Type: String?,
     val Status: String?

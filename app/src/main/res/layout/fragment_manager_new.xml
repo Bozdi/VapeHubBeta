@@ -78,18 +78,29 @@
 
        <Spinner
            android:id="@+id/spinnerCities"
-           android:layout_width="409dp"
+           style="@style/EditTextStyle17"
+           android:layout_width="300dp"
            android:layout_height="wrap_content"
-           app:layout_constraintTop_toBottomOf="@+id/newManagerPhoneNumberET"
+           android:layout_marginStart="20dp"
 
-           tools:ignore="MissingConstraints" />
+           android:layout_marginTop="8dp"
+           android:minHeight="48dp"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@+id/newManagerPhoneNumberET"
+           tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
+
        <Spinner
            android:id="@+id/spinnerStore"
-           android:layout_width="409dp"
+           style="@style/EditTextStyle17"
+           android:layout_width="300dp"
            android:layout_height="wrap_content"
-           app:layout_constraintTop_toBottomOf="@+id/spinnerCities"
+           android:layout_marginStart="20dp"
 
-           tools:ignore="MissingConstraints" />
+           android:layout_marginTop="8dp"
+           android:minHeight="48dp"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@+id/spinnerCities"
+           tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
 
    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

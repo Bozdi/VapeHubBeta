@@ -12,7 +12,7 @@ class ManagersListService {
 
     fun add(manager: ManagersData) {
         if (manager.Type != "MNGR")
-            return;
+            return
 
         val index = managers.indexOfFirst { it.UserId == manager.UserId }
         if (index == -1) {
@@ -20,6 +20,8 @@ class ManagersListService {
                 manager
             )
             //notifyChanges()
+        } else {
+            managers[index].Name = manager.Name;
         }
     }
 

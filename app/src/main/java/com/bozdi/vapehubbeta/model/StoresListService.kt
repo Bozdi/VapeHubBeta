@@ -5,10 +5,16 @@ typealias storesListener = (storeData : List<StoresData>) -> Unit
 class StoresListService {
     private var stores = mutableListOf<StoresData>()
     private val listeners = mutableSetOf<storesListener>()
+  //  public var selectedManagersStreet = "0"
 
     fun getStores(): List<StoresData> {
-        return stores;
+        return stores
     }
+
+  //  fun test(street: SelectedManagersStoreData) {
+   //     selectedManagersStreet = street.Street.toString()
+
+   // }
 
     fun add(store: StoresData){
         val index = stores.indexOfFirst { it.StoreId == store.StoreId }
@@ -17,6 +23,8 @@ class StoresListService {
                 store
             )
             //notifyChanges()
+        } else {
+            stores[index].Street = store.Street;
         }
     }
 
@@ -29,11 +37,11 @@ class StoresListService {
         }
     }
 
-    fun getCitiesNameForCitiesId(id: String): String? {
+    fun getCitiesNameForCitiesId(id: String?): String {
         val index = stores.indexOfFirst { it.StoreId == id }
         if (index != -1 )
-            return "${stores[index].Street} ${stores[index].BuildingNumber}";
-        return "error";
+            return "${stores[index].Street} ${stores[index].BuildingNumber}"
+        return "nichego"
     }
 
     fun addListener(listener: storesListener) {

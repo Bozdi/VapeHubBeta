@@ -1,7 +1,7 @@
 package com.bozdi.vapehubbeta.model
 
 data class OrdersData (
-    val OrderId: String?,
+    var OrderId: String?,
     val OrderLink: String?,
     val ClientName: String?,
     val StoreId: String?,

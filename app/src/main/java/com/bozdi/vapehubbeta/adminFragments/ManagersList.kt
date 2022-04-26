@@ -54,10 +54,10 @@ class ManagersList : Fragment() {
                     override fun onSuccess(ids: Array<String>, names: Array<String>) {
                         var StoresIds = mutableListOf<String>();
                         var StoresNames = mutableListOf<String>();
-                        var stores = (getActivity()?.getApplicationContext() as AppServices).storesService.getStores();
+                        var stores = (getActivity()?.getApplicationContext() as AppServices).storesService.getStores()
                         stores.forEach {
-                            StoresIds.add(it.StoreId.toString());
-                            StoresNames.add(it.Street.toString() + " " + it.BuildingNumber.toString());
+                            StoresIds.add(it.StoreId.toString())
+                            StoresNames.add(it.Street.toString() + " " + it.BuildingNumber.toString())
                         }
 
                         activity?.supportFragmentManager?.beginTransaction()
@@ -72,12 +72,8 @@ class ManagersList : Fragment() {
                     }
 
                     override fun onError(text: String) {
-
                     }
-                }
-            )
-
-
+                })
         }
 
         val refresh = res.findViewById<SwipeRefreshLayout>(R.id.refreshManagersList)

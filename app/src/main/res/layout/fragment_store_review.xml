@@ -80,11 +80,21 @@
             android:id="@+id/storeReviewEditButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Редактировать город"
+            android:layout_marginTop="24dp"
+            android:text="Редактировать магазин"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/storeReviewBuildingNumStringET" />
+
+        <Button
+            android:id="@+id/deleteStoreButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Удалить магазин"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/storeReviewEditButton" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

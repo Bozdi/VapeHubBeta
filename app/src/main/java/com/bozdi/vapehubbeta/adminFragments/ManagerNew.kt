@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import com.bozdi.vapehubbeta.AppServices
 import com.bozdi.vapehubbeta.CreateOrderCallBack
@@ -24,21 +23,19 @@ class ManagerNew(private var CitiesIds: Array<String>,
 
         val res = inflater.inflate(R.layout.fragment_manager_new, container, false)
 
-        var spinnerCities : Spinner = res.findViewById<Spinner>(R.id.spinnerCities);
-        var spinnerStores : Spinner = res.findViewById<Spinner>(R.id.spinnerStore);
+        val spinnerCities : Spinner = res.findViewById<Spinner>(R.id.spinnerCities)
+        val spinnerStores : Spinner = res.findViewById<Spinner>(R.id.spinnerStore)
 
 
-        var CitiesAdapter : ArrayAdapter<CharSequence> = ArrayAdapter(res.context, android.R.layout.simple_spinner_item, CitiesNames)
-        spinnerCities.adapter = CitiesAdapter;
+        val citiesAdapter : ArrayAdapter<CharSequence> = ArrayAdapter(res.context, R.layout.spinner_item, CitiesNames)
+        spinnerCities.adapter = citiesAdapter
+        citiesAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
 
-        var StoresAdapter : ArrayAdapter<CharSequence> = ArrayAdapter(res.context,
-            android.R.layout.simple_spinner_item, StoresNames)
-        spinnerStores.adapter = StoresAdapter;
+        val storesAdapter : ArrayAdapter<CharSequence> = ArrayAdapter(res.context, R.layout.spinner_item, StoresNames)
+        storesAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
+        spinnerStores.adapter = storesAdapter
 
-
-       // spinnerCities.set
         res.findViewById<Button>(R.id.createManagerButton).setOnClickListener {
-           // Toast.makeText(res.context,StoresIds[spinnerStores.selectedItemPosition],Toast.LENGTH_SHORT).show()
 
             val userType = "MNGR"
             (getActivity()?.getApplicationContext() as AppServices).serverData.createManager(

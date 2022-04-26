@@ -7,7 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
+import com.bozdi.vapehubbeta.AppServices
+import com.bozdi.vapehubbeta.CreateOrderCallBack
 import com.bozdi.vapehubbeta.R
+import com.bozdi.vapehubbeta.adminFragments.CitiesList
 import com.bozdi.vapehubbeta.model.CouriersData
 import com.bozdi.vapehubbeta.model.OrdersData
 
@@ -28,6 +32,33 @@ class ManagerCourierReview(private var selectCourier: CouriersData) : Fragment()
                 ?.replace(R.id.fragment_container, CourierEdit(selectCourier))
                 ?.addToBackStack(null)
                 ?.commit()
+        }
+
+        res.findViewById<Button>(R.id.deleteCourierButton).setOnClickListener {
+
+            (getActivity()?.getApplicationContext() as AppServices).serverData.deleteUser(
+
+                selectCourier.UserId,
+
+                object : CreateOrderCallBack {
+                    override fun onSuccess() {
+                        (getActivity()?.getApplicationContext() as AppServices).serverData.getCouriersList()
+                        activity?.supportFragmentManager?.beginTransaction()
+                            ?.replace(R.id.fragment_container, CouriersList())
+                            ?.addToBackStack(null)
+                            ?.commit()
+                      }
+
+                    override fun onError(text: String) {
+                        (getActivity()?.getApplicationContext() as AppServices).serverData.getCouriersList()
+                        activity?.supportFragmentManager?.beginTransaction()
+                            ?.replace(R.id.fragment_container, CouriersList())
+                            ?.addToBackStack(null)
+                            ?.commit()
+
+                    }
+                }
+            )
         }
 
         return res

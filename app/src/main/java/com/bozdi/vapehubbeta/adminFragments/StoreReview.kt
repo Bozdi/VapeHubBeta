@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
+import com.bozdi.vapehubbeta.AppServices
+import com.bozdi.vapehubbeta.CreateOrderCallBack
 import com.bozdi.vapehubbeta.R
 import com.bozdi.vapehubbeta.managerFragments.OrderEdit
 import com.bozdi.vapehubbeta.model.OrdersData
@@ -31,6 +34,32 @@ class StoreReview(private var selectStore: StoresData) : Fragment() {
                 ?.replace(R.id.fragment_container, StoreEdit(selectStore))
                 ?.addToBackStack(null)
                 ?.commit()
+        }
+        res.findViewById<Button>(R.id.deleteStoreButton).setOnClickListener {
+
+            (getActivity()?.getApplicationContext() as AppServices).serverData.deleteStore(
+
+                selectStore.StoreId.toString(),
+
+                object : CreateOrderCallBack {
+                    override fun onSuccess() {
+                        (getActivity()?.getApplicationContext() as AppServices).serverData.getStoresList()
+                        activity?.supportFragmentManager?.beginTransaction()
+                            ?.replace(R.id.fragment_container, StoresList())
+                            ?.addToBackStack(null)
+                            ?.commit()
+                       }
+
+                    override fun onError(text: String) {
+                        (getActivity()?.getApplicationContext() as AppServices).serverData.getStoresList()
+                        activity?.supportFragmentManager?.beginTransaction()
+                            ?.replace(R.id.fragment_container, StoresList())
+                            ?.addToBackStack(null)
+                            ?.commit()
+
+                    }
+                }
+            )
         }
 
         return res

@@ -48,7 +48,6 @@ class CityEdit(private var selectCity: CitiesData) : Fragment() {
                             ?.replace(R.id.fragment_container, CitiesList())
                             ?.addToBackStack(null)
                             ?.commit()
-                        //Toast.makeText(activity,"Товар успешно добавлен",Toast.LENGTH_SHORT).show()
                     }
 
                     override fun onError(text: String) {
@@ -58,7 +57,6 @@ class CityEdit(private var selectCity: CitiesData) : Fragment() {
                             ?.replace(R.id.fragment_container, CitiesList())
                             ?.addToBackStack(null)
                             ?.commit()
-                        //Toast.makeText(activity,text,Toast.LENGTH_SHORT).show()
                     }
                 }
             )

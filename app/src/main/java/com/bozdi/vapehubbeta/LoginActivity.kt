@@ -20,7 +20,7 @@ class LoginActivity : AppCompatActivity() {
 
         val login: EditText = findViewById(R.id.editTextLogin)
         val password: EditText = findViewById(R.id.editTextPassword)
-        login.setText("TestUser");
+        login.setText("NewUser");
         password.setText("1234");
         val button: Button = findViewById(R.id.loginButton)
         button.setOnClickListener {
