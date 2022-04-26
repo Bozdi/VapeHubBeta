@@ -1,6 +1,7 @@
 package com.bozdi.vapehubbeta.adminFragments
 
 import android.os.Bundle
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -51,12 +52,18 @@ class CitiesList : Fragment() {
                 ?.addToBackStack(null)
                 ?.commit()
         }
+        (getActivity()?.getApplicationContext() as AppServices).serverData.getCitiesList()
+        Handler().postDelayed({
+            adapter.notifyDataSetChanged()
+        }, 500)
 
         val refresh = res.findViewById<SwipeRefreshLayout>(R.id.refreshCitiesList)
         refresh.setOnRefreshListener {
-            Toast.makeText(activity,"Список обновлён", Toast.LENGTH_SHORT).show()
             (getActivity()?.getApplicationContext() as AppServices).serverData.getCitiesList()
-            adapter.notifyDataSetChanged()
+            Handler().postDelayed({
+                adapter.notifyDataSetChanged()
+                Toast.makeText(activity,"Список обновлён", Toast.LENGTH_SHORT).show()
+            }, 500)
             refresh.isRefreshing = false
         }
         return res

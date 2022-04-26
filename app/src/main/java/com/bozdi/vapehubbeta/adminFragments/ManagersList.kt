@@ -9,7 +9,9 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.bozdi.vapehubbeta.ActualCitiesListCallBack
 import com.bozdi.vapehubbeta.AppServices
+import com.bozdi.vapehubbeta.CreateOrderCallBack
 import com.bozdi.vapehubbeta.R
 import com.bozdi.vapehubbeta.adapters.CouriersAdapter
 import com.bozdi.vapehubbeta.adapters.ManagerActionListener
@@ -46,10 +48,36 @@ class ManagersList : Fragment() {
 
         val addManagerButton : FloatingActionButton = res.findViewById(R.id.newManagerButton)
         addManagerButton.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.fragment_container, ManagerNew())
-                ?.addToBackStack(null)
-                ?.commit()
+            (getActivity()?.getApplicationContext() as AppServices).serverData.getActualCitiesList(
+                object : ActualCitiesListCallBack {
+
+                    override fun onSuccess(ids: Array<String>, names: Array<String>) {
+                        var StoresIds = mutableListOf<String>();
+                        var StoresNames = mutableListOf<String>();
+                        var stores = (getActivity()?.getApplicationContext() as AppServices).storesService.getStores();
+                        stores.forEach {
+                            StoresIds.add(it.StoreId.toString());
+                            StoresNames.add(it.Street.toString() + " " + it.BuildingNumber.toString());
+                        }
+
+                        activity?.supportFragmentManager?.beginTransaction()
+                            ?.replace(R.id.fragment_container, ManagerNew(
+                                ids,
+                                names,
+                                StoresIds.toTypedArray(),
+                                StoresNames.toTypedArray()
+                            ))
+                            ?.addToBackStack(null)
+                            ?.commit()
+                    }
+
+                    override fun onError(text: String) {
+
+                    }
+                }
+            )
+
+
         }
 
         val refresh = res.findViewById<SwipeRefreshLayout>(R.id.refreshManagersList)

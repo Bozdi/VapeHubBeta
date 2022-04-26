@@ -1,6 +1,6 @@
 package com.bozdi.vapehubbeta.model
 
-typealias managersListener = (managers : List<ManagersData>) -> Unit
+typealias managersListener = (managers: List<ManagersData>) -> Unit
 
 class ManagersListService {
     private var managers = mutableListOf<ManagersData>()
@@ -10,20 +10,22 @@ class ManagersListService {
         return managers;
     }
 
-    fun add(manager: ManagersData){
+    fun add(manager: ManagersData) {
+        if (manager.Type != "MNGR")
+            return;
+
         val index = managers.indexOfFirst { it.UserId == manager.UserId }
-        if (index  == -1) {
-        managers.add(
-            manager
-        )
-        //notifyChanges()
+        if (index == -1) {
+            managers.add(
+                manager
+            )
+            //notifyChanges()
         }
     }
 
     fun del(order: ManagersData) {
         val indexToDel = managers.indexOfFirst { it.UserId == order.UserId }
-        if (indexToDel != -1)
-        {
+        if (indexToDel != -1) {
             managers.removeAt(indexToDel)
             notifyChanges()
         }
@@ -38,8 +40,8 @@ class ManagersListService {
         listeners.remove(listener)
     }
 
-    private fun notifyChanges(){
-        listeners.forEach{it.invoke(managers)}
+    private fun notifyChanges() {
+        listeners.forEach { it.invoke(managers) }
     }
 
 }

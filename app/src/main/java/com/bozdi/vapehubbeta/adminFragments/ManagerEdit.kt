@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.bozdi.vapehubbeta.AppServices
 import com.bozdi.vapehubbeta.R
 import com.bozdi.vapehubbeta.databinding.FragmentManagerEditBinding
 import com.bozdi.vapehubbeta.databinding.FragmentOrderEditBinding
@@ -25,10 +26,10 @@ class ManagerEdit(private var selectManager: ManagersData) : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val res = inflater.inflate(R.layout.fragment_manager_edit, container, false)
-
+        var citie = (getActivity()?.getApplicationContext() as AppServices).storesService.getCitiesNameForCitiesId(selectManager.StoreId.toString());
         res.findViewById<TextView>(R.id.editManagerNameET).setText(selectManager.Name)
         res.findViewById<TextView>(R.id.editManagerLoginET).setText(selectManager.Login)
-        res.findViewById<TextView>(R.id.editManagerStoreAddressET).setText("Казахстан 70")
+        res.findViewById<TextView>(R.id.editManagerStoreAddressET).setText("citie")
         res.findViewById<TextView>(R.id.editManagerPhoneNumberET).setText(selectManager.Phone)
 
         return res

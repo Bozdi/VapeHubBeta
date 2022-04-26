@@ -29,6 +29,13 @@ class StoresListService {
         }
     }
 
+    fun getCitiesNameForCitiesId(id: String): String? {
+        val index = stores.indexOfFirst { it.StoreId == id }
+        if (index != -1 )
+            return "${stores[index].Street} ${stores[index].BuildingNumber}";
+        return "error";
+    }
+
     fun addListener(listener: storesListener) {
         listeners.add(listener)
         listener.invoke(stores)

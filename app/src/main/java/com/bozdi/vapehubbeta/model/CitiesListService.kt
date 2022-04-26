@@ -17,6 +17,8 @@ class CitiesListService {
                 city
             )
             //notifyChanges()
+        } else {
+            cities[index].Name = city.Name;
         }
 
     }

@@ -74,21 +74,22 @@
            android:text="Создать менеджера"
            app:layout_constraintEnd_toEndOf="parent"
            app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintTop_toBottomOf="@+id/createManagerAddressET" />
+           app:layout_constraintTop_toBottomOf="@+id/spinnerStore" />
 
-       <EditText
-           android:id="@+id/createManagerAddressET"
-           style="@style/EditTextStyle17"
-           android:layout_width="wrap_content"
+       <Spinner
+           android:id="@+id/spinnerCities"
+           android:layout_width="409dp"
            android:layout_height="wrap_content"
-           android:layout_marginStart="16dp"
-           android:layout_marginTop="16dp"
-           android:ems="10"
-           android:inputType="phone"
-           android:minHeight="48dp"
-           android:text="Адрес магазина"
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintTop_toBottomOf="@+id/newManagerPhoneNumberET" />
+           app:layout_constraintTop_toBottomOf="@+id/newManagerPhoneNumberET"
+
+           tools:ignore="MissingConstraints" />
+       <Spinner
+           android:id="@+id/spinnerStore"
+           android:layout_width="409dp"
+           android:layout_height="wrap_content"
+           app:layout_constraintTop_toBottomOf="@+id/spinnerCities"
+
+           tools:ignore="MissingConstraints" />
 
    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

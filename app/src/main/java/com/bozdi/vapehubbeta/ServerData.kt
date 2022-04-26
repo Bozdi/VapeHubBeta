@@ -14,6 +14,12 @@ interface CreateOrderCallBack {
     fun onError(text: String)
 }
 
+
+interface ActualCitiesListCallBack {
+    fun onSuccess(ids: Array<String>, names: Array<String>)
+    fun onError(text: String)
+}
+
 class ServerData(_context: Context) {
 
     var globVar: GlobalVars = GlobalVars
@@ -46,7 +52,7 @@ class ServerData(_context: Context) {
                     val keys = key.getString(i)
                     val value: JSONObject = objects.getJSONObject(keys)
                     var Status = "Ожидает"
-                    when(value.getString("Status")) {
+                    when (value.getString("Status")) {
                         "PEND" -> Status = "Ожидает"
                         "ACCEPT" -> Status = "В работе"
                         "DONE" -> Status = "Доставлен"
@@ -174,14 +180,16 @@ class ServerData(_context: Context) {
         Login: String,
         Password: String,
         Name: String,
+        StoreId: String,
         actionListener: CreateOrderCallBack
-    ){
+    ) {
         val formBody: RequestBody = FormBody.Builder()
             .add("Type", Type)
             .add("Phone", Phone)
             .add("Login", Login)
             .add("Password", Password)
             .add("Name", Name)
+            .add("StoreId", StoreId)
             .build()
         val request: Request = Request.Builder()
             .url(globVar.URL + "users/")
@@ -196,9 +204,10 @@ class ServerData(_context: Context) {
 
             override fun onResponse(call: Call?, response: Response?) {
                 Log.e("Code Create Order", response?.code().toString());
-                if (response?.code() != 201)
-                {
+                if (response?.code() != 201) {
                     actionListener.onError("Ошибка добавления заказа")
+                } else {
+                    actionListener.onSuccess();
                 }
             }
         })
@@ -215,7 +224,7 @@ class ServerData(_context: Context) {
         EntranceNum: String = "",
         TargetTime: Int = 0,
         actionListener: CreateOrderCallBack
-    ){
+    ) {
         val formBody: RequestBody = FormBody.Builder()
             .add("StoreId", StoreId.toString())
             .add("StreetName", StreetName)
@@ -239,10 +248,9 @@ class ServerData(_context: Context) {
 
             override fun onResponse(call: Call?, response: Response?) {
                 Log.e("Code Create Order", response?.code().toString());
-                if (response?.code() != 201)
-                {
+                if (response?.code() != 201) {
                     actionListener.onError("Ошибка добавления заказа")
-                } else{
+                } else {
                     val body = response.body()?.string().toString()
                     val storeId = (JSONObject(body).getString("ID")).toString()
                     addGoodsOrder(goodsList, storeId, actionListener)
@@ -250,12 +258,13 @@ class ServerData(_context: Context) {
             }
         })
     }
+
     fun createStore(
         Street: String,
         CityId: Int,
         BuildingNumber: String,
         actionListener: CreateOrderCallBack
-    ){
+    ) {
         val formBody: RequestBody = FormBody.Builder()
             .add("Street", Street)
             .add("CityId", CityId.toString())
@@ -274,10 +283,9 @@ class ServerData(_context: Context) {
 
             override fun onResponse(call: Call?, response: Response?) {
                 Log.e("Code Create Store", response?.code().toString());
-                if (response?.code() != 201)
-                {
+                if (response?.code() != 201) {
                     actionListener.onError("Ошибка добавления заказа")
-                } else{
+                } else {
                     val body = response.body()?.string().toString()
                 }
             }
@@ -292,7 +300,7 @@ class ServerData(_context: Context) {
         Password: String,
         Name: String,
         actionListener: CreateOrderCallBack
-    ){
+    ) {
         val formBody: RequestBody = FormBody.Builder()
             .add("Type", Type)
             .add("Phone", Phone)
@@ -314,10 +322,9 @@ class ServerData(_context: Context) {
 
             override fun onResponse(call: Call?, response: Response?) {
                 Log.e("Code Create Order", response?.code().toString());
-                if (response?.code() != 201)
-                {
+                if (response?.code() != 201) {
                     actionListener.onError("Ошибка создания курьера")
-                } else{
+                } else {
                     val body = response.body()?.string().toString()
                 }
             }
@@ -325,7 +332,11 @@ class ServerData(_context: Context) {
     }
 
 
-    fun addGoodsOrder(goodsList: List<GoodsData>, storeId: String, actionListener: CreateOrderCallBack){
+    fun addGoodsOrder(
+        goodsList: List<GoodsData>,
+        storeId: String,
+        actionListener: CreateOrderCallBack
+    ) {
         val formBody: FormBody.Builder = FormBody.Builder()
 
         goodsList.forEach {
@@ -345,10 +356,9 @@ class ServerData(_context: Context) {
 
             override fun onResponse(call: Call?, response: Response?) {
                 Log.e("Add goods Order", response?.code().toString());
-                if (response?.code() != 201)
-                {
+                if (response?.code() != 201) {
                     actionListener.onError("Ошибка добавления заказа")
-                } else{
+                } else {
                     actionListener.onSuccess()
                 }
             }
@@ -428,10 +438,48 @@ class ServerData(_context: Context) {
     }
 
 
+    fun getActualCitiesList(
+        action: ActualCitiesListCallBack
+    ) {
+        val request: Request = Request.Builder()
+            .url(globVar.URL + "cities/")
+            .addHeader("Content-Type", "application/x-www-form-urlencoded")
+            .addHeader("auth-token", globVar.token)
+            .get()
+            .build()
+        okHttpClient.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call?, e: IOException?) {
+                Log.e("json", e.toString())
+            }
+
+            override fun onResponse(call: Call?, response: Response?) {
+                var body = response?.body()?.string().toString()
+                Log.e("cities", body)
+                val objects: JSONArray = JSONTokener(body).nextValue() as JSONArray
+                var ids = mutableListOf<String>();
+                var names = mutableListOf<String>();
+                for (i in 0 until objects.length()) {
+                    val keys = objects.getString(i)
+                    val value: JSONObject = JSONObject(keys)
+
+
+                    ids.add(value.getString("CityId"));
+
+                    names.add(value.getString("Name"))
+                }
+
+                action.onSuccess(ids.toTypedArray(), names.toTypedArray())
+
+
+            }
+        })
+    }
+
+
     fun createCity(
         Name: String,
         actionListener: CreateOrderCallBack
-    ){
+    ) {
         val formBody: RequestBody = FormBody.Builder()
             .add("Name", Name)
             .build()
@@ -447,23 +495,26 @@ class ServerData(_context: Context) {
             }
 
             override fun onResponse(call: Call?, response: Response?) {
-                Log.e("Code Create Order", response?.code().toString());
-                if (response?.code() != 201)
-                {
+                Log.e("Code createCity", response?.code().toString());
+                if (response?.code() != 201) {
                     actionListener.onError("Ошибка создания города")
+                } else {
+                    actionListener.onSuccess();
                 }
             }
         })
     }
+
     fun editCity(
+        Id: String,
         Name: String,
         actionListener: CreateOrderCallBack
-    ){
+    ) {
         val formBody: RequestBody = FormBody.Builder()
             .add("Name", Name)
             .build()
         val request: Request = Request.Builder()
-            .url(globVar.URL + "cities/" + globVar.CityId + "/" )
+            .url(globVar.URL + "cities/" + Id + "/")
             .addHeader("Content-Type", "application/x-www-form-urlencoded")
             .addHeader("auth-token", globVar.token)
             .post(formBody)
@@ -475,8 +526,7 @@ class ServerData(_context: Context) {
 
             override fun onResponse(call: Call?, response: Response?) {
                 Log.e("Code Create Order", response?.code().toString());
-                if (response?.code() != 201)
-                {
+                if (response?.code() != 201) {
                     actionListener.onError("Ошибка создания города")
                 }
             }

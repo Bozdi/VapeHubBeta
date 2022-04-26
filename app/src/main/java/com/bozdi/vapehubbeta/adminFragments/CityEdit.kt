@@ -1,6 +1,7 @@
 package com.bozdi.vapehubbeta.adminFragments
 
 import android.os.Bundle
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,7 @@ import com.bozdi.vapehubbeta.databinding.FragmentCityEditBinding
 import com.bozdi.vapehubbeta.databinding.FragmentOrderEditBinding
 import com.bozdi.vapehubbeta.model.CitiesData
 import com.bozdi.vapehubbeta.model.OrdersData
+import java.util.*
 
 class CityEdit(private var selectCity: CitiesData) : Fragment() {
     private lateinit var binding: FragmentCityEditBinding
@@ -33,12 +35,10 @@ class CityEdit(private var selectCity: CitiesData) : Fragment() {
         val res = inflater.inflate(R.layout.fragment_city_edit, container, false)
 
         res.findViewById<TextView>(R.id.editCityNameET).setText(selectCity.Name)
-
         res.findViewById<Button>(R.id.editCitySaveChangesButton).setOnClickListener {
 
-            GlobalVars.CityId = selectCity.CityId?.toInt() ?: 1
             (getActivity()?.getApplicationContext() as AppServices).serverData.editCity(
-
+                selectCity.CityId.toString(),
                 res.findViewById<EditText>(R.id.editCityNameET).text.toString(),
 
                 object : CreateOrderCallBack {
