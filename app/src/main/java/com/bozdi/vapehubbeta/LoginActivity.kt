@@ -20,8 +20,8 @@ class LoginActivity : AppCompatActivity() {
 
         val login: EditText = findViewById(R.id.editTextLogin)
         val password: EditText = findViewById(R.id.editTextPassword)
-        login.setText("NewUser");
-        password.setText("1234");
+        login.setText("NewUser")
+        password.setText("1234")
         val button: Button = findViewById(R.id.loginButton)
         button.setOnClickListener {
 
@@ -40,14 +40,13 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 override fun onResponse(call: Call?, response: Response?) {
-                    var body: String = response?.body()?.string().toString();
+                    var body: String = response?.body()?.string().toString()
                     if (response?.code().toString() != "200") {
                         Log.e("HTTP", "Error Auth")
-//                        Toast.makeText(this@LoginActivity,"Неверный логин или пароль",Toast.LENGTH_SHORT).show();
-//                        Toast.makeText(applicationContext, "Неверный логин или пароль", Toast.LENGTH_SHORT);
+//
                     } else {
-                        globVar.token = (JSONObject(body).getString("AuthToken")).toString();
-                        globVar.UserId = (JSONObject(body).getString("UserId")).toString();
+                        globVar.token = (JSONObject(body).getString("AuthToken")).toString()
+                        globVar.UserId = (JSONObject(body).getString("UserId")).toString()
                         Log.i("token", globVar.token)
                         getUserType()
                     }

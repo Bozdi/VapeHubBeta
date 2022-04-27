@@ -60,10 +60,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
 
-            android:layout_marginTop="8dp"
             android:minHeight="48dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/newCourierPasswordET"
+            app:layout_constraintTop_toBottomOf="@+id/newCourierPhoneNumberET"
             tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
 
         <Spinner
@@ -88,6 +87,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spinnerStoreCourier" />
+
+        <EditText
+            android:id="@+id/newCourierPhoneNumberET"
+            style="@style/EditTextStyle17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:hint="Номер телефона"
+            android:inputType="phone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/newCourierPasswordET" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

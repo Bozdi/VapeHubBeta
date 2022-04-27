@@ -335,9 +335,9 @@ class ServerData(_context: Context) {
         Type: String = "COUR",
         Phone: String,
         Login: String,
-        StoreId: String,
         Password: String,
         Name: String,
+        StoreId: String,
         actionListener: CreateOrderCallBack
     ) {
         val formBody: RequestBody = FormBody.Builder()

@@ -24,44 +24,52 @@ class ManagerEdit(private var selectManager: ManagersData) : Fragment() {
         binding = FragmentManagerEditBinding.inflate(layoutInflater)
 
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val res = inflater.inflate(R.layout.fragment_manager_edit, container, false)
-
-        res.findViewById<TextView>(R.id.editManagerNameET).setText(selectManager.Name)
-        res.findViewById<TextView>(R.id.editManagerLoginET).setText(selectManager.Login)
-        res.findViewById<TextView>(R.id.editManagerStoreAddressET).setText("citie")
-        res.findViewById<TextView>(R.id.editManagerPhoneNumberET).setText(selectManager.Phone)
-
-        (getActivity()?.getApplicationContext() as AppServices).serverData.editManager(
-            selectManager.UserId.toString(),
-            res.findViewById<EditText>(R.id.editCityNameET).text.toString(),
-
-            object : CreateOrderCallBack {
-                override fun onSuccess() {
-                    (getActivity()?.getApplicationContext() as AppServices).serverData.getCitiesList()
-                    activity?.supportFragmentManager?.beginTransaction()
-                        ?.replace(R.id.fragment_container, CitiesList())
-                        ?.addToBackStack(null)
-                        ?.commit()
-                }
-
-                override fun onError(text: String) {
-
-                    (getActivity()?.getApplicationContext() as AppServices).serverData.getCitiesList()
-                    activity?.supportFragmentManager?.beginTransaction()
-                        ?.replace(R.id.fragment_container, CitiesList())
-                        ?.addToBackStack(null)
-                        ?.commit()
-                }
-            }
-        )
-
+        return null
     }
-    return res
-
 }
+//        val res = inflater.inflate(R.layout.fragment_manager_edit, container, false)
+//
+//        res.findViewById<TextView>(R.id.editManagerNameET).setText(selectManager.Name)
+//        res.findViewById<TextView>(R.id.editManagerLoginET).setText(selectManager.Login)
+//        res.findViewById<TextView>(R.id.editManagerStoreAddressET).setText("citie")
+//        res.findViewById<TextView>(R.id.editManagerPhoneNumberET).setText(selectManager.Phone)
 
-}
+//        (getActivity()?.getApplicationContext() as AppServices).serverData.editManager(
+//            selectManager.UserId.toString(),
+//            res.findViewById<EditText>(R.id.newManagerPhoneNumberET).text.toString(),
+//            res.findViewById<EditText>(R.id.newManagerLoginET).text.toString(),
+//            res.findViewById<EditText>(R.id.newManagerPasswordET).text.toString(),
+//            res.findViewById<EditText>(R.id.newManagerNameET).text.toString(),
+//            StoresIds[spinnerStores.selectedItemPosition],
+//
+//            object : CreateOrderCallBack {
+//                override fun onSuccess() {
+//                    (getActivity()?.getApplicationContext() as AppServices).serverData.getCitiesList()
+//                    activity?.supportFragmentManager?.beginTransaction()
+//                        ?.replace(R.id.fragment_container, CitiesList())
+//                        ?.addToBackStack(null)
+//                        ?.commit()
+//                }
+//
+//                override fun onError(text: String) {
+//
+//                    (getActivity()?.getApplicationContext() as AppServices).serverData.getCitiesList()
+//                    activity?.supportFragmentManager?.beginTransaction()
+//                        ?.replace(R.id.fragment_container, CitiesList())
+//                        ?.addToBackStack(null)
+//                        ?.commit()
+//                }
+//            }
+////        )
+//
+//    }
+//    return res
+//
+//}
+//
+//}

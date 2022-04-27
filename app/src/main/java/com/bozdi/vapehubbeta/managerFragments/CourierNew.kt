@@ -44,10 +44,10 @@ class CourierNew(private var CitiesIds: Array<String>,
             (getActivity()?.getApplicationContext() as AppServices).serverData.createCourier(
 
                 userType,
-                res.findViewById<EditText>(R.id.newManagerPhoneNumberET).text.toString(),
-                res.findViewById<EditText>(R.id.newManagerLoginET).text.toString(),
-                res.findViewById<EditText>(R.id.newManagerPasswordET).text.toString(),
-                res.findViewById<EditText>(R.id.newManagerNameET).text.toString(),
+                res.findViewById<EditText>(R.id.newCourierPhoneNumberET).text.toString(),
+                res.findViewById<EditText>(R.id.newCourierLoginET).text.toString(),
+                res.findViewById<EditText>(R.id.newCourierPasswordET).text.toString(),
+                res.findViewById<EditText>(R.id.newCourierNameET).text.toString(),
                 StoresIds[spinnerStores.selectedItemPosition],
 
                 object : CreateOrderCallBack {
