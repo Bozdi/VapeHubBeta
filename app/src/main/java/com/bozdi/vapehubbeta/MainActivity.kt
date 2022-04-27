@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                 (getApplicationContext() as AppServices).serverData.getManagersList()
                 (getApplicationContext() as AppServices).serverData.getStoresList()
                 (getApplicationContext() as AppServices).serverData.getCitiesList()
-               // (getApplicationContext() as AppServices).serverData.getStoreData()
+                (getApplicationContext() as AppServices).serverData.getStoreData()
 
             }
             "MNGR" -> {

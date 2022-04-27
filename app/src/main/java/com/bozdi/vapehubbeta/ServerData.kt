@@ -154,7 +154,6 @@ class ServerData(_context: Context) {
                 for (i in 0 until key.length()) {
                     val keys = key.getString(i)
                     val value: JSONObject = objects.getJSONObject(keys)
-
                     (context as AppServices).managersService.add(
                         ManagersData(
                             value.getString("UserID"),
@@ -442,39 +441,33 @@ class ServerData(_context: Context) {
         })
     }
 
-//    fun getStoreData() {
-//        val request: Request = Request.Builder()
-//            .url(globVar.URL + "stores/3")
-//            .addHeader("Content-Type", "application/x-www-form-urlencoded")
-//            .addHeader("auth-token", globVar.token)
-//            .get()
-//            .build()
-//        okHttpClient.newCall(request).enqueue(object : Callback {
-//            override fun onFailure(call: Call?, e: IOException?) {
-//                Log.e("json", e.toString())
-//            }
-//
-//            override fun onResponse(call: Call?, response: Response?) {
-//                var body = response?.body()?.string().toString()
-//                Log.e("getStoreData", body)
-//                val objects: JSONObject = JSONTokener(body).nextValue() as JSONObject
-//                val key: JSONArray = objects.names()
-//                for (i in 0 until key.length()) {
-//                    val keys = key.getString(i)
-//                    var value: JSONObject = objects.getJSONObject(keys)
-//
-//                    (context as AppServices).storesService.test(
-//                        SelectedManagersStoreData(
-//                            value.getString("Street")
-//
-//                        )
-//                    )
-//                }
-//
-//
-//            }
-//        })
-//    }
+    fun getStoreData() {
+        val request: Request = Request.Builder()
+            .url(globVar.URL + "stores/3")
+            .addHeader("Content-Type", "application/x-www-form-urlencoded")
+            .addHeader("auth-token", globVar.token)
+            .get()
+            .build()
+        okHttpClient.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call?, e: IOException?) {
+                Log.e("json", e.toString())
+            }
+
+            override fun onResponse(call: Call?, response: Response?) {
+                var body = response?.body()?.string().toString()
+                Log.e("getStoreData", body)
+                val objects: JSONObject = JSONTokener(body).nextValue() as JSONObject
+                (context as AppServices).storesService.test(
+                    SelectedManagersStoreData(
+                        objects.getString("Street")
+
+                    )
+                )
+
+
+            }
+        })
+    }
     fun getCitiesList() {
         val request: Request = Request.Builder()
             .url(globVar.URL + "cities/")
@@ -623,7 +616,7 @@ class ServerData(_context: Context) {
 
             override fun onResponse(call: Call?, response: Response?) {
                 Log.e("Code createCity", response?.code().toString());
-                if (response?.code() != 201) {
+                if (response?.code() != 204) {
                     actionListener.onError("Ошибка создания города")
                 } else {
                     actionListener.onSuccess()

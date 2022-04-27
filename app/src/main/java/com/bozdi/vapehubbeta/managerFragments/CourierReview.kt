@@ -42,6 +42,7 @@ class ManagerCourierReview(private var selectCourier: CouriersData) : Fragment()
 
                 object : CreateOrderCallBack {
                     override fun onSuccess() {
+                        (getActivity()?.getApplicationContext() as AppServices).couriersService.del(selectCourier)
                         (getActivity()?.getApplicationContext() as AppServices).serverData.getCouriersList()
                         activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.fragment_container, CouriersList())
@@ -50,6 +51,7 @@ class ManagerCourierReview(private var selectCourier: CouriersData) : Fragment()
                       }
 
                     override fun onError(text: String) {
+                        //(getActivity()?.getApplicationContext() as AppServices).couriersService.del(selectCourier)
                         (getActivity()?.getApplicationContext() as AppServices).serverData.getCouriersList()
                         activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.fragment_container, CouriersList())
