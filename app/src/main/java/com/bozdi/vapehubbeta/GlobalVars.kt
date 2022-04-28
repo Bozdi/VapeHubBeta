@@ -5,6 +5,7 @@ object GlobalVars {
     var Login : String = ""
     var ProfileName : String = ""
     var ProfilePhoneNumber : String = ""
+    var ProfileStoreName: String = "";
     var UserId : String = ""
     var UserType : String = ""
     var StoreId : Int = -1

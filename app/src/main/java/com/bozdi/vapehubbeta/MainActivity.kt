@@ -2,6 +2,7 @@ package com.bozdi.vapehubbeta
 
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -81,8 +82,7 @@ class MainActivity : AppCompatActivity() {
                 (getApplicationContext() as AppServices).serverData.getOrdersList()
                 (getApplicationContext() as AppServices).serverData.getCouriersList()
                 (getApplicationContext() as AppServices).serverData.getStoresList()
-                (getApplicationContext() as AppServices).serverData.getCitiesList()
-                (getApplicationContext() as AppServices).serverData.getStoreData("3")
+                (applicationContext as AppServices).serverData.getCitiesList()
             }
             else -> {
                 result = findViewById(R.id.couriersBottomNavigation)

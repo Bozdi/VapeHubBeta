@@ -20,6 +20,11 @@ interface ActualCitiesListCallBack {
     fun onError(text: String)
 }
 
+interface StorageDateListCallBack {
+    fun onSuccess(Street: String);
+    fun onError(text: String)
+}
+
 class ServerData(_context: Context) {
 
     var globVar: GlobalVars = GlobalVars
@@ -442,7 +447,8 @@ class ServerData(_context: Context) {
     }
 
     fun getStoreData(
-        id: String
+        id: String,
+        action: StorageDateListCallBack
     ) {
         val request: Request = Request.Builder()
             .url(globVar.URL + "stores/" + id)
@@ -459,13 +465,13 @@ class ServerData(_context: Context) {
                 var body = response?.body()?.string().toString()
                 Log.e("getStoreData", body)
                 val objects: JSONObject = JSONTokener(body).nextValue() as JSONObject
-                (context as AppServices).storesService.test(
-                    SelectedManagersStoreData(
-                        objects.getString("Street")
+//                (context as AppServices).storesService.test(
+//                    SelectedManagersStoreData(
+//
+//                    )
+//                )
 
-                    )
-                )
-
+                action.onSuccess("${objects.getString("Street")} ${objects.getString("BuildingNumber")}");
 
             }
         })

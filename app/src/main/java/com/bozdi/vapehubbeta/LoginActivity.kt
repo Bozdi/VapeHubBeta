@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.bozdi.vapehubbeta.managerFragments.ManagerCourierReview
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
@@ -77,10 +78,24 @@ class LoginActivity : AppCompatActivity() {
                 globVar.ProfilePhoneNumber = (JSONObject(body).getString("Phone")).toString()
                 if(globVar.UserType == "MNGR" || globVar.UserType == "COUR")
                 globVar.StoreId = (JSONObject(body).getInt("StoreID"))
-                Log.e("StoreId", globVar.StoreId.toString())
 
-                val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                startActivity(intent)
+                (applicationContext as AppServices).serverData.getStoreData(globVar.StoreId.toString(),
+                    object : StorageDateListCallBack {
+                        override fun onSuccess(Street: String) {
+
+                            globVar.ProfileStoreName = Street
+                            val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                            startActivity(intent)
+                        }
+
+                        override fun onError(text: String) {
+                            TODO("Not yet implemented")                    }
+
+
+                    }
+                )
+
+
             }
         })
     }

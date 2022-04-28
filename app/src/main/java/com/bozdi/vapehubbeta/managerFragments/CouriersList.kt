@@ -13,6 +13,7 @@ import com.bozdi.vapehubbeta.ActualCitiesListCallBack
 import com.bozdi.vapehubbeta.AppServices
 import com.bozdi.vapehubbeta.adapters.CouriersAdapter
 import com.bozdi.vapehubbeta.R
+import com.bozdi.vapehubbeta.StorageDateListCallBack
 import com.bozdi.vapehubbeta.adapters.CouriersActionListener
 import com.bozdi.vapehubbeta.model.CouriersData
 import com.bozdi.vapehubbeta.model.CouriersListService
@@ -32,10 +33,22 @@ class CouriersList : Fragment() {
 
         adapter = CouriersAdapter(object : CouriersActionListener {
             override fun onCourierClick(courier: CouriersData) {
-                activity?.supportFragmentManager?.beginTransaction()
-                    ?.replace(R.id.fragment_container, ManagerCourierReview(courier))
-                    ?.addToBackStack(null)
-                    ?.commit()
+                (activity?.applicationContext as AppServices).serverData.getStoreData(courier.StoreId,
+                    object : StorageDateListCallBack {
+                        override fun onSuccess(Street: String) {
+                            activity?.supportFragmentManager?.beginTransaction()
+                                ?.replace(R.id.fragment_container, ManagerCourierReview(courier, Street))
+                                ?.addToBackStack(null)
+                                ?.commit()
+                        }
+
+                        override fun onError(text: String) {
+                            TODO("Not yet implemented")                    }
+
+
+                    }
+                )
+
             }
         })
 
