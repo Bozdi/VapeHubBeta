@@ -11,11 +11,14 @@ import android.widget.Toast
 import com.bozdi.vapehubbeta.AppServices
 import com.bozdi.vapehubbeta.CreateOrderCallBack
 import com.bozdi.vapehubbeta.R
+import com.bozdi.vapehubbeta.ServerData
 import com.bozdi.vapehubbeta.adminFragments.CitiesList
 import com.bozdi.vapehubbeta.model.CouriersData
 import com.bozdi.vapehubbeta.model.OrdersData
 
 class ManagerCourierReview(private var selectCourier: CouriersData) : Fragment() {
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,8 +29,9 @@ class ManagerCourierReview(private var selectCourier: CouriersData) : Fragment()
         res.findViewById<TextView>(R.id.courierReviewNameET).setText(selectCourier.Name)
         res.findViewById<TextView>(R.id.courierReviewLoginET).setText(selectCourier.Login)
         res.findViewById<TextView>(R.id.courierReviewPhoneNumberET).setText(selectCourier.Phone)
+      //  res.findViewById<TextView>(R.id.courierReviewStoreAddressET).setText(storeStreet.toString())
 
-        res.findViewById<Button>(R.id.courierReviewEditButton).setOnClickListener{
+        res.findViewById<Button>(R.id.courierReviewStoreAddressET).setOnClickListener{
             activity?.supportFragmentManager?.beginTransaction()
                 ?.replace(R.id.fragment_container, CourierEdit(selectCourier))
                 ?.addToBackStack(null)
@@ -51,7 +55,6 @@ class ManagerCourierReview(private var selectCourier: CouriersData) : Fragment()
                       }
 
                     override fun onError(text: String) {
-                        //(getActivity()?.getApplicationContext() as AppServices).couriersService.del(selectCourier)
                         (getActivity()?.getApplicationContext() as AppServices).serverData.getCouriersList()
                         activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.fragment_container, CouriersList())

@@ -39,20 +39,6 @@
             app:layout_constraintTop_toBottomOf="@+id/editCourierNameET" />
 
         <EditText
-            android:id="@+id/editCourierStoreAddressET"
-            style="@style/EditTextStyle17"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:ems="10"
-            android:inputType="number"
-            android:minHeight="48dp"
-            android:hint="Адрес магазина"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editCourierPhoneNumberET" />
-
-        <EditText
             android:id="@+id/editCourierLoginET"
             style="@style/EditTextStyle17"
             android:layout_width="wrap_content"
@@ -61,10 +47,10 @@
             android:layout_marginTop="16dp"
             android:ems="10"
             android:hint="Логин"
-            android:inputType="textPersonName"
+            android:inputType="text"
             android:minHeight="48dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editCourierStoreAddressET" />
+            app:layout_constraintTop_toBottomOf="@+id/editCourierPhoneNumberET" />
 
         <EditText
             android:id="@+id/editCourierPasswordET"
@@ -80,6 +66,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editCourierLoginET" />
 
+        <Spinner
+            android:id="@+id/spinnerStoreCourierEdit"
+            style="@style/EditTextStyle17"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:minHeight="48dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editCourierPasswordET"
+            tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
 
         <Button
             android:id="@+id/editCourierSaveChangesButton"
@@ -89,7 +86,7 @@
             android:text="Сохранить изменения"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editCourierPasswordET" />
+            app:layout_constraintTop_toBottomOf="@+id/spinnerStoreCourierEdit" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

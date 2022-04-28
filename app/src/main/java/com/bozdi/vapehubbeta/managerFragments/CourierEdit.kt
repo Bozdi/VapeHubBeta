@@ -28,7 +28,7 @@ class CourierEdit(private var selectCourier: CouriersData) : Fragment() {
 
         res.findViewById<TextView>(R.id.editCourierNameET).setText(selectCourier.Name)
         res.findViewById<TextView>(R.id.editCourierLoginET).setText(selectCourier.Login)
-        res.findViewById<TextView>(R.id.editCourierStoreAddressET).setText("Казахстан 70")
+
         res.findViewById<TextView>(R.id.editCourierPhoneNumberET).setText(selectCourier.Phone)
 
         return res

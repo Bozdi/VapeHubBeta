@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                 (getApplicationContext() as AppServices).serverData.getManagersList()
                 (getApplicationContext() as AppServices).serverData.getStoresList()
                 (getApplicationContext() as AppServices).serverData.getCitiesList()
-                (getApplicationContext() as AppServices).serverData.getStoreData()
+
 
             }
             "MNGR" -> {
@@ -82,6 +82,7 @@ class MainActivity : AppCompatActivity() {
                 (getApplicationContext() as AppServices).serverData.getCouriersList()
                 (getApplicationContext() as AppServices).serverData.getStoresList()
                 (getApplicationContext() as AppServices).serverData.getCitiesList()
+                (getApplicationContext() as AppServices).serverData.getStoreData("3")
             }
             else -> {
                 result = findViewById(R.id.couriersBottomNavigation)

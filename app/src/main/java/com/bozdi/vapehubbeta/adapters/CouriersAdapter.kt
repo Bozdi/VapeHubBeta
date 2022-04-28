@@ -41,7 +41,12 @@ class CouriersAdapter(private val actionListener: CouriersActionListener) : Recy
         with(holder.binding) {
             holder.itemView.tag = courier
             courierNameTextView.text = courier.Name
-            courierStatusTextView.text = courier.Status
+            if(courier.Status == "WAIT") {
+                courierStatusTextView.text = "Ожидает"
+            } else {
+                courierStatusTextView.text = "На доставке"
+            }
+
         }
     }
 

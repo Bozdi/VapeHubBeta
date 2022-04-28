@@ -441,9 +441,11 @@ class ServerData(_context: Context) {
         })
     }
 
-    fun getStoreData() {
+    fun getStoreData(
+        id: String
+    ) {
         val request: Request = Request.Builder()
-            .url(globVar.URL + "stores/3")
+            .url(globVar.URL + "stores/" + id)
             .addHeader("Content-Type", "application/x-www-form-urlencoded")
             .addHeader("auth-token", globVar.token)
             .get()

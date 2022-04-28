@@ -46,6 +46,7 @@ class ManagerReview(private var selectManager: ManagersData) : Fragment() {
 
                 object : CreateOrderCallBack {
                     override fun onSuccess() {
+                     //   (getActivity()?.getApplicationContext() as AppServices).couriersService.del(selectCourier)
                         (getActivity()?.getApplicationContext() as AppServices).serverData.getManagersList()
                         activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.fragment_container, ManagersList())

@@ -7,7 +7,7 @@
     tools:context=".adminFragments.CityReview">
 
     <TextView
-        android:id="@+id/cityReviewNameET"
+        android:id="@+id/cityReviewNameStringET"
         style="@style/EditTextStyle17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/cityReviewNameStringET"
+        android:id="@+id/cityReviewNameET"
         style="@style/EditTextStyle17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
         android:id="@+id/cityReviewEditButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:text="Редактировать город"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,7 +42,7 @@
         android:id="@+id/deleteCityButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:text="Удалить город"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
