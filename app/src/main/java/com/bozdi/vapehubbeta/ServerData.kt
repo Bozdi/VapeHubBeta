@@ -248,7 +248,7 @@ class ServerData(_context: Context) {
             override fun onResponse(call: Call?, response: Response?) {
                 Log.e("Code Create Order", response?.code().toString());
                 if (response?.code() != 201) {
-                    actionListener.onError("Ошибка добавления заказа")
+                    actionListener.onError("Ошибка редактирования курьера")
                 } else {
                     actionListener.onSuccess();
                 }
@@ -369,6 +369,41 @@ class ServerData(_context: Context) {
                     actionListener.onError("Ошибка создания курьера")
                 } else {
                     actionListener.onSuccess()
+                }
+            }
+        })
+    }
+    fun editCourier(
+        Login: String,
+        Password: String,
+        Name: String,
+        Phone: String,
+        userId: String,
+        actionListener: CreateOrderCallBack
+    ) {
+        val formBody: RequestBody = FormBody.Builder()
+            .add("Login", Login)
+            .add("Password", Password)
+            .add("Name", Name)
+            .add("Phone", Phone)
+            .build()
+        val request: Request = Request.Builder()
+            .url(globVar.URL + "users/" + userId + "/")
+            .addHeader("Content-Type", "application/x-www-form-urlencoded")
+            .addHeader("auth-token", globVar.token)
+            .put(formBody)
+            .build()
+        okHttpClient.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call?, e: IOException?) {
+                Log.e("json", e.toString())
+            }
+
+            override fun onResponse(call: Call?, response: Response?) {
+                Log.e("Code Create Order", response?.code().toString());
+                if (response?.code() != 201) {
+                    actionListener.onError("Ошибка редактирования курьера")
+                } else {
+                    actionListener.onSuccess();
                 }
             }
         })
@@ -551,6 +586,35 @@ class ServerData(_context: Context) {
 
     fun createCity(
         Name: String,
+        actionListener: CreateOrderCallBack
+    ) {
+        val formBody: RequestBody = FormBody.Builder()
+            .add("Name", Name)
+            .build()
+        val request: Request = Request.Builder()
+            .url(globVar.URL + "cities/")
+            .addHeader("Content-Type", "application/x-www-form-urlencoded")
+            .addHeader("auth-token", globVar.token)
+            .post(formBody)
+            .build()
+        okHttpClient.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call?, e: IOException?) {
+                Log.e("json", e.toString())
+            }
+
+            override fun onResponse(call: Call?, response: Response?) {
+                Log.e("Code createCity", response?.code().toString());
+                if (response?.code() != 201) {
+                    actionListener.onError("Ошибка создания города")
+                } else {
+                    actionListener.onSuccess();
+                }
+            }
+        })
+    }
+    fun editStore(
+        Name: String,
+        cityId: String,
         actionListener: CreateOrderCallBack
     ) {
         val formBody: RequestBody = FormBody.Builder()
