@@ -1,6 +1,7 @@
 package com.bozdi.vapehubbeta
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 class OrdersList : Fragment() {
     private lateinit var adapter: OrdersAdapter
 
+
     private val orderService: OrderListService
         get() = (getActivity()?.getApplicationContext() as AppServices).ordersService
 
@@ -38,6 +40,7 @@ class OrdersList : Fragment() {
             }
         })
 
+        (activity as MainActivity).supportActionBar?.title = getString(R.string.Orders)
         rv.adapter = adapter
         rv.layoutManager = LinearLayoutManager(activity)
         orderService.addListener(orderLister)
@@ -49,13 +52,19 @@ class OrdersList : Fragment() {
                 ?.addToBackStack(null)
                 ?.commit()
         }
+//        (getActivity()?.getApplicationContext() as AppServices).serverData.getOrdersList()
+//        Handler().postDelayed({
+//            adapter.notifyDataSetChanged()
+//        }, 10000)
 
         val refresh = res.findViewById<SwipeRefreshLayout>(R.id.refresh_Order_List)
 
         refresh.setOnRefreshListener {
-            Toast.makeText(activity,"Список обновлён",Toast.LENGTH_SHORT).show()
             (getActivity()?.getApplicationContext() as AppServices).serverData.getOrdersList()
-            adapter.notifyDataSetChanged()
+            Handler().postDelayed({
+                adapter.notifyDataSetChanged()
+                Toast.makeText(activity,"Список обновлён", Toast.LENGTH_SHORT).show()
+            }, 500)
             refresh.isRefreshing = false
         }
 

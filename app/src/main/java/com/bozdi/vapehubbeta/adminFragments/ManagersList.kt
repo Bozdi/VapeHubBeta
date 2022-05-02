@@ -1,6 +1,7 @@
 package com.bozdi.vapehubbeta.adminFragments
 
 import android.os.Bundle
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,10 +10,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.bozdi.vapehubbeta.ActualCitiesListCallBack
-import com.bozdi.vapehubbeta.AppServices
-import com.bozdi.vapehubbeta.CreateOrderCallBack
-import com.bozdi.vapehubbeta.R
+import com.bozdi.vapehubbeta.*
 import com.bozdi.vapehubbeta.adapters.CouriersAdapter
 import com.bozdi.vapehubbeta.adapters.ManagerActionListener
 import com.bozdi.vapehubbeta.adapters.ManagersAdapter
@@ -30,6 +28,7 @@ class ManagersList : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
+        (activity as MainActivity).supportActionBar?.title = getString(R.string.Managers)
         val res = inflater.inflate(R.layout.fragment_managers_list, container, false)
         val rv: RecyclerView = res.findViewById(R.id.Managers_List)
 
@@ -75,13 +74,19 @@ class ManagersList : Fragment() {
                     }
                 })
         }
+        (getActivity()?.getApplicationContext() as AppServices).serverData.getManagersList()
+        Handler().postDelayed({
+            adapter.notifyDataSetChanged()
+        }, 500)
 
         val refresh = res.findViewById<SwipeRefreshLayout>(R.id.refreshManagersList)
 
         refresh.setOnRefreshListener {
-            Toast.makeText(activity,"Список обновлён", Toast.LENGTH_SHORT).show()
             (getActivity()?.getApplicationContext() as AppServices).serverData.getManagersList()
-            adapter.notifyDataSetChanged()
+            Handler().postDelayed({
+                adapter.notifyDataSetChanged()
+                Toast.makeText(activity,"Список обновлён", Toast.LENGTH_SHORT).show()
+            }, 500)
             refresh.isRefreshing = false;
         }
 

@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.bozdi.vapehubbeta.AppServices
 import com.bozdi.vapehubbeta.CreateOrderCallBack
+import com.bozdi.vapehubbeta.MainActivity
 import com.bozdi.vapehubbeta.R
 import com.bozdi.vapehubbeta.managerFragments.OrderEdit
 import com.bozdi.vapehubbeta.model.OrdersData
@@ -22,6 +23,7 @@ class StoreReview(private var selectStore: StoresData) : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        (activity as MainActivity).supportActionBar?.title = getString(R.string.StoreReview)
         val res = inflater.inflate(R.layout.fragment_store_review, container, false)
 
         res.findViewById<TextView>(R.id.storeReviewCityET).setText(selectStore.CityId)

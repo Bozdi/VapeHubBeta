@@ -66,28 +66,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editManagerLoginET" />
 
-        <Spinner
-            android:id="@+id/spinnerStoreManagerEdit"
-            style="@style/EditTextStyle17"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:minHeight="48dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editManagerPasswordET"
-            tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
-
 
         <Button
-            android:id="@+id/editOrderSaveChangesButton"
+            android:id="@+id/editManagerSaveChangesButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Сохранить изменения"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinnerStoreManagerEdit" />
+            app:layout_constraintTop_toBottomOf="@+id/editManagerPasswordET" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

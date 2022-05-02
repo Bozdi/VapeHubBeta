@@ -15,14 +15,12 @@ import com.bozdi.vapehubbeta.model.CouriersData
 
 class ManagerCourierReview(private var selectCourier: CouriersData, private var Street: String) : Fragment() {
 
-    private val mHandler: Handler = Handler(Looper.getMainLooper())
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        (activity as MainActivity).supportActionBar?.title = getString(R.string.CourierReview)
         val res = inflater.inflate(R.layout.fragment_manager_courier_review, container, false)
-
 
         res.findViewById<TextView>(R.id.courierReviewNameET).text = selectCourier.Name
         res.findViewById<TextView>(R.id.courierReviewLoginET).text = selectCourier.Login
@@ -66,10 +64,5 @@ class ManagerCourierReview(private var selectCourier: CouriersData, private var 
 
         return res
 
-    }
-
-    private fun settext(Street: String)
-    {
-        activity?.findViewById<TextView>(R.id.courierReviewStoreAddressET)?.text =Street;
     }
 }

@@ -15,6 +15,7 @@ class CityNew : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        (activity as MainActivity).supportActionBar?.title = getString(R.string.CityNew)
 
         val res = inflater.inflate(R.layout.fragment_city_new, container, false)
 

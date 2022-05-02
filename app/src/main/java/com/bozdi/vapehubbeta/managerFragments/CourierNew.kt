@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.Spinner
 import com.bozdi.vapehubbeta.AppServices
 import com.bozdi.vapehubbeta.CreateOrderCallBack
+import com.bozdi.vapehubbeta.MainActivity
 import com.bozdi.vapehubbeta.R
 import com.bozdi.vapehubbeta.adminFragments.CitiesList
 
@@ -24,7 +25,7 @@ class CourierNew(private var CitiesIds: Array<String>,
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        (activity as MainActivity).supportActionBar?.title = getString(R.string.CourierNew)
         val res = inflater.inflate(R.layout.fragment_courier_new, container, false)
 
         val spinnerCities : Spinner = res.findViewById<Spinner>(R.id.spinnerCitiesCourier)

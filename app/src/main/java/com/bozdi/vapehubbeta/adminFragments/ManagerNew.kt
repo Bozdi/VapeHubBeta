@@ -8,6 +8,7 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import com.bozdi.vapehubbeta.AppServices
 import com.bozdi.vapehubbeta.CreateOrderCallBack
+import com.bozdi.vapehubbeta.MainActivity
 import com.bozdi.vapehubbeta.R
 
 class ManagerNew(private var CitiesIds: Array<String>,
@@ -20,7 +21,7 @@ class ManagerNew(private var CitiesIds: Array<String>,
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        (activity as MainActivity).supportActionBar?.title = getString(R.string.ManagerNew)
         val res = inflater.inflate(R.layout.fragment_manager_new, container, false)
 
         val spinnerCities : Spinner = res.findViewById<Spinner>(R.id.spinnerCities)

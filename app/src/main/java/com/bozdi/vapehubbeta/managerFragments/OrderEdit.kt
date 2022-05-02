@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.inflate
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
-import com.bozdi.vapehubbeta.OrdersList
-import com.bozdi.vapehubbeta.R
+import com.bozdi.vapehubbeta.*
+import com.bozdi.vapehubbeta.adminFragments.ManagersList
 import com.bozdi.vapehubbeta.databinding.ActivityLoginBinding.inflate
 import com.bozdi.vapehubbeta.databinding.CourierGoodItemBinding.inflate
 import com.bozdi.vapehubbeta.databinding.FragmentOrderEditBinding
@@ -27,6 +29,7 @@ class OrderEdit(private var selectOrder: OrdersData) : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        (activity as MainActivity).supportActionBar?.title = getString(R.string.OrderEdit)
         val res = inflater.inflate(R.layout.fragment_order_edit, container, false)
 
         res.findViewById<TextView>(R.id.editOrderNameET).setText(selectOrder.ClientName)
@@ -35,6 +38,39 @@ class OrderEdit(private var selectOrder: OrdersData) : Fragment() {
         res.findViewById<TextView>(R.id.editOrderStreetNameET).setText(selectOrder.StreetName)
         res.findViewById<TextView>(R.id.editOrderApartNumET).setText(selectOrder.ApartNum)
         res.findViewById<TextView>(R.id.editOrderEntranceNumET).setText(selectOrder.EntranceNum)
+
+        res.findViewById<Button>(R.id.editOrderSaveChangesButton).setOnClickListener {
+
+            (getActivity()?.getApplicationContext() as AppServices).serverData.editOrder(
+
+                res.findViewById<EditText>(R.id.editOrderNameET).text.toString(),
+                res.findViewById<EditText>(R.id.editOrderPhoneNumberET).text.toString(),
+                res.findViewById<EditText>(R.id.editOrderStreetNameET).text.toString(),
+                res.findViewById<EditText>(R.id.editOrderBuildingNumberET).text.toString(),
+                res.findViewById<EditText>(R.id.editOrderApartNumET).text.toString(),
+                res.findViewById<EditText>(R.id.editOrderEntranceNumET).text.toString(),
+                selectOrder.OrderId,
+
+                object : CreateOrderCallBack {
+                    override fun onSuccess() {
+                        (getActivity()?.getApplicationContext() as AppServices).serverData.getOrdersList()
+                        activity?.supportFragmentManager?.beginTransaction()
+                            ?.replace(R.id.fragment_container, OrdersList())
+                            ?.addToBackStack(null)
+                            ?.commit()
+                    }
+
+                    override fun onError(text: String) {
+                        (getActivity()?.getApplicationContext() as AppServices).serverData.getOrdersList()
+                        activity?.supportFragmentManager?.beginTransaction()
+                            ?.replace(R.id.fragment_container, OrdersList())
+                            ?.addToBackStack(null)
+                            ?.commit()
+                    }
+                }
+            )
+
+        }
 
         return res
 

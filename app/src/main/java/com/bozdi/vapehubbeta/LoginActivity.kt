@@ -21,7 +21,7 @@ class LoginActivity : AppCompatActivity() {
 
         val login: EditText = findViewById(R.id.editTextLogin)
         val password: EditText = findViewById(R.id.editTextPassword)
-        login.setText("NewUser")
+        login.setText("TestUser")
         password.setText("1234")
         val button: Button = findViewById(R.id.loginButton)
         button.setOnClickListener {
@@ -44,7 +44,7 @@ class LoginActivity : AppCompatActivity() {
                     var body: String = response?.body()?.string().toString()
                     if (response?.code().toString() != "200") {
                         Log.e("HTTP", "Error Auth")
-//
+
                     } else {
                         globVar.token = (JSONObject(body).getString("AuthToken")).toString()
                         globVar.UserId = (JSONObject(body).getString("UserId")).toString()
@@ -76,9 +76,10 @@ class LoginActivity : AppCompatActivity() {
                 globVar.Login = (JSONObject(body).getString("Login")).toString()
                 globVar.ProfileName = (JSONObject(body).getString("Name")).toString()
                 globVar.ProfilePhoneNumber = (JSONObject(body).getString("Phone")).toString()
-                if(globVar.UserType == "MNGR" || globVar.UserType == "COUR")
-                globVar.StoreId = (JSONObject(body).getInt("StoreID"))
+                if (globVar.UserType == "MNGR" || globVar.UserType == "COUR")
+                    globVar.StoreId = (JSONObject(body).getInt("StoreID"))
 
+                if (globVar.UserType == "MNGR" || globVar.UserType == "COUR") {
                 (applicationContext as AppServices).serverData.getStoreData(globVar.StoreId.toString(),
                     object : StorageDateListCallBack {
                         override fun onSuccess(Street: String) {
@@ -89,12 +90,30 @@ class LoginActivity : AppCompatActivity() {
                         }
 
                         override fun onError(text: String) {
-                            TODO("Not yet implemented")                    }
+                            TODO("Not yet implemented")
+                        }
 
 
                     }
                 )
+                } else {
+                    (applicationContext as AppServices).serverData.getStoreData("3",
+                        object : StorageDateListCallBack {
+                            override fun onSuccess(Street: String) {
 
+                                globVar.ProfileStoreName = Street
+                                val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                                startActivity(intent)
+                            }
+
+                            override fun onError(text: String) {
+                                TODO("Not yet implemented")
+                            }
+
+
+                        }
+                    )
+                }
 
             }
         })

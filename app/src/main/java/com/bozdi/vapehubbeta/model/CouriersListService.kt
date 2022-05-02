@@ -21,16 +21,15 @@ class CouriersListService {
             couriers.add(
                 courier
             )
-            //notifyChanges()
         } else {
-            couriers[index].Name = courier.Name;
+            couriers[index].Name = courier.Name
         }
+       // notifyChanges()
     }
 
     fun del(courier: CouriersData) {
         val indexToDel = couriers.indexOfFirst { it.UserId == courier.UserId }
-        if (indexToDel != -1)
-        {
+        if (indexToDel != -1) {
             couriers.removeAt(indexToDel)
             notifyChanges()
         }
@@ -46,7 +45,8 @@ class CouriersListService {
     }
 
     private fun notifyChanges(){
-        listeners.forEach{it.invoke(couriers)}
+        listeners.forEach{
+            it.invoke(couriers)}
     }
 
 }

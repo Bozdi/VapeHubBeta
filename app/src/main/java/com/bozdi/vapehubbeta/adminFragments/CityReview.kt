@@ -43,6 +43,7 @@ class CityReview(private var selectCity: CitiesData) : Fragment() {
 
                 object : CreateOrderCallBack {
                     override fun onSuccess() {
+                        (getActivity()?.getApplicationContext() as AppServices).citiesService.del(selectCity)
                         (getActivity()?.getApplicationContext() as AppServices).serverData.getCitiesList()
                         activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.fragment_container, CitiesList())

@@ -9,10 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import com.bozdi.vapehubbeta.AppServices
-import com.bozdi.vapehubbeta.CreateOrderCallBack
-import com.bozdi.vapehubbeta.GlobalVars
-import com.bozdi.vapehubbeta.R
+import com.bozdi.vapehubbeta.*
 import com.bozdi.vapehubbeta.databinding.FragmentCityEditBinding
 import com.bozdi.vapehubbeta.databinding.FragmentOrderEditBinding
 import com.bozdi.vapehubbeta.model.CitiesData
@@ -32,6 +29,7 @@ class CityEdit(private var selectCity: CitiesData) : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        (activity as MainActivity).supportActionBar?.title = getString(R.string.CityEdit)
         val res = inflater.inflate(R.layout.fragment_city_edit, container, false)
 
         res.findViewById<TextView>(R.id.editCityNameET).setText(selectCity.Name)

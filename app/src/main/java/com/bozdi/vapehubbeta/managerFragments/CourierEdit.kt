@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.TextView
 import com.bozdi.vapehubbeta.AppServices
 import com.bozdi.vapehubbeta.CreateOrderCallBack
+import com.bozdi.vapehubbeta.MainActivity
 import com.bozdi.vapehubbeta.R
 import com.bozdi.vapehubbeta.databinding.FragmentCourierEditBinding
 import com.bozdi.vapehubbeta.databinding.FragmentManagerEditBinding
@@ -28,6 +29,7 @@ class CourierEdit(private var selectCourier: CouriersData) : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        (activity as MainActivity).supportActionBar?.title = getString(R.string.CourierEdit)
         val res = inflater.inflate(R.layout.fragment_courier_edit, container, false)
 
         res.findViewById<TextView>(R.id.editCourierNameET).setText(selectCourier.Name)
@@ -36,8 +38,7 @@ class CourierEdit(private var selectCourier: CouriersData) : Fragment() {
 
         res.findViewById<Button>(R.id.editCourierSaveChangesButton).setOnClickListener {
 
-            val userType = "COUR"
-            (getActivity()?.getApplicationContext() as AppServices).serverData.editCourier(
+            (getActivity()?.getApplicationContext() as AppServices).serverData.editUser(
 
                 res.findViewById<EditText>(R.id.editCourierLoginET).text.toString(),
                 res.findViewById<EditText>(R.id.editCourierPasswordET).text.toString(),

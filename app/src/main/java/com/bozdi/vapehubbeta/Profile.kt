@@ -16,6 +16,7 @@ class Profile : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        (activity as MainActivity).supportActionBar?.title = getString(R.string.Profile)
         val res =  inflater.inflate(R.layout.fragment_profile, container, false)
 
         res.findViewById<TextView>(R.id.profileLoginTV).text = GlobalVars.Login

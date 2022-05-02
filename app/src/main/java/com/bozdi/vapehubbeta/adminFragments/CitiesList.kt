@@ -58,6 +58,7 @@ class CitiesList : Fragment() {
         }, 500)
 
         val refresh = res.findViewById<SwipeRefreshLayout>(R.id.refreshCitiesList)
+
         refresh.setOnRefreshListener {
             (getActivity()?.getApplicationContext() as AppServices).serverData.getCitiesList()
             Handler().postDelayed({

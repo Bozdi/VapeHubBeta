@@ -1,6 +1,7 @@
 package com.bozdi.vapehubbeta.adminFragments
 
 import android.os.Bundle
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bozdi.vapehubbeta.AppServices
+import com.bozdi.vapehubbeta.MainActivity
 import com.bozdi.vapehubbeta.R
 import com.bozdi.vapehubbeta.adapters.*
 import com.bozdi.vapehubbeta.managerFragments.OrderNew
@@ -23,6 +25,7 @@ class StoresList : Fragment() {
         get() = (getActivity()?.getApplicationContext() as AppServices).storesService
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
+        (activity as MainActivity).supportActionBar?.title = getString(R.string.StoresList)
         val res = inflater.inflate(R.layout.fragment_stores_list, container, false)
         val rv: RecyclerView = res.findViewById(R.id.Stores_List)
 
@@ -46,12 +49,18 @@ class StoresList : Fragment() {
                 ?.addToBackStack(null)
                 ?.commit()
         }
+        (getActivity()?.getApplicationContext() as AppServices).serverData.getStoresList()
+        Handler().postDelayed({
+            adapter.notifyDataSetChanged()
+        }, 500)
 
         val refresh = res.findViewById<SwipeRefreshLayout>(R.id.refresh_Stores_List)
         refresh.setOnRefreshListener {
-            Toast.makeText(activity,"Список обновлён", Toast.LENGTH_SHORT).show()
             (getActivity()?.getApplicationContext() as AppServices).serverData.getStoresList()
-            adapter.notifyDataSetChanged()
+            Handler().postDelayed({
+                adapter.notifyDataSetChanged()
+                Toast.makeText(activity,"Список обновлён", Toast.LENGTH_SHORT).show()
+            }, 500)
             refresh.isRefreshing = false
         }
         return res

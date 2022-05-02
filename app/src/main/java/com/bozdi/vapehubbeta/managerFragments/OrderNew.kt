@@ -55,6 +55,7 @@ class OrderNew() : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        (activity as MainActivity).supportActionBar?.title = getString(R.string.OrderNew)
         val res = inflater.inflate(R.layout.fragment_order_new, container, false)
 
         val rv: RecyclerView = res.findViewById(R.id.selectedGoodList)

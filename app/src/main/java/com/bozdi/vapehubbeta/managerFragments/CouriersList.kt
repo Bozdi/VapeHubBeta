@@ -1,6 +1,7 @@
 package com.bozdi.vapehubbeta.managerFragments
 
 import android.os.Bundle
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,11 +10,8 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.bozdi.vapehubbeta.ActualCitiesListCallBack
-import com.bozdi.vapehubbeta.AppServices
+import com.bozdi.vapehubbeta.*
 import com.bozdi.vapehubbeta.adapters.CouriersAdapter
-import com.bozdi.vapehubbeta.R
-import com.bozdi.vapehubbeta.StorageDateListCallBack
 import com.bozdi.vapehubbeta.adapters.CouriersActionListener
 import com.bozdi.vapehubbeta.model.CouriersData
 import com.bozdi.vapehubbeta.model.CouriersListService
@@ -28,6 +26,8 @@ class CouriersList : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
+
+        (activity as MainActivity).supportActionBar?.title = getString(R.string.Couriers)
         val res = inflater.inflate(R.layout.fragment_manager_couriers, container, false)
         val rv: RecyclerView = res.findViewById(R.id.Couriers_List)
 
@@ -84,13 +84,19 @@ class CouriersList : Fragment() {
                     }
             })
     }
+        (getActivity()?.getApplicationContext() as AppServices).serverData.getCouriersList()
+        Handler().postDelayed({
+            adapter.notifyDataSetChanged()
+        }, 500)
 
     val refresh = res.findViewById<SwipeRefreshLayout>(R.id.refreshCouriersList)
 
     refresh.setOnRefreshListener {
-        Toast.makeText(activity,"Список обновлён",Toast.LENGTH_SHORT).show()
         (getActivity()?.getApplicationContext() as AppServices).serverData.getCouriersList()
-        adapter.notifyDataSetChanged()
+        Handler().postDelayed({
+            adapter.notifyDataSetChanged()
+            Toast.makeText(activity,"Список обновлён", Toast.LENGTH_SHORT).show()
+        }, 500)
         refresh.isRefreshing = false;
     }
 

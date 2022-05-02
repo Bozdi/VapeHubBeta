@@ -19,15 +19,14 @@ class OrderListService {
                 order
             )
         } else {
-            orders[index].OrderId = order.OrderId;
+            orders[index].StreetName = order.StreetName;
         }
-        notifyChanges()
+        //notifyChanges()
     }
 
     fun del(order: OrdersData) {
         val indexToDel = orders.indexOfFirst { it.OrderId == order.OrderId }
-        if (indexToDel != -1)
-        {
+        if (indexToDel != -1) {
             orders.removeAt(indexToDel)
             notifyChanges()
         }

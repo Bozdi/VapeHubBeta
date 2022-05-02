@@ -20,7 +20,7 @@ class CitiesAdapter(private val actionListener: CitiesActionListener) : Recycler
         @SuppressLint("NotifyDataSetChanged")
         set(newValue) {
             field = newValue
-          //  notifyDataSetChanged()
+            notifyDataSetChanged()
         }
 
     override fun onClick(v: View) {

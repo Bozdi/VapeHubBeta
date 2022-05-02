@@ -5,13 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import com.bozdi.vapehubbeta.AppServices
 import com.bozdi.vapehubbeta.CreateOrderCallBack
+import com.bozdi.vapehubbeta.MainActivity
 import com.bozdi.vapehubbeta.R
 import com.bozdi.vapehubbeta.databinding.FragmentManagerEditBinding
 import com.bozdi.vapehubbeta.databinding.FragmentOrderEditBinding
+import com.bozdi.vapehubbeta.managerFragments.CouriersList
 import com.bozdi.vapehubbeta.model.ManagersData
 import com.bozdi.vapehubbeta.model.OrdersData
 import com.bozdi.vapehubbeta.model.SelectedManagersStoreData
@@ -29,47 +32,46 @@ class ManagerEdit(private var selectManager: ManagersData) : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return null
-    }
-}
-//        val res = inflater.inflate(R.layout.fragment_manager_edit, container, false)
-//
-//        res.findViewById<TextView>(R.id.editManagerNameET).setText(selectManager.Name)
-//        res.findViewById<TextView>(R.id.editManagerLoginET).setText(selectManager.Login)
-//        res.findViewById<TextView>(R.id.editManagerStoreAddressET).setText("citie")
-//        res.findViewById<TextView>(R.id.editManagerPhoneNumberET).setText(selectManager.Phone)
+        (activity as MainActivity).supportActionBar?.title = getString(R.string.ManagerEdit)
+        val res = inflater.inflate(R.layout.fragment_manager_edit, container, false)
 
-//        (getActivity()?.getApplicationContext() as AppServices).serverData.editManager(
-//            selectManager.UserId.toString(),
-//            res.findViewById<EditText>(R.id.newManagerPhoneNumberET).text.toString(),
-//            res.findViewById<EditText>(R.id.newManagerLoginET).text.toString(),
-//            res.findViewById<EditText>(R.id.newManagerPasswordET).text.toString(),
-//            res.findViewById<EditText>(R.id.newManagerNameET).text.toString(),
-//            StoresIds[spinnerStores.selectedItemPosition],
-//
-//            object : CreateOrderCallBack {
-//                override fun onSuccess() {
-//                    (getActivity()?.getApplicationContext() as AppServices).serverData.getCitiesList()
-//                    activity?.supportFragmentManager?.beginTransaction()
-//                        ?.replace(R.id.fragment_container, CitiesList())
-//                        ?.addToBackStack(null)
-//                        ?.commit()
-//                }
-//
-//                override fun onError(text: String) {
-//
-//                    (getActivity()?.getApplicationContext() as AppServices).serverData.getCitiesList()
-//                    activity?.supportFragmentManager?.beginTransaction()
-//                        ?.replace(R.id.fragment_container, CitiesList())
-//                        ?.addToBackStack(null)
-//                        ?.commit()
-//                }
-//            }
-////        )
-//
-//    }
-//    return res
-//
-//}
-//
-//}
+        res.findViewById<TextView>(R.id.editManagerNameET).setText(selectManager.Name)
+        res.findViewById<TextView>(R.id.editManagerLoginET).setText(selectManager.Login)
+        res.findViewById<TextView>(R.id.editManagerPhoneNumberET).setText(selectManager.Phone)
+
+        res.findViewById<Button>(R.id.editManagerSaveChangesButton).setOnClickListener {
+
+            (getActivity()?.getApplicationContext() as AppServices).serverData.editUser(
+
+                res.findViewById<EditText>(R.id.editManagerLoginET).text.toString(),
+                res.findViewById<EditText>(R.id.editManagerPasswordET).text.toString(),
+                res.findViewById<EditText>(R.id.editManagerNameET).text.toString(),
+                res.findViewById<EditText>(R.id.editManagerPhoneNumberET).text.toString(),
+                selectManager.UserId,
+
+                object : CreateOrderCallBack {
+                    override fun onSuccess() {
+                        (getActivity()?.getApplicationContext() as AppServices).serverData.getManagersList()
+                        activity?.supportFragmentManager?.beginTransaction()
+                            ?.replace(R.id.fragment_container, ManagersList())
+                            ?.addToBackStack(null)
+                            ?.commit()
+                    }
+
+                    override fun onError(text: String) {
+                        (getActivity()?.getApplicationContext() as AppServices).serverData.getManagersList()
+                        activity?.supportFragmentManager?.beginTransaction()
+                            ?.replace(R.id.fragment_container, ManagersList())
+                            ?.addToBackStack(null)
+                            ?.commit()
+                    }
+                }
+            )
+
+        }
+
+        return res
+
+    }
+
+}

@@ -25,8 +25,7 @@ class CitiesListService {
 
     fun del(city: CitiesData) {
         val indexToDel = cities.indexOfFirst { it.CityId == city.CityId }
-        if (indexToDel != -1)
-        {
+        if (indexToDel != -1) {
             cities.removeAt(indexToDel)
             notifyChanges()
         }
@@ -42,7 +41,8 @@ class CitiesListService {
     }
 
     private fun notifyChanges(){
-        listeners.forEach{it.invoke(cities)}
+        listeners.forEach{
+            it.invoke(cities)}
     }
 
 }

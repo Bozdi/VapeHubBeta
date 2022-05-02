@@ -3,4 +3,31 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="Pending">Ожидает</string>
+    <string name="Orders">Заказы</string>
+    <string name="Couriers">Курьеры</string>
+    <string name="Map">Карта</string>
+    <string name="Managers">Менеджеры</string>
+    <string name="Cities">Города</string>
+    <string name="Stores">Магазины</string>
+    <string name="Profile">Профиль</string>
+    <string name="OrderEdit">Редактирование заказа</string>
+    <string name="OrderNew">Новый заказ</string>
+    <string name="CourierReview">Курьер</string>
+    <string name="CourierNew">Новый курьер</string>
+    <string name="CourierEdit">Редактирование курьера</string>
+    <string name="ProfileEdit">Редактирование профиля</string>
+    <string name="OrderReview">Заказ</string>
+    <string name="ManagerNew">Новый менеджер</string>
+    <string name="ManagerReview">Менеджер</string>
+    <string name="CityNew">Новый город</string>
+    <string name="ManagerEdit">Редактирование менеджера</string>
+    <string name="StoreEdit">Редактирование магазина</string>
+    <string name="StoreNew">Новый магазин</string>
+    <string name="StoreReview">Магазин</string>
+    <string name="StoresList">Магазины</string>
+    <string name="CityEdit">Редактирование города</string>
+    <!--    <string name=""></string>-->
+<!--    <string name=""></string>-->
+<!--    <string name=""></string>-->
+<!--    <string name=""></string>-->
 </resources>
