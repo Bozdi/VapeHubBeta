@@ -1,6 +1,7 @@
 package com.bozdi.vapehubbeta
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +12,7 @@ import com.bozdi.vapehubbeta.adminFragments.ManagersList
 import com.bozdi.vapehubbeta.adminFragments.StoresList
 import com.bozdi.vapehubbeta.courierFragments.CourierGoods
 import com.bozdi.vapehubbeta.managerFragments.CouriersList
+import com.bozdi.vapehubbeta.managerFragments.ManagerCourierReview
 import com.bozdi.vapehubbeta.model.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import okhttp3.*
@@ -32,6 +34,20 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        //--------------------------------------------------------------------
+        (getApplicationContext() as AppServices).serverData.getCityName(
+            object : GetCityNameCallBack {
+                override fun onSuccess(Street: String) {
+                    Log.e("getCityName_result", Street);
+                }
+
+                override fun onError(text: String) {
+                    TODO("Not yet implemented")                    }
+
+
+            }
+        )
+        //--------------------------------------------------------------------
         when(globVar.UserType) {
             "ADMN" -> replaceFragment(adminCities)
             else -> replaceFragment(managerOrders)

@@ -52,6 +52,7 @@ class CityReview(private var selectCity: CitiesData) : Fragment() {
                        }
 
                     override fun onError(text: String) {
+                        (getActivity()?.getApplicationContext() as AppServices).citiesService.del(selectCity)
                         (getActivity()?.getApplicationContext() as AppServices).serverData.getCitiesList()
                         activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.fragment_container, CitiesList())

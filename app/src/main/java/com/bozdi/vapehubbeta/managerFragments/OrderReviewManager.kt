@@ -55,6 +55,7 @@ class OrderReviewManager(private var selectOrder: OrdersData) : Fragment() {
                     }
 
                     override fun onError(text: String) {
+                        (getActivity()?.getApplicationContext() as AppServices).ordersService.del(selectOrder)
                         (getActivity()?.getApplicationContext() as AppServices).serverData.getOrdersList()
                         activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.fragment_container, OrdersList())

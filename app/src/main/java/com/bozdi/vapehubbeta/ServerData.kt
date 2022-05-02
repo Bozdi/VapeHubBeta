@@ -1,6 +1,7 @@
 package com.bozdi.vapehubbeta
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import com.bozdi.vapehubbeta.model.*
 import okhttp3.*
@@ -27,6 +28,11 @@ interface StorageDateListCallBack {
 
 interface GetCityNameCallBack {
     fun onSuccess(Name: String);
+    fun onError(text: String)
+}
+
+interface GetUserDataCallBack {
+    fun onSuccess();
     fun onError(text: String)
 }
 
@@ -600,20 +606,85 @@ class ServerData(_context: Context) {
 
             override fun onResponse(call: Call?, response: Response?) {
                 var body = response?.body()?.string().toString()
-                Log.e("cities", body)
+                Log.e("getCityName", body)
+                var Name : String = "None";
                 val objects: JSONArray = JSONTokener(body).nextValue() as JSONArray
                 for (i in 0 until objects.length()) {
                     val keys = objects.getString(i)
                     val value: JSONObject = JSONObject(keys)
 
-
-                    ids.add(value.getString("CityId"))
-
-                    names.add(value.getString("Name"))
+                   Name = value.getString("Name");
+                    break;
                 }
+                action.onSuccess(Name)
 
-                action.onSuccess(ids.toTypedArray(), names.toTypedArray())
+               // action.onSuccess(ids.toTypedArray(), names.toTypedArray())
 
+
+            }
+        })
+    }
+
+    fun getUserType(
+        action: GetUserDataCallBack
+    ) {
+        val request: Request = Request.Builder()
+            .url(globVar.URL + "users/${globVar.UserId}/")
+            .addHeader("Content-Type", "application/x-www-form-urlencoded")
+            .addHeader("auth-token", globVar.token)
+            .get()
+            .build()
+        okHttpClient.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call?, e: IOException?) {
+                Log.e("json", e.toString())
+            }
+
+            override fun onResponse(call: Call?, response: Response?) {
+                var body: String = response?.body()?.string().toString()
+                Log.e("StoreId", body)
+                globVar.UserType = (JSONObject(body).getString("Type")).toString()
+                globVar.Login = (JSONObject(body).getString("Login")).toString()
+                globVar.ProfileName = (JSONObject(body).getString("Name")).toString()
+                globVar.ProfilePhoneNumber = (JSONObject(body).getString("Phone")).toString()
+                if (globVar.UserType == "MNGR" || globVar.UserType == "COUR")
+                    globVar.StoreId = (JSONObject(body).getInt("StoreID"))
+
+                if (globVar.UserType == "MNGR" || globVar.UserType == "COUR") {
+                    getStoreData(globVar.StoreId.toString(),
+                        object : StorageDateListCallBack {
+                            override fun onSuccess(Street: String) {
+
+                                globVar.ProfileStoreName = Street
+                                action.onSuccess();
+
+                            }
+
+                            override fun onError(text: String) {
+                                action.onError(text);
+                                TODO("Not yet implemented")
+                            }
+
+
+                        }
+                    )
+                } else {
+                    getStoreData("3",
+                        object : StorageDateListCallBack {
+                            override fun onSuccess(Street: String) {
+
+                                globVar.ProfileStoreName = Street
+                                action.onSuccess();
+                            }
+
+                            override fun onError(text: String) {
+                                action.onError(text)
+                                TODO("Not yet implemented")
+                            }
+
+
+                        }
+                    )
+                }
 
             }
         })

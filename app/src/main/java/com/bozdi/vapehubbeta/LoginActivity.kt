@@ -57,66 +57,22 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    public fun getUserType() {
-        val request: Request = Request.Builder()
-            .url(globVar.URL + "users/${globVar.UserId}/")
-            .addHeader("Content-Type", "application/x-www-form-urlencoded")
-            .addHeader("auth-token", globVar.token)
-            .get()
-            .build()
-        okHttpClient.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call?, e: IOException?) {
-                Log.e("json", e.toString())
-            }
-
-            override fun onResponse(call: Call?, response: Response?) {
-                var body: String = response?.body()?.string().toString()
-                Log.e("StoreId", body)
-                globVar.UserType = (JSONObject(body).getString("Type")).toString()
-                globVar.Login = (JSONObject(body).getString("Login")).toString()
-                globVar.ProfileName = (JSONObject(body).getString("Name")).toString()
-                globVar.ProfilePhoneNumber = (JSONObject(body).getString("Phone")).toString()
-                if (globVar.UserType == "MNGR" || globVar.UserType == "COUR")
-                    globVar.StoreId = (JSONObject(body).getInt("StoreID"))
-
-                if (globVar.UserType == "MNGR" || globVar.UserType == "COUR") {
-                (applicationContext as AppServices).serverData.getStoreData(globVar.StoreId.toString(),
-                    object : StorageDateListCallBack {
-                        override fun onSuccess(Street: String) {
-
-                            globVar.ProfileStoreName = Street
-                            val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                            startActivity(intent)
-                        }
-
-                        override fun onError(text: String) {
-                            TODO("Not yet implemented")
-                        }
-
-
-                    }
-                )
-                } else {
-                    (applicationContext as AppServices).serverData.getStoreData("3",
-                        object : StorageDateListCallBack {
-                            override fun onSuccess(Street: String) {
-
-                                globVar.ProfileStoreName = Street
-                                val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                                startActivity(intent)
-                            }
-
-                            override fun onError(text: String) {
-                                TODO("Not yet implemented")
-                            }
-
-
-                        }
-                    )
+    private fun getUserType()
+    {
+        (applicationContext as AppServices).serverData.getUserType(
+            object : GetUserDataCallBack {
+                override fun onSuccess() {
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    startActivity(intent)
                 }
 
+                override fun onError(text: String) {
+                    TODO("Not yet implemented")
+                }
+
+
             }
-        })
+        )
     }
 
 
