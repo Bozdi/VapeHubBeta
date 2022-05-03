@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bozdi.vapehubbeta.adapters.OrderActionListener
 import com.bozdi.vapehubbeta.adapters.OrdersAdapter
+import com.bozdi.vapehubbeta.courierFragments.OrderReviewCourier
+import com.bozdi.vapehubbeta.courierFragments.OrderTaken
 import com.bozdi.vapehubbeta.managerFragments.OrderNew
 import com.bozdi.vapehubbeta.managerFragments.OrderReviewManager
 import com.bozdi.vapehubbeta.model.OrderListService
@@ -33,10 +35,26 @@ class OrdersList : Fragment() {
 
         adapter = OrdersAdapter(object : OrderActionListener {
             override fun onOrderClick(order: OrdersData) {
-                activity?.supportFragmentManager?.beginTransaction()
-                    ?.replace(R.id.fragment_container, OrderReviewManager(order))
-                    ?.addToBackStack(null)
-                    ?.commit()
+                if(GlobalVars.UserType == "MNGR") {
+                    activity?.supportFragmentManager?.beginTransaction()
+                        ?.replace(R.id.fragment_container, OrderReviewManager(order))
+                        ?.addToBackStack(null)
+                        ?.commit()
+                } else {
+                    if(order.Status == "Ожидает") {
+                        activity?.supportFragmentManager?.beginTransaction()
+                            ?.replace(R.id.fragment_container, OrderReviewCourier(order))
+                            ?.addToBackStack(null)
+                            ?.commit()
+                    } else {
+                        activity?.supportFragmentManager?.beginTransaction()
+                            ?.replace(R.id.fragment_container, OrderTaken(order))
+                            ?.addToBackStack(null)
+                            ?.commit()
+                    }
+
+                }
+
             }
         })
 

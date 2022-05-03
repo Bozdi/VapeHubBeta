@@ -6,19 +6,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".adminFragments.StoreNew">
 
-    <EditText
-        android:id="@+id/newStoreCityET"
+    <Spinner
+        android:id="@+id/newStoreCitiesSpinner"
         style="@style/EditTextStyle17"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
-        android:ems="10"
-        android:hint="Город"
-        android:inputType="textPersonName"
         android:minHeight="48dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
 
     <EditText
         android:id="@+id/newStoreStreetET"
@@ -26,13 +24,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Улица"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newStoreCityET" />
+        app:layout_constraintTop_toBottomOf="@+id/newStoreCitiesSpinner" />
 
     <EditText
         android:id="@+id/newStoreBuildingNumber"

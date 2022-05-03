@@ -35,7 +35,7 @@ class ManagerNew(private var CitiesIds: Array<String>,
         res.findViewById<Button>(R.id.createManagerButton).setOnClickListener {
 
             val userType = "MNGR"
-            (getActivity()?.getApplicationContext() as AppServices).serverData.createManager(
+            (activity?.applicationContext as AppServices).serverData.createManager(
 
                 userType,
                 res.findViewById<EditText>(R.id.newManagerPhoneNumberET).text.toString(),
@@ -46,7 +46,7 @@ class ManagerNew(private var CitiesIds: Array<String>,
 
                 object : CreateUserCallBack {
                     override fun onSuccess() {
-                        (getActivity()?.getApplicationContext() as AppServices).serverData.getManagersList()
+                        (activity?.applicationContext as AppServices).serverData.getManagersList()
                         activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.fragment_container, ManagersList())
                             ?.addToBackStack(null)
@@ -54,7 +54,7 @@ class ManagerNew(private var CitiesIds: Array<String>,
                     }
 
                     override fun onError(text: String) {
-                        (getActivity()?.getApplicationContext() as AppServices).serverData.getManagersList()
+                        (activity?.applicationContext as AppServices).serverData.getManagersList()
                         activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.fragment_container, ManagersList())
                             ?.addToBackStack(null)

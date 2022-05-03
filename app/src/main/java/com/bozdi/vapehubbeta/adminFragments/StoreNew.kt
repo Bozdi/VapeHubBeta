@@ -5,11 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Spinner
 import com.bozdi.vapehubbeta.*
 
-class StoreNew : Fragment() {
+class StoreNew(private var CitiesNames: Array<String>,
+               private var CitiesIds: Array<String>) : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -18,17 +21,22 @@ class StoreNew : Fragment() {
         (activity as MainActivity).supportActionBar?.title = getString(R.string.StoreNew)
         val res = inflater.inflate(R.layout.fragment_store_new, container, false)
 
+        val spinnerCitiesNewStore : Spinner = res.findViewById(R.id.newStoreCitiesSpinner)
+        val citiesAdapter : ArrayAdapter<CharSequence> = ArrayAdapter(res.context, R.layout.spinner_item, CitiesNames)
+        spinnerCitiesNewStore.adapter = citiesAdapter
+        citiesAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
+
         res.findViewById<Button>(R.id.createStoreButton).setOnClickListener {
 
-            (getActivity()?.getApplicationContext() as AppServices).serverData.createStore(
+            (activity?.applicationContext as AppServices).serverData.createStore(
 
+                CitiesIds[spinnerCitiesNewStore.selectedItemPosition].toInt(),
                 res.findViewById<EditText>(R.id.newStoreStreetET).text.toString(),
-                GlobalVars.CityId,
                 res.findViewById<EditText>(R.id.newStoreBuildingNumber).text.toString(),
 
                 object : CreateOrderCallBack {
                     override fun onSuccess() {
-                        (getActivity()?.getApplicationContext() as AppServices).serverData.getStoresList()
+                        (activity?.applicationContext as AppServices).serverData.getStoresList()
                         activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.fragment_container, StoresList())
                             ?.addToBackStack(null)
@@ -37,7 +45,7 @@ class StoreNew : Fragment() {
 
                     override fun onError(text: String) {
 
-                        (getActivity()?.getApplicationContext() as AppServices).serverData.getStoresList()
+                        (activity?.applicationContext as AppServices).serverData.getStoresList()
                         activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.fragment_container, StoresList())
                             ?.addToBackStack(null)

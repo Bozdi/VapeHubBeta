@@ -19,6 +19,11 @@ interface CreateUserCallBack {
     fun onError(text: String)
 }
 
+interface EditCityCallback {
+    fun onSuccess()
+    fun onError(text: String)
+}
+
 interface ActualCitiesListCallBack {
     fun onSuccess(ids: Array<String>, names: Array<String>)
     fun onError(text: String)
@@ -42,7 +47,7 @@ interface GetUserDataCallBack {
 class ServerData(_context: Context) {
 
     var globVar: GlobalVars = GlobalVars
-    var okHttpClient: OkHttpClient = OkHttpClient()
+    private var okHttpClient: OkHttpClient = OkHttpClient()
     var context: Context? = null
 
     init {
@@ -62,7 +67,7 @@ class ServerData(_context: Context) {
             }
 
             override fun onResponse(call: Call?, response: Response?) {
-                var body = response?.body()?.string().toString()
+                val body = response?.body()?.string().toString()
                 Log.i("OrderList JSON", body)
                 val objects: JSONObject = JSONTokener(body).nextValue() as JSONObject
                 val key: JSONArray? = objects.names()
@@ -70,11 +75,11 @@ class ServerData(_context: Context) {
                     for (i in 0 until key.length()) {
                         val keys = key.getString(i)
                         val value: JSONObject = objects.getJSONObject(keys)
-                        var Status = "Ожидает"
+                        var status = "Ожидает"
                         when (value.getString("Status")) {
-                            "PEND" -> Status = "Ожидает"
-                            "ACCEPT" -> Status = "В работе"
-                            "DONE" -> Status = "Доставлен"
+                            "PEND" -> status = "Ожидает"
+                            "ACCEPT" -> status = "В работе"
+                            "DONE" -> status = "Доставлен"
                         }
                         (context as AppServices).ordersService.add(
                             OrdersData(
@@ -90,7 +95,7 @@ class ServerData(_context: Context) {
                                 value.getString("ApartNum"),
                                 value.getString("EntranceNum"),
                                 value.getString("TargetTime"),
-                                Status,
+                                status,
                                 value.getString("GMapPlaceID"),
                                 value.getString("Lat"),
                                 value.getString("Lng"),
@@ -126,7 +131,7 @@ class ServerData(_context: Context) {
             }
 
             override fun onResponse(call: Call?, response: Response?) {
-                var body = response?.body()?.string().toString()
+                val body = response?.body()?.string().toString()
                 Log.e("list", body)
                 val objects: JSONObject = JSONTokener(body).nextValue() as JSONObject
                 val key: JSONArray? = objects.names()
@@ -169,7 +174,7 @@ class ServerData(_context: Context) {
             }
 
             override fun onResponse(call: Call?, response: Response?) {
-                var body = response?.body()?.string().toString()
+                val body = response?.body()?.string().toString()
                 Log.e("list", body)
                 val objects: JSONObject = JSONTokener(body).nextValue() as JSONObject
                 val key: JSONArray? = objects.names()
@@ -226,7 +231,7 @@ class ServerData(_context: Context) {
             }
 
             override fun onResponse(call: Call?, response: Response?) {
-                Log.e("Code Create Order", response?.code().toString());
+                Log.e("Code Create Order", response?.code().toString())
                 if (response?.code() != 201) {
                     actionListener.onError("Ошибка добавления заказа")
                 } else {
@@ -323,8 +328,8 @@ class ServerData(_context: Context) {
     }
 
     fun createStore(
-        Street: String,
         CityId: Int,
+        Street: String,
         BuildingNumber: String,
         actionListener: CreateOrderCallBack
     ) {
@@ -345,7 +350,7 @@ class ServerData(_context: Context) {
             }
 
             override fun onResponse(call: Call?, response: Response?) {
-                Log.e("Code Create Store", response?.code().toString());
+                Log.e("Code Create Store", response?.code().toString())
                 if (response?.code() != 201) {
                     actionListener.onError("Ошибка добавления заказа")
                 } else {
@@ -384,7 +389,7 @@ class ServerData(_context: Context) {
             }
 
             override fun onResponse(call: Call?, response: Response?) {
-                Log.e("Code Create Order", response?.code().toString());
+                Log.e("Code Create Order", response?.code().toString())
                 if (response?.code() != 201) {
                     actionListener.onError("Ошибка создания курьера")
                 } else {
@@ -421,11 +426,11 @@ class ServerData(_context: Context) {
             }
 
             override fun onResponse(call: Call?, response: Response?) {
-                Log.e("Code Create Order", response?.code().toString());
+                Log.e("Code Create Order", response?.code().toString())
                 if (response?.code() != 201) {
                     actionListener.onError("Ошибка редактирования курьера")
                 } else {
-                    actionListener.onSuccess();
+                    actionListener.onSuccess()
                 }
             }
         })
@@ -455,7 +460,7 @@ class ServerData(_context: Context) {
             }
 
             override fun onResponse(call: Call?, response: Response?) {
-                Log.e("Add goods Order", response?.code().toString());
+                Log.e("Add goods Order", response?.code().toString())
                 if (response?.code() != 201) {
                     actionListener.onError("Ошибка добавления заказа")
                 } else {
@@ -580,14 +585,14 @@ class ServerData(_context: Context) {
             }
 
             override fun onResponse(call: Call?, response: Response?) {
-                var body = response?.body()?.string().toString()
+                val body = response?.body()?.string().toString()
                 Log.e("cities", body)
                 val objects: JSONArray = JSONTokener(body).nextValue() as JSONArray
-                var ids = mutableListOf<String>()
-                var names = mutableListOf<String>()
+                val ids = mutableListOf<String>()
+                val names = mutableListOf<String>()
                 for (i in 0 until objects.length()) {
                     val keys = objects.getString(i)
-                    val value: JSONObject = JSONObject(keys)
+                    val value = JSONObject(keys)
 
 
                     ids.add(value.getString("CityId"))
@@ -616,9 +621,8 @@ class ServerData(_context: Context) {
                 Log.e("json", e.toString())
             }
             override fun onResponse(call: Call?, response: Response?) {
-                var body = response?.body()?.string().toString()
+                val body = response?.body()?.string().toString()
                 Log.e("getCityName", body)
-                var name = "None"
                 val objects: JSONObject = JSONTokener(body).nextValue() as JSONObject
 
                 action.onSuccess(objects.getString("Name"))
@@ -641,7 +645,7 @@ class ServerData(_context: Context) {
             }
 
             override fun onResponse(call: Call?, response: Response?) {
-                var body: String = response?.body()?.string().toString()
+                val body: String = response?.body()?.string().toString()
                 Log.e("StoreId", body)
                 globVar.UserType = (JSONObject(body).getString("Type")).toString()
                 globVar.Login = (JSONObject(body).getString("Login")).toString()
@@ -674,7 +678,7 @@ class ServerData(_context: Context) {
                             override fun onSuccess(Street: String) {
 
                                 globVar.ProfileStoreName = Street
-                                action.onSuccess();
+                                action.onSuccess()
                             }
 
                             override fun onError(text: String) {
@@ -711,25 +715,29 @@ class ServerData(_context: Context) {
             }
 
             override fun onResponse(call: Call?, response: Response?) {
-                Log.e("Code createCity", response?.code().toString());
+                Log.e("Code createCity", response?.code().toString())
                 if (response?.code() != 201) {
                     actionListener.onError("Ошибка создания города")
                 } else {
-                    actionListener.onSuccess();
+                    actionListener.onSuccess()
                 }
             }
         })
     }
     fun editStore(
-        Name: String,
-        cityId: String,
-        actionListener: CreateOrderCallBack
+        storeId: String,
+        CityId: String,
+        Street: String,
+        BuildingNumber: String,
+        actionListener: EditCityCallback
     ) {
         val formBody: RequestBody = FormBody.Builder()
-            .add("Name", Name)
+            .add("CityId", CityId)
+            .add("Street", Street)
+            .add("BuildingNumber", BuildingNumber)
             .build()
         val request: Request = Request.Builder()
-            .url(globVar.URL + "cities/")
+            .url(globVar.URL + "stores/" + storeId)
             .addHeader("Content-Type", "application/x-www-form-urlencoded")
             .addHeader("auth-token", globVar.token)
             .post(formBody)
@@ -740,11 +748,11 @@ class ServerData(_context: Context) {
             }
 
             override fun onResponse(call: Call?, response: Response?) {
-                Log.e("Code createCity", response?.code().toString());
+                Log.e("Code createCity", response?.code().toString())
                 if (response?.code() != 201) {
                     actionListener.onError("Ошибка создания города")
                 } else {
-                    actionListener.onSuccess();
+                    actionListener.onSuccess()
                 }
             }
         })
@@ -768,7 +776,7 @@ class ServerData(_context: Context) {
             }
 
             override fun onResponse(call: Call?, response: Response?) {
-                Log.e("Code createCity", response?.code().toString());
+                Log.e("Code createCity", response?.code().toString())
                 if (response?.code() != 201) {
                     actionListener.onError("Ошибка создания города")
                 } else {
@@ -796,7 +804,7 @@ class ServerData(_context: Context) {
             }
 
             override fun onResponse(call: Call?, response: Response?) {
-                Log.e("Code createCity", response?.code().toString());
+                Log.e("Code createCity", response?.code().toString())
                 if (response?.code() != 201) {
                     actionListener.onError("Ошибка создания города")
                 } else {
@@ -824,7 +832,7 @@ class ServerData(_context: Context) {
             }
 
             override fun onResponse(call: Call?, response: Response?) {
-                Log.e("Code createCity", response?.code().toString());
+                Log.e("Code createCity", response?.code().toString())
                 if (response?.code() != 204) {
                     actionListener.onError("Ошибка создания города")
                 } else {
@@ -852,7 +860,7 @@ class ServerData(_context: Context) {
             }
 
             override fun onResponse(call: Call?, response: Response?) {
-                Log.e("Code createCity", response?.code().toString());
+                Log.e("Code createCity", response?.code().toString())
                 if (response?.code() != 201) {
                     actionListener.onError("Ошибка создания города")
                 } else {
@@ -881,7 +889,7 @@ class ServerData(_context: Context) {
             }
 
             override fun onResponse(call: Call?, response: Response?) {
-                Log.e("Code Create Order", response?.code().toString());
+                Log.e("Code Create Order", response?.code().toString())
                 if (response?.code() != 201) {
                     actionListener.onError("Ошибка создания города")
                 } else {
@@ -904,23 +912,25 @@ class ServerData(_context: Context) {
             }
 
             override fun onResponse(call: Call?, response: Response?) {
-                var body = response?.body()?.string().toString()
+                val body = response?.body()?.string().toString()
                 Log.e("list", body)
                 val objects: JSONObject = JSONTokener(body).nextValue() as JSONObject
-                val key: JSONArray = objects.names()
-                for (i in 0 until key.length()) {
-                    val keys = key.getString(i)
-                    val value: JSONObject = objects.getJSONObject(keys)
+                val key: JSONArray? = objects.names()
+                if (key != null) {
+                    for (i in 0 until key.length()) {
+                        val keys = key.getString(i)
+                        val value: JSONObject = objects.getJSONObject(keys)
 
-                    (context as AppServices).courierGoodsService.add(
-                        CourierGoodsData(
-                            value.getString("GoodId"),
-                            value.getString("GoodLink"),
-                            value.getString("Name"),
-                            value.getString("Price"),
-                            value.getString("Available")
+                        (context as AppServices).courierGoodsService.add(
+                            CourierGoodsData(
+                                value.getString("GoodId"),
+                                value.getString("GoodLink"),
+                                value.getString("Name"),
+                                value.getString("Price"),
+                                value.getString("Available")
+                            )
                         )
-                    )
+                    }
                 }
 
 
@@ -941,27 +951,84 @@ class ServerData(_context: Context) {
             }
 
             override fun onResponse(call: Call?, response: Response?) {
-                var body = response?.body()?.string().toString()
+                val body = response?.body()?.string().toString()
                 Log.e("GoodDialog", body)
                 val objects: JSONObject = JSONTokener(body).nextValue() as JSONObject
-                val key: JSONArray = objects.names()
-                for (i in 0 until key.length()) {
-                    val keys = key.getString(i)
-                    val value: JSONObject = objects.getJSONObject(keys)
+                val key: JSONArray? = objects.names()
+                if (key != null) {
+                    for (i in 0 until key.length()) {
+                        val keys = key.getString(i)
+                        val value: JSONObject = objects.getJSONObject(keys)
 
-                    (context as AppServices).goodsDialogService.add(
-                        GoodsData(
-                            value.getString("GoodId"),
-                            value.getString("GoodLink"),
-                            value.getString("Name"),
-                            value.getString("Price"),
-                            value.getString("Available"),
-                            value.getInt("Available"),
+                        (context as AppServices).goodsDialogService.add(
+                            GoodsData(
+                                value.getString("GoodId"),
+                                value.getString("GoodLink"),
+                                value.getString("Name"),
+                                value.getString("Price"),
+                                value.getString("Available"),
+                                value.getInt("Available"),
+                            )
                         )
-                    )
+                    }
                 }
 
 
+            }
+        })
+    }
+
+fun acceptOrder(
+    orderId: String,
+    actionListener: CreateOrderCallBack
+) {
+    val formBody: RequestBody = FormBody.Builder()
+        .build()
+    val request: Request = Request.Builder()
+        .url(globVar.URL + "orders/" + orderId + "/accept")
+        .addHeader("Content-Type", "application/x-www-form-urlencoded")
+        .addHeader("auth-token", globVar.token)
+        .post(formBody)
+        .build()
+    okHttpClient.newCall(request).enqueue(object : Callback {
+        override fun onFailure(call: Call?, e: IOException?) {
+            Log.e("json", e.toString())
+        }
+
+        override fun onResponse(call: Call?, response: Response?) {
+            Log.e("Code createCity", response?.code().toString())
+            if (response?.code() != 204) {
+                actionListener.onError("Ошибка создания города")
+            } else {
+                actionListener.onSuccess()
+            }
+        }
+    })
+}
+    fun completeOrder(
+        orderId: String,
+        actionListener: CreateOrderCallBack
+    ) {
+        val formBody: RequestBody = FormBody.Builder()
+            .build()
+        val request: Request = Request.Builder()
+            .url(globVar.URL + "orders/" + orderId + "/close")
+            .addHeader("Content-Type", "application/x-www-form-urlencoded")
+            .addHeader("auth-token", globVar.token)
+            .post(formBody)
+            .build()
+        okHttpClient.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call?, e: IOException?) {
+                Log.e("json", e.toString())
+            }
+
+            override fun onResponse(call: Call?, response: Response?) {
+                Log.e("Code createCity", response?.code().toString())
+                if (response?.code() != 204) {
+                    actionListener.onError("Ошибка создания города")
+                } else {
+                    actionListener.onSuccess()
+                }
             }
         })
     }

@@ -31,7 +31,6 @@ class ManagerEdit(private var CitiesIds: Array<String>,
         (activity as MainActivity).supportActionBar?.title = getString(R.string.ManagerEdit)
         val res = inflater.inflate(R.layout.fragment_manager_edit, container, false)
 
-        //val spinnerCitiesManagerEdit : Spinner = res.findViewById(R.id.spinnerCities)
         val spinnerStoresManagerEdit : Spinner = res.findViewById(R.id.spinnerStoreManagerEdit)
 
 
@@ -39,13 +38,13 @@ class ManagerEdit(private var CitiesIds: Array<String>,
         storesAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
         spinnerStoresManagerEdit.adapter = storesAdapter
 
-        res.findViewById<TextView>(R.id.editManagerNameET).setText(selectManager.Name)
-        res.findViewById<TextView>(R.id.editManagerLoginET).setText(selectManager.Login)
-        res.findViewById<TextView>(R.id.editManagerPhoneNumberET).setText(selectManager.Phone)
+        res.findViewById<TextView>(R.id.editManagerNameET).text = selectManager.Name
+        res.findViewById<TextView>(R.id.editManagerLoginET).text = selectManager.Login
+        res.findViewById<TextView>(R.id.editManagerPhoneNumberET).text = selectManager.Phone
 
         res.findViewById<Button>(R.id.editManagerSaveChangesButton).setOnClickListener {
 
-            (getActivity()?.getApplicationContext() as AppServices).serverData.editUser(
+            (activity?.applicationContext as AppServices).serverData.editUser(
 
                 res.findViewById<EditText>(R.id.editManagerLoginET).text.toString(),
                 res.findViewById<EditText>(R.id.editManagerPasswordET).text.toString(),
@@ -56,7 +55,7 @@ class ManagerEdit(private var CitiesIds: Array<String>,
 
                 object : CreateUserCallBack {
                     override fun onSuccess() {
-                        (getActivity()?.getApplicationContext() as AppServices).serverData.getManagersList()
+                        (activity?.applicationContext as AppServices).serverData.getManagersList()
                         activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.fragment_container, ManagersList())
                             ?.addToBackStack(null)
@@ -64,7 +63,7 @@ class ManagerEdit(private var CitiesIds: Array<String>,
                     }
 
                     override fun onError(text: String) {
-                        (getActivity()?.getApplicationContext() as AppServices).serverData.getManagersList()
+                        (activity?.applicationContext as AppServices).serverData.getManagersList()
                         activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.fragment_container, ManagersList())
                             ?.addToBackStack(null)

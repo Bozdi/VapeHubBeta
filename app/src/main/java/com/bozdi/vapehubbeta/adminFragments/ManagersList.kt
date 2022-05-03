@@ -2,30 +2,27 @@ package com.bozdi.vapehubbeta.adminFragments
 
 import android.os.Bundle
 import android.os.Handler
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bozdi.vapehubbeta.*
-import com.bozdi.vapehubbeta.adapters.CouriersAdapter
 import com.bozdi.vapehubbeta.adapters.ManagerActionListener
 import com.bozdi.vapehubbeta.adapters.ManagersAdapter
-import com.bozdi.vapehubbeta.adapters.OrderActionListener
-import com.bozdi.vapehubbeta.managerFragments.ManagerCourierReview
-import com.bozdi.vapehubbeta.managerFragments.OrderNew
-import com.bozdi.vapehubbeta.managerFragments.OrderReviewManager
-import com.bozdi.vapehubbeta.model.*
+import com.bozdi.vapehubbeta.model.ManagersData
+import com.bozdi.vapehubbeta.model.ManagersListService
+import com.bozdi.vapehubbeta.model.managersListener
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class ManagersList : Fragment() {
     private lateinit var adapter: ManagersAdapter
 
     private val managersListService: ManagersListService
-        get() = (getActivity()?.getApplicationContext() as AppServices).managersService
+        get() = (activity?.applicationContext as AppServices).managersService
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
@@ -57,24 +54,24 @@ class ManagersList : Fragment() {
 
         val addManagerButton : FloatingActionButton = res.findViewById(R.id.newManagerButton)
         addManagerButton.setOnClickListener {
-            (getActivity()?.getApplicationContext() as AppServices).serverData.getActualCitiesList(
+            (activity?.applicationContext as AppServices).serverData.getActualCitiesList(
                 object : ActualCitiesListCallBack {
 
                     override fun onSuccess(ids: Array<String>, names: Array<String>) {
-                        var StoresIds = mutableListOf<String>();
-                        var StoresNames = mutableListOf<String>();
-                        var stores = (getActivity()?.getApplicationContext() as AppServices).storesService.getStores()
+                        val storesIds = mutableListOf<String>()
+                        val storesNames = mutableListOf<String>()
+                        val stores = (activity?.applicationContext as AppServices).storesService.getStores()
                         stores.forEach {
-                            StoresIds.add(it.StoreId.toString())
-                            StoresNames.add(it.Street.toString() + " " + it.BuildingNumber.toString())
+                            storesIds.add(it.StoreId)
+                            storesNames.add(it.Street.toString() + " " + it.BuildingNumber.toString())
                         }
 
                         activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.fragment_container, ManagerNew(
                                 ids,
                                 names,
-                                StoresIds.toTypedArray(),
-                                StoresNames.toTypedArray()
+                                storesIds.toTypedArray(),
+                                storesNames.toTypedArray()
                             ))
                             ?.addToBackStack(null)
                             ?.commit()
@@ -84,7 +81,7 @@ class ManagersList : Fragment() {
                     }
                 })
         }
-        (getActivity()?.getApplicationContext() as AppServices).serverData.getManagersList()
+        (activity?.applicationContext as AppServices).serverData.getManagersList()
         Handler().postDelayed({
             adapter.notifyDataSetChanged()
         }, 500)
@@ -92,12 +89,12 @@ class ManagersList : Fragment() {
         val refresh = res.findViewById<SwipeRefreshLayout>(R.id.refreshManagersList)
 
         refresh.setOnRefreshListener {
-            (getActivity()?.getApplicationContext() as AppServices).serverData.getManagersList()
+            (activity?.applicationContext as AppServices).serverData.getManagersList()
             Handler().postDelayed({
                 adapter.notifyDataSetChanged()
                 Toast.makeText(activity,"Список обновлён", Toast.LENGTH_SHORT).show()
             }, 500)
-            refresh.isRefreshing = false;
+            refresh.isRefreshing = false
         }
 
         return res

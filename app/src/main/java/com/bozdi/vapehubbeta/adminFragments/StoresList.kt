@@ -51,19 +51,39 @@ class StoresList : Fragment() {
 
         val addStoreButton : FloatingActionButton = res.findViewById(R.id.newStoreButton)
         addStoreButton.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.fragment_container, StoreNew())
-                ?.addToBackStack(null)
-                ?.commit()
+            (activity?.applicationContext as AppServices).serverData.getActualCitiesList(
+                object : ActualCitiesListCallBack {
+
+                    override fun onSuccess(ids: Array<String>, names: Array<String>) {
+                        val storesIds = mutableListOf<String>()
+                        val storesNames = mutableListOf<String>()
+                        val stores = (activity?.applicationContext as AppServices).storesService.getStores()
+                        stores.forEach {
+                            storesIds.add(it.StoreId.toString())
+                            storesNames.add(it.Street.toString() + " " + it.BuildingNumber.toString())
+                        }
+
+                        activity?.supportFragmentManager?.beginTransaction()
+                            ?.replace(R.id.fragment_container, StoreNew(
+                                names,
+                                storesIds.toTypedArray()
+                            ))
+                            ?.addToBackStack(null)
+                            ?.commit()
+                    }
+
+                    override fun onError(text: String) {
+                    }
+                })
         }
-        (getActivity()?.getApplicationContext() as AppServices).serverData.getStoresList()
+        (activity?.applicationContext as AppServices).serverData.getStoresList()
         Handler().postDelayed({
             adapter.notifyDataSetChanged()
         }, 500)
 
         val refresh = res.findViewById<SwipeRefreshLayout>(R.id.refresh_Stores_List)
         refresh.setOnRefreshListener {
-            (getActivity()?.getApplicationContext() as AppServices).serverData.getStoresList()
+            (activity?.applicationContext as AppServices).serverData.getStoresList()
             Handler().postDelayed({
                 adapter.notifyDataSetChanged()
                 Toast.makeText(activity,"Список обновлён", Toast.LENGTH_SHORT).show()

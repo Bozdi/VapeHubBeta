@@ -8,10 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import com.bozdi.vapehubbeta.AppServices
-import com.bozdi.vapehubbeta.CreateOrderCallBack
-import com.bozdi.vapehubbeta.MainActivity
-import com.bozdi.vapehubbeta.R
+import com.bozdi.vapehubbeta.*
 import com.bozdi.vapehubbeta.managerFragments.OrderEdit
 import com.bozdi.vapehubbeta.model.OrdersData
 import com.bozdi.vapehubbeta.model.StoresData
@@ -34,9 +31,31 @@ class StoreReview(private var selectStore: StoresData,private var cityName: Stri
 
         res.findViewById<Button>(R.id.storeReviewEditButton).setOnClickListener{
             activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.fragment_container, StoreEdit(selectStore))
-                ?.addToBackStack(null)
-                ?.commit()
+            (activity?.applicationContext as AppServices).serverData.getActualCitiesList(
+                object : ActualCitiesListCallBack {
+
+                    override fun onSuccess(ids: Array<String>, names: Array<String>) {
+                        val storesIds = mutableListOf<String>()
+                        val storesNames = mutableListOf<String>()
+                        val stores = (activity?.applicationContext as AppServices).storesService.getStores()
+                        stores.forEach {
+                            storesIds.add(it.StoreId.toString())
+                            storesNames.add(it.Street.toString() + " " + it.BuildingNumber.toString())
+                        }
+
+                        activity?.supportFragmentManager?.beginTransaction()
+                            ?.replace(R.id.fragment_container, StoreEdit(
+                                selectStore,
+                                names,
+                                storesIds.toTypedArray()
+                            ))
+                            ?.addToBackStack(null)
+                            ?.commit()
+                    }
+
+                    override fun onError(text: String) {
+                    }
+                })
         }
         res.findViewById<Button>(R.id.deleteStoreButton).setOnClickListener {
 
