@@ -44,13 +44,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:ems="10"
             android:hint="Логин"
             android:inputType="textPersonName"
             android:minHeight="48dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editManagerPhoneNumberET" />
+            app:layout_constraintTop_toBottomOf="@+id/spinnerStoreManagerEdit" />
 
         <EditText
             android:id="@+id/editManagerPasswordET"
@@ -66,7 +66,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editManagerLoginET" />
 
-
         <Button
             android:id="@+id/editManagerSaveChangesButton"
             android:layout_width="wrap_content"
@@ -76,6 +75,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editManagerPasswordET" />
+
+        <Spinner
+            android:id="@+id/spinnerStoreManagerEdit"
+            style="@style/EditTextStyle17"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:minHeight="48dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editManagerPhoneNumberET"
+            tools:ignore="SpeakableTextPresentCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -5,21 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import com.bozdi.vapehubbeta.AppServices
-import com.bozdi.vapehubbeta.CreateOrderCallBack
-import com.bozdi.vapehubbeta.MainActivity
-import com.bozdi.vapehubbeta.R
+import android.widget.*
+import com.bozdi.vapehubbeta.*
 import com.bozdi.vapehubbeta.databinding.FragmentManagerEditBinding
-import com.bozdi.vapehubbeta.databinding.FragmentOrderEditBinding
-import com.bozdi.vapehubbeta.managerFragments.CouriersList
 import com.bozdi.vapehubbeta.model.ManagersData
-import com.bozdi.vapehubbeta.model.OrdersData
-import com.bozdi.vapehubbeta.model.SelectedManagersStoreData
 
-class ManagerEdit(private var selectManager: ManagersData) : Fragment() {
+class ManagerEdit(private var CitiesIds: Array<String>,
+                  private var  CitiesNames: Array<String>,
+                  private var StoresIds: Array<String>,
+                  private var  StoresNames: Array<String>,
+                  private var selectManager: ManagersData,
+) : Fragment() {
     private lateinit var binding: FragmentManagerEditBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +31,14 @@ class ManagerEdit(private var selectManager: ManagersData) : Fragment() {
         (activity as MainActivity).supportActionBar?.title = getString(R.string.ManagerEdit)
         val res = inflater.inflate(R.layout.fragment_manager_edit, container, false)
 
+        //val spinnerCitiesManagerEdit : Spinner = res.findViewById(R.id.spinnerCities)
+        val spinnerStoresManagerEdit : Spinner = res.findViewById(R.id.spinnerStoreManagerEdit)
+
+
+        val storesAdapter : ArrayAdapter<CharSequence> = ArrayAdapter(res.context, R.layout.spinner_item, StoresNames)
+        storesAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
+        spinnerStoresManagerEdit.adapter = storesAdapter
+
         res.findViewById<TextView>(R.id.editManagerNameET).setText(selectManager.Name)
         res.findViewById<TextView>(R.id.editManagerLoginET).setText(selectManager.Login)
         res.findViewById<TextView>(R.id.editManagerPhoneNumberET).setText(selectManager.Phone)
@@ -47,9 +51,10 @@ class ManagerEdit(private var selectManager: ManagersData) : Fragment() {
                 res.findViewById<EditText>(R.id.editManagerPasswordET).text.toString(),
                 res.findViewById<EditText>(R.id.editManagerNameET).text.toString(),
                 res.findViewById<EditText>(R.id.editManagerPhoneNumberET).text.toString(),
+                StoresIds[spinnerStoresManagerEdit.selectedItemPosition],
                 selectManager.UserId,
 
-                object : CreateOrderCallBack {
+                object : CreateUserCallBack {
                     override fun onSuccess() {
                         (getActivity()?.getApplicationContext() as AppServices).serverData.getManagersList()
                         activity?.supportFragmentManager?.beginTransaction()

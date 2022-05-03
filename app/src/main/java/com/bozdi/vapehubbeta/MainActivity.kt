@@ -34,20 +34,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //--------------------------------------------------------------------
-        (getApplicationContext() as AppServices).serverData.getCityName(
-            object : GetCityNameCallBack {
-                override fun onSuccess(Street: String) {
-                    Log.e("getCityName_result", Street);
-                }
 
-                override fun onError(text: String) {
-                    TODO("Not yet implemented")                    }
-
-
-            }
-        )
-        //--------------------------------------------------------------------
         when(globVar.UserType) {
             "ADMN" -> replaceFragment(adminCities)
             else -> replaceFragment(managerOrders)

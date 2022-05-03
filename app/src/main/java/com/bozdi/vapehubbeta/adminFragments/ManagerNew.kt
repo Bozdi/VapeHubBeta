@@ -6,10 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
-import com.bozdi.vapehubbeta.AppServices
-import com.bozdi.vapehubbeta.CreateOrderCallBack
-import com.bozdi.vapehubbeta.MainActivity
-import com.bozdi.vapehubbeta.R
+import com.bozdi.vapehubbeta.*
 
 class ManagerNew(private var CitiesIds: Array<String>,
                  private var  CitiesNames: Array<String>,
@@ -24,9 +21,8 @@ class ManagerNew(private var CitiesIds: Array<String>,
         (activity as MainActivity).supportActionBar?.title = getString(R.string.ManagerNew)
         val res = inflater.inflate(R.layout.fragment_manager_new, container, false)
 
-        val spinnerCities : Spinner = res.findViewById<Spinner>(R.id.spinnerCities)
-        val spinnerStores : Spinner = res.findViewById<Spinner>(R.id.spinnerStore)
-
+        val spinnerCities : Spinner = res.findViewById(R.id.spinnerCities)
+        val spinnerStores : Spinner = res.findViewById(R.id.spinnerStore)
 
         val citiesAdapter : ArrayAdapter<CharSequence> = ArrayAdapter(res.context, R.layout.spinner_item, CitiesNames)
         spinnerCities.adapter = citiesAdapter
@@ -40,6 +36,7 @@ class ManagerNew(private var CitiesIds: Array<String>,
 
             val userType = "MNGR"
             (getActivity()?.getApplicationContext() as AppServices).serverData.createManager(
+
                 userType,
                 res.findViewById<EditText>(R.id.newManagerPhoneNumberET).text.toString(),
                 res.findViewById<EditText>(R.id.newManagerLoginET).text.toString(),
@@ -47,14 +44,13 @@ class ManagerNew(private var CitiesIds: Array<String>,
                 res.findViewById<EditText>(R.id.newManagerNameET).text.toString(),
                 StoresIds[spinnerStores.selectedItemPosition],
 
-                object : CreateOrderCallBack {
+                object : CreateUserCallBack {
                     override fun onSuccess() {
                         (getActivity()?.getApplicationContext() as AppServices).serverData.getManagersList()
                         activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.fragment_container, ManagersList())
                             ?.addToBackStack(null)
                             ?.commit()
-                        //Toast.makeText(res.context,"Товар успешно добавлен",Toast.LENGTH_SHORT).show()
                     }
 
                     override fun onError(text: String) {
@@ -63,7 +59,6 @@ class ManagerNew(private var CitiesIds: Array<String>,
                             ?.replace(R.id.fragment_container, ManagersList())
                             ?.addToBackStack(null)
                             ?.commit()
-                        //Toast.makeText(activity,text,Toast.LENGTH_SHORT).show()
                     }
                 }
             )

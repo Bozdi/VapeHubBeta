@@ -17,7 +17,8 @@ import com.bozdi.vapehubbeta.model.OrdersData
 import com.bozdi.vapehubbeta.model.StoresData
 
 
-class StoreReview(private var selectStore: StoresData) : Fragment() {
+class StoreReview(private var selectStore: StoresData,private var cityName: String) : Fragment() {
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,9 +27,9 @@ class StoreReview(private var selectStore: StoresData) : Fragment() {
         (activity as MainActivity).supportActionBar?.title = getString(R.string.StoreReview)
         val res = inflater.inflate(R.layout.fragment_store_review, container, false)
 
-        res.findViewById<TextView>(R.id.storeReviewCityET).setText(selectStore.CityId)
-        res.findViewById<TextView>(R.id.storeReviewStreetET).setText(selectStore.Street)
-        res.findViewById<TextView>(R.id.storeReviewBuildingNumET).setText(selectStore.BuildingNumber)
+        res.findViewById<TextView>(R.id.storeReviewCityET).text = cityName
+        res.findViewById<TextView>(R.id.storeReviewStreetET).text = selectStore.Street
+        res.findViewById<TextView>(R.id.storeReviewBuildingNumET).text = selectStore.BuildingNumber
 
 
         res.findViewById<Button>(R.id.storeReviewEditButton).setOnClickListener{
@@ -45,6 +46,7 @@ class StoreReview(private var selectStore: StoresData) : Fragment() {
 
                 object : CreateOrderCallBack {
                     override fun onSuccess() {
+                        (getActivity()?.getApplicationContext() as AppServices).storesService.del(selectStore)
                         (getActivity()?.getApplicationContext() as AppServices).serverData.getStoresList()
                         activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.fragment_container, StoresList())
@@ -53,6 +55,7 @@ class StoreReview(private var selectStore: StoresData) : Fragment() {
                        }
 
                     override fun onError(text: String) {
+                        (getActivity()?.getApplicationContext() as AppServices).storesService.del(selectStore)
                         (getActivity()?.getApplicationContext() as AppServices).serverData.getStoresList()
                         activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.fragment_container, StoresList())

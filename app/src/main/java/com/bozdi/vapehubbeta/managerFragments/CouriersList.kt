@@ -41,11 +41,9 @@ class CouriersList : Fragment() {
                                 ?.addToBackStack(null)
                                 ?.commit()
                         }
-
                         override fun onError(text: String) {
-                            TODO("Not yet implemented")                    }
-
-
+                            TODO("Not yet implemented")
+                        }
                     }
                 )
 

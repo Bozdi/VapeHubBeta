@@ -9,10 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
-import com.bozdi.vapehubbeta.AppServices
-import com.bozdi.vapehubbeta.CreateOrderCallBack
-import com.bozdi.vapehubbeta.MainActivity
-import com.bozdi.vapehubbeta.R
+import com.bozdi.vapehubbeta.*
 import com.bozdi.vapehubbeta.adminFragments.CitiesList
 
 class CourierNew(private var CitiesIds: Array<String>,
@@ -51,7 +48,7 @@ class CourierNew(private var CitiesIds: Array<String>,
                 res.findViewById<EditText>(R.id.newCourierNameET).text.toString(),
                 StoresIds[spinnerStores.selectedItemPosition],
 
-                object : CreateOrderCallBack {
+                object : CreateUserCallBack {
                     override fun onSuccess() {
                         (getActivity()?.getApplicationContext() as AppServices).serverData.getCouriersList()
                         activity?.supportFragmentManager?.beginTransaction()

@@ -1,7 +1,6 @@
 package com.bozdi.vapehubbeta
 
 import android.content.Context
-import android.content.Intent
 import android.util.Log
 import com.bozdi.vapehubbeta.model.*
 import okhttp3.*
@@ -15,6 +14,10 @@ interface CreateOrderCallBack {
     fun onError(text: String)
 }
 
+interface CreateUserCallBack {
+    fun onSuccess()
+    fun onError(text: String)
+}
 
 interface ActualCitiesListCallBack {
     fun onSuccess(ids: Array<String>, names: Array<String>)
@@ -22,17 +25,17 @@ interface ActualCitiesListCallBack {
 }
 
 interface StorageDateListCallBack {
-    fun onSuccess(Street: String);
+    fun onSuccess(Street: String)
     fun onError(text: String)
 }
 
 interface GetCityNameCallBack {
-    fun onSuccess(Name: String);
+    fun onSuccess(Name: String)
     fun onError(text: String)
 }
 
 interface GetUserDataCallBack {
-    fun onSuccess();
+    fun onSuccess()
     fun onError(text: String)
 }
 
@@ -41,7 +44,6 @@ class ServerData(_context: Context) {
     var globVar: GlobalVars = GlobalVars
     var okHttpClient: OkHttpClient = OkHttpClient()
     var context: Context? = null
-    var lastOrderNumber: Int = -1;
 
     init {
         context = _context
@@ -63,45 +65,47 @@ class ServerData(_context: Context) {
                 var body = response?.body()?.string().toString()
                 Log.i("OrderList JSON", body)
                 val objects: JSONObject = JSONTokener(body).nextValue() as JSONObject
-                val key: JSONArray = objects.names()
-                for (i in 0 until key.length()) {
-                    val keys = key.getString(i)
-                    val value: JSONObject = objects.getJSONObject(keys)
-                    var Status = "Ожидает"
-                    when (value.getString("Status")) {
-                        "PEND" -> Status = "Ожидает"
-                        "ACCEPT" -> Status = "В работе"
-                        "DONE" -> Status = "Доставлен"
-                    }
-                    (context as AppServices).ordersService.add(
-                        OrdersData(
-                            value.getString("OrderId"),
-                            value.getString("OrderLink"),
-                            value.getString("ClientName"),
-                            value.getString("StoreId"),
-                            value.getString("StoreLink"),
-                            value.getString("UserId"),
-                            value.getString("ClientPhone"),
-                            value.getString("StreetName"),
-                            value.getString("BuildingNum"),
-                            value.getString("ApartNum"),
-                            value.getString("EntranceNum"),
-                            value.getString("TargetTime"),
-                            Status,
-                            value.getString("GMapPlaceID"),
-                            value.getString("Lat"),
-                            value.getString("Lng"),
-                            value.getString("TotalCost"),
-                            value.getString("DeliveryCost"),
-                            value.getString("GoodsTotalCost"),
-                            value.getString("CashPayment"),
-                            value.getString("CardPayment"),
-                            value.getString("PayedFromCourier"),
-                            value.getString("DeliveredTime"),
-                            value.getString("CreateAt")
+                val key: JSONArray? = objects.names()
+                if (key != null) {
+                    for (i in 0 until key.length()) {
+                        val keys = key.getString(i)
+                        val value: JSONObject = objects.getJSONObject(keys)
+                        var Status = "Ожидает"
+                        when (value.getString("Status")) {
+                            "PEND" -> Status = "Ожидает"
+                            "ACCEPT" -> Status = "В работе"
+                            "DONE" -> Status = "Доставлен"
+                        }
+                        (context as AppServices).ordersService.add(
+                            OrdersData(
+                                value.getString("OrderId"),
+                                value.getString("OrderLink"),
+                                value.getString("ClientName"),
+                                value.getString("StoreId"),
+                                value.getString("StoreLink"),
+                                value.getString("UserId"),
+                                value.getString("ClientPhone"),
+                                value.getString("StreetName"),
+                                value.getString("BuildingNum"),
+                                value.getString("ApartNum"),
+                                value.getString("EntranceNum"),
+                                value.getString("TargetTime"),
+                                Status,
+                                value.getString("GMapPlaceID"),
+                                value.getString("Lat"),
+                                value.getString("Lng"),
+                                value.getString("TotalCost"),
+                                value.getString("DeliveryCost"),
+                                value.getString("GoodsTotalCost"),
+                                value.getString("CashPayment"),
+                                value.getString("CardPayment"),
+                                value.getString("PayedFromCourier"),
+                                value.getString("DeliveredTime"),
+                                value.getString("CreateAt")
+                            )
                         )
-                    )
-                    Log.i(value.getString("StreetName"), value.getString("StreetName"))
+                        Log.i(value.getString("StreetName"), value.getString("StreetName"))
+                    }
                 }
 
 
@@ -125,23 +129,25 @@ class ServerData(_context: Context) {
                 var body = response?.body()?.string().toString()
                 Log.e("list", body)
                 val objects: JSONObject = JSONTokener(body).nextValue() as JSONObject
-                val key: JSONArray = objects.names()
-                for (i in 0 until key.length()) {
-                    val keys = key.getString(i)
-                    val value: JSONObject = objects.getJSONObject(keys)
+                val key: JSONArray? = objects.names()
+                if (key != null) {
+                    for (i in 0 until key.length()) {
+                        val keys = key.getString(i)
+                        val value: JSONObject = objects.getJSONObject(keys)
 
-                    (context as AppServices).couriersService.add(
-                        CouriersData(
-                            value.getString("UserID"),
-                            value.getString("Login"),
-                            value.getString("StoreID"),
-                            value.getString("StoreLink"),
-                            value.getString("Name"),
-                            value.getString("Phone"),
-                            value.getString("Type"),
-                            value.getString("Status"),
+                        (context as AppServices).couriersService.add(
+                            CouriersData(
+                                value.getString("UserID"),
+                                value.getString("Login"),
+                                value.getString("StoreID"),
+                                value.getString("StoreLink"),
+                                value.getString("Name"),
+                                value.getString("Phone"),
+                                value.getString("Type"),
+                                value.getString("Status"),
+                            )
                         )
-                    )
+                    }
                 }
 
 
@@ -166,22 +172,24 @@ class ServerData(_context: Context) {
                 var body = response?.body()?.string().toString()
                 Log.e("list", body)
                 val objects: JSONObject = JSONTokener(body).nextValue() as JSONObject
-                val key: JSONArray = objects.names()
-                for (i in 0 until key.length()) {
-                    val keys = key.getString(i)
-                    val value: JSONObject = objects.getJSONObject(keys)
-                    (context as AppServices).managersService.add(
-                        ManagersData(
-                            value.getString("UserID"),
-                            value.getString("Login"),
-                            value.getString("StoreID"),
-                            value.getString("StoreLink"),
-                            value.getString("Name"),
-                            value.getString("Phone"),
-                            value.getString("Type"),
-                            value.getString("Status"),
+                val key: JSONArray? = objects.names()
+                if (key != null) {
+                    for (i in 0 until key.length()) {
+                        val keys = key.getString(i)
+                        val value: JSONObject = objects.getJSONObject(keys)
+                        (context as AppServices).managersService.add(
+                            ManagersData(
+                                value.getString("UserID"),
+                                value.getString("Login"),
+                                value.getString("StoreID"),
+                                value.getString("StoreLink"),
+                                value.getString("Name"),
+                                value.getString("Phone"),
+                                value.getString("Type"),
+                                value.getString("Status"),
+                            )
                         )
-                    )
+                    }
                 }
 
 
@@ -196,7 +204,7 @@ class ServerData(_context: Context) {
         Password: String,
         Name: String,
         StoreId: String,
-        actionListener: CreateOrderCallBack
+        actionListener: CreateUserCallBack
     ) {
         val formBody: RequestBody = FormBody.Builder()
             .add("Type", Type)
@@ -222,7 +230,7 @@ class ServerData(_context: Context) {
                 if (response?.code() != 201) {
                     actionListener.onError("Ошибка добавления заказа")
                 } else {
-                    actionListener.onSuccess();
+                    actionListener.onSuccess()
                 }
             }
         })
@@ -263,7 +271,7 @@ class ServerData(_context: Context) {
             }
 
             override fun onResponse(call: Call?, response: Response?) {
-                Log.e("Code Create Order", response?.code().toString());
+                Log.e("Code Create Order", response?.code().toString())
                 if (response?.code() != 201) {
                     actionListener.onError("Ошибка добавления заказа")
                 } else {
@@ -304,7 +312,7 @@ class ServerData(_context: Context) {
             }
 
             override fun onResponse(call: Call?, response: Response?) {
-                Log.e("Code Create Order", response?.code().toString());
+                Log.e("Code Create Order", response?.code().toString())
                 if (response?.code() != 201) {
                     actionListener.onError("Ошибка добавления заказа")
                 } else {
@@ -354,7 +362,7 @@ class ServerData(_context: Context) {
         Password: String,
         Name: String,
         StoreId: String,
-        actionListener: CreateOrderCallBack
+        actionListener: CreateUserCallBack
     ) {
         val formBody: RequestBody = FormBody.Builder()
             .add("Type", Type)
@@ -390,14 +398,16 @@ class ServerData(_context: Context) {
         Password: String,
         Name: String,
         Phone: String,
+        StoreId: String,
         userId: String,
-        actionListener: CreateOrderCallBack
+        actionListener: CreateUserCallBack
     ) {
         val formBody: RequestBody = FormBody.Builder()
             .add("Login", Login)
             .add("Password", Password)
             .add("Name", Name)
             .add("Phone", Phone)
+            .add("StoreId", StoreId)
             .build()
         val request: Request = Request.Builder()
             .url(globVar.URL + "users/" + userId)
@@ -471,21 +481,23 @@ class ServerData(_context: Context) {
                 val body = response?.body()?.string().toString()
                 Log.e("list", body)
                 val objects: JSONObject = JSONTokener(body).nextValue() as JSONObject
-                val key: JSONArray = objects.names()
-                for (i in 0 until key.length()) {
-                    val keys = key.getString(i)
-                    val value: JSONObject = objects.getJSONObject(keys)
+                val key: JSONArray? = objects.names()
+                if (key != null) {
+                    for (i in 0 until key.length()) {
+                        val keys = key.getString(i)
+                        val value: JSONObject = objects.getJSONObject(keys)
 
-                    (context as AppServices).storesService.add(
-                        StoresData(
-                            value.getString("StoreId"),
-                            value.getString("CityId"),
-                            value.getString("CityLink"),
-                            value.getString("Street"),
-                            value.getString("BuildingNumber"),
-                            value.getString("PlaceId"),
+                        (context as AppServices).storesService.add(
+                            StoresData(
+                                value.getString("StoreId"),
+                                value.getString("CityId"),
+                                value.getString("CityLink"),
+                                value.getString("Street"),
+                                value.getString("BuildingNumber"),
+                                value.getString("PlaceId"),
+                            )
                         )
-                    )
+                    }
                 }
 
 
@@ -509,11 +521,11 @@ class ServerData(_context: Context) {
             }
 
             override fun onResponse(call: Call?, response: Response?) {
-                var body = response?.body()?.string().toString()
+                val body = response?.body()?.string().toString()
                 Log.e("getStoreData", body)
                 val objects: JSONObject = JSONTokener(body).nextValue() as JSONObject
 
-                action.onSuccess("${objects.getString("Street")} ${objects.getString("BuildingNumber")}");
+                action.onSuccess("${objects.getString("Street")} ${objects.getString("BuildingNumber")}")
 
             }
         })
@@ -532,13 +544,12 @@ class ServerData(_context: Context) {
             }
 
             override fun onResponse(call: Call?, response: Response?) {
-                var body = response?.body()?.string().toString()
+                val body = response?.body()?.string().toString()
                 Log.e("cities", body)
                 val objects: JSONArray = JSONTokener(body).nextValue() as JSONArray
-             //   val key: JSONArray = objects.names()
                 for (i in 0 until objects.length()) {
                     val keys = objects.getString(i)
-                    val value: JSONObject = JSONObject(keys)
+                    val value = JSONObject(keys)
 
                     (context as AppServices).citiesService.add(
                         CitiesData(
@@ -591,10 +602,11 @@ class ServerData(_context: Context) {
         })
     }
     fun getCityName(
+        cityId : String,
         action: GetCityNameCallBack
     ) {
         val request: Request = Request.Builder()
-            .url(globVar.URL + "cities/")
+            .url(globVar.URL + "cities/" + cityId)
             .addHeader("Content-Type", "application/x-www-form-urlencoded")
             .addHeader("auth-token", globVar.token)
             .get()
@@ -603,24 +615,13 @@ class ServerData(_context: Context) {
             override fun onFailure(call: Call?, e: IOException?) {
                 Log.e("json", e.toString())
             }
-
             override fun onResponse(call: Call?, response: Response?) {
                 var body = response?.body()?.string().toString()
                 Log.e("getCityName", body)
-                var Name : String = "None";
-                val objects: JSONArray = JSONTokener(body).nextValue() as JSONArray
-                for (i in 0 until objects.length()) {
-                    val keys = objects.getString(i)
-                    val value: JSONObject = JSONObject(keys)
+                var name = "None"
+                val objects: JSONObject = JSONTokener(body).nextValue() as JSONObject
 
-                   Name = value.getString("Name");
-                    break;
-                }
-                action.onSuccess(Name)
-
-               // action.onSuccess(ids.toTypedArray(), names.toTypedArray())
-
-
+                action.onSuccess(objects.getString("Name"))
             }
         })
     }
@@ -655,12 +656,12 @@ class ServerData(_context: Context) {
                             override fun onSuccess(Street: String) {
 
                                 globVar.ProfileStoreName = Street
-                                action.onSuccess();
+                                action.onSuccess()
 
                             }
 
                             override fun onError(text: String) {
-                                action.onError(text);
+                                action.onError(text)
                                 TODO("Not yet implemented")
                             }
 

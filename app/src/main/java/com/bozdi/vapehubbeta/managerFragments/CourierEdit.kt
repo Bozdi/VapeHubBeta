@@ -8,14 +8,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import com.bozdi.vapehubbeta.AppServices
-import com.bozdi.vapehubbeta.CreateOrderCallBack
-import com.bozdi.vapehubbeta.MainActivity
-import com.bozdi.vapehubbeta.R
+import com.bozdi.vapehubbeta.*
 import com.bozdi.vapehubbeta.databinding.FragmentCourierEditBinding
-import com.bozdi.vapehubbeta.databinding.FragmentManagerEditBinding
 import com.bozdi.vapehubbeta.model.CouriersData
-import com.bozdi.vapehubbeta.model.ManagersData
 
 class CourierEdit(private var selectCourier: CouriersData) : Fragment() {
     private lateinit var binding: FragmentCourierEditBinding
@@ -44,9 +39,10 @@ class CourierEdit(private var selectCourier: CouriersData) : Fragment() {
                 res.findViewById<EditText>(R.id.editCourierPasswordET).text.toString(),
                 res.findViewById<EditText>(R.id.editCourierNameET).text.toString(),
                 res.findViewById<EditText>(R.id.editCourierPhoneNumberET).text.toString(),
+                "3",
                 selectCourier.UserId,
 
-                object : CreateOrderCallBack {
+                object : CreateUserCallBack {
                     override fun onSuccess() {
                         (getActivity()?.getApplicationContext() as AppServices).serverData.getCouriersList()
                         activity?.supportFragmentManager?.beginTransaction()

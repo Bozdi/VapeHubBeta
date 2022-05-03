@@ -11,8 +11,9 @@ import android.widget.Toast
 import com.bozdi.vapehubbeta.*
 import com.bozdi.vapehubbeta.managerFragments.OrderEdit
 import com.bozdi.vapehubbeta.model.*
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class ManagerReview(private var selectManager: ManagersData) : Fragment() {
+class ManagerReview(private var selectManager: ManagersData, private var street: String) : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,18 +22,42 @@ class ManagerReview(private var selectManager: ManagersData) : Fragment() {
         (activity as MainActivity).supportActionBar?.title = getString(R.string.ManagerReview)
         val res = inflater.inflate(R.layout.fragment_manager_review, container, false)
 
-        res.findViewById<TextView>(R.id.managerReviewNameET).setText(selectManager.Name)
-        res.findViewById<TextView>(R.id.managerReviewLoginET).setText(selectManager.Login)
-        res.findViewById<TextView>(R.id.managerReviewStoreAddressET).setText("")
-        res.findViewById<TextView>(R.id.managerReviewPhoneNumberET).setText(selectManager.Phone)
+        res.findViewById<TextView>(R.id.managerReviewNameET).text = selectManager.Name
+        res.findViewById<TextView>(R.id.managerReviewLoginET).text = selectManager.Login
+        res.findViewById<TextView>(R.id.managerReviewStoreAddressET).text = street
+        res.findViewById<TextView>(R.id.managerReviewPhoneNumberET).text = selectManager.Phone
 
-        res.findViewById<Button>(R.id.managerReviewEditButton).setOnClickListener{
-            activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.fragment_container, ManagerEdit(selectManager))
-                ?.addToBackStack(null)
-                ?.commit()
+
+        val editManagerButton : Button = res.findViewById(R.id.managerReviewEditButton)
+        editManagerButton.setOnClickListener {
+            (getActivity()?.getApplicationContext() as AppServices).serverData.getActualCitiesList(
+                object : ActualCitiesListCallBack {
+
+                    override fun onSuccess(ids: Array<String>, names: Array<String>) {
+                        var StoresIds = mutableListOf<String>();
+                        var StoresNames = mutableListOf<String>();
+                        var stores = (getActivity()?.getApplicationContext() as AppServices).storesService.getStores()
+                        stores.forEach {
+                            StoresIds.add(it.StoreId.toString())
+                            StoresNames.add(it.Street.toString() + " " + it.BuildingNumber.toString())
+                        }
+
+                        activity?.supportFragmentManager?.beginTransaction()
+                            ?.replace(R.id.fragment_container, ManagerEdit(
+                                ids,
+                                names,
+                                StoresIds.toTypedArray(),
+                                StoresNames.toTypedArray(),
+                                selectManager
+                            ))
+                            ?.addToBackStack(null)
+                            ?.commit()
+                    }
+
+                    override fun onError(text: String) {
+                    }
+                })
         }
-
         res.findViewById<Button>(R.id.deleteManagerButton).setOnClickListener {
 
             (getActivity()?.getApplicationContext() as AppServices).serverData.deleteUser(
@@ -50,6 +75,7 @@ class ManagerReview(private var selectManager: ManagersData) : Fragment() {
                         }
 
                     override fun onError(text: String) {
+                        (getActivity()?.getApplicationContext() as AppServices).managersService.del(selectManager)
                         (getActivity()?.getApplicationContext() as AppServices).serverData.getManagersList()
                         activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.fragment_container, ManagersList())

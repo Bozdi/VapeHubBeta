@@ -28,9 +28,9 @@ class StoreEdit(private var selectStore: StoresData) : Fragment() {
         (activity as MainActivity).supportActionBar?.title = getString(R.string.StoreEdit)
         val res = inflater.inflate(R.layout.fragment_store_edit, container, false)
 
-        res.findViewById<TextView>(R.id.editStoreCityET).setText("112")
-        res.findViewById<TextView>(R.id.editStoreStreetET).setText("Бурова")
-        res.findViewById<TextView>(R.id.editStoreBuildingNumET).setText("Казахстан 70")
+        res.findViewById<TextView>(R.id.editStoreCityET).text = "112"
+        res.findViewById<TextView>(R.id.editStoreStreetET).text = selectStore.Street
+        res.findViewById<TextView>(R.id.editStoreBuildingNumET).text = selectStore.BuildingNumber
 
         return res
 

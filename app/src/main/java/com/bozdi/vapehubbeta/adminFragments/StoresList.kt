@@ -10,9 +10,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.bozdi.vapehubbeta.AppServices
-import com.bozdi.vapehubbeta.MainActivity
-import com.bozdi.vapehubbeta.R
+import com.bozdi.vapehubbeta.*
 import com.bozdi.vapehubbeta.adapters.*
 import com.bozdi.vapehubbeta.managerFragments.OrderNew
 import com.bozdi.vapehubbeta.model.*
@@ -31,10 +29,19 @@ class StoresList : Fragment() {
 
         adapter = StoresAdapter(object : StoreActionListener {
             override fun onStoreClick(store: StoresData) {
-                activity?.supportFragmentManager?.beginTransaction()
-                    ?.replace(R.id.fragment_container, StoreReview(store))
-                    ?.addToBackStack(null)
-                    ?.commit()
+                (activity?.applicationContext as AppServices).serverData.getCityName(store.CityId.toString(),
+                    object : GetCityNameCallBack {
+                        override fun onSuccess(CityName: String) {
+                            activity?.supportFragmentManager?.beginTransaction()
+                                ?.replace(R.id.fragment_container, StoreReview(store, CityName))
+                                ?.addToBackStack(null)
+                                ?.commit()
+                        }
+                        override fun onError(text: String) {
+                            TODO("Not yet implemented")
+                        }
+                    }
+                )
             }
         })
 

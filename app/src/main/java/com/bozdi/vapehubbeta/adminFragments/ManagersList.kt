@@ -15,6 +15,7 @@ import com.bozdi.vapehubbeta.adapters.CouriersAdapter
 import com.bozdi.vapehubbeta.adapters.ManagerActionListener
 import com.bozdi.vapehubbeta.adapters.ManagersAdapter
 import com.bozdi.vapehubbeta.adapters.OrderActionListener
+import com.bozdi.vapehubbeta.managerFragments.ManagerCourierReview
 import com.bozdi.vapehubbeta.managerFragments.OrderNew
 import com.bozdi.vapehubbeta.managerFragments.OrderReviewManager
 import com.bozdi.vapehubbeta.model.*
@@ -34,10 +35,19 @@ class ManagersList : Fragment() {
 
         adapter = ManagersAdapter(object : ManagerActionListener {
             override fun onManagerClick(manager: ManagersData) {
-                activity?.supportFragmentManager?.beginTransaction()
-                    ?.replace(R.id.fragment_container, ManagerReview(manager))
-                    ?.addToBackStack(null)
-                    ?.commit()
+                (activity?.applicationContext as AppServices).serverData.getStoreData(manager.StoreId,
+                    object : StorageDateListCallBack {
+                        override fun onSuccess(street: String) {
+                            activity?.supportFragmentManager?.beginTransaction()
+                                ?.replace(R.id.fragment_container, ManagerReview(manager, street))
+                                ?.addToBackStack(null)
+                                ?.commit()
+                        }
+                        override fun onError(text: String) {
+                            TODO("Not yet implemented")
+                        }
+                    }
+                )
             }
         })
 

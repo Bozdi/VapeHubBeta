@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bozdi.vapehubbeta.AppServices
+import com.bozdi.vapehubbeta.MainActivity
 import com.bozdi.vapehubbeta.R
 import com.bozdi.vapehubbeta.adapters.CitiesActionListener
 import com.bozdi.vapehubbeta.adapters.CitiesAdapter
@@ -29,6 +30,7 @@ class CitiesList : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
+        (activity as MainActivity).supportActionBar?.title = getString(R.string.Cities)
         val res = inflater.inflate(R.layout.fragment_cities_list, container, false)
         val rv: RecyclerView = res.findViewById(R.id.Cities_List)
 
