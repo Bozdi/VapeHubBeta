@@ -23,6 +23,7 @@ class ProfileEdit : Fragment() {
         res.findViewById<TextView>(R.id.editProfileLoginET).text = GlobalVars.Login
         res.findViewById<TextView>(R.id.editProfileNameET).text = GlobalVars.ProfileName
         res.findViewById<TextView>(R.id.editProfilePhoneNumberET).text = GlobalVars.ProfilePhoneNumber
+        res.findViewById<TextView>(R.id.editProfilePasswordET).text = "1234"
 
         res.findViewById<Button>(R.id.editProfileSaveChangesButton).setOnClickListener {
 
@@ -31,7 +32,7 @@ class ProfileEdit : Fragment() {
             (activity?.getApplicationContext() as AppServices).serverData.editUser(
 
                 res.findViewById<EditText>(R.id.editProfileLoginET).text.toString(),
-                res.findViewById<EditText>(R.id.editProfilePasswordET).text.toString(),
+                "1234",
                 res.findViewById<EditText>(R.id.editProfileNameET).text.toString(),
                 res.findViewById<EditText>(R.id.editProfilePhoneNumberET).text.toString(),
                 GlobalVars.StoreId.toString(),

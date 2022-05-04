@@ -55,18 +55,10 @@ class StoresList : Fragment() {
                 object : ActualCitiesListCallBack {
 
                     override fun onSuccess(ids: Array<String>, names: Array<String>) {
-                        val storesIds = mutableListOf<String>()
-                        val storesNames = mutableListOf<String>()
-                        val stores = (activity?.applicationContext as AppServices).storesService.getStores()
-                        stores.forEach {
-                            storesIds.add(it.StoreId.toString())
-                            storesNames.add(it.Street.toString() + " " + it.BuildingNumber.toString())
-                        }
-
                         activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.fragment_container, StoreNew(
                                 names,
-                                storesIds.toTypedArray()
+                                ids
                             ))
                             ?.addToBackStack(null)
                             ?.commit()
