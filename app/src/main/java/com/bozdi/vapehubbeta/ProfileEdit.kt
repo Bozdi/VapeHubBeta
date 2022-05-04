@@ -26,7 +26,9 @@ class ProfileEdit : Fragment() {
 
         res.findViewById<Button>(R.id.editProfileSaveChangesButton).setOnClickListener {
 
-            (getActivity()?.getApplicationContext() as AppServices).serverData.editUser(
+
+
+            (activity?.getApplicationContext() as AppServices).serverData.editUser(
 
                 res.findViewById<EditText>(R.id.editProfileLoginET).text.toString(),
                 res.findViewById<EditText>(R.id.editProfilePasswordET).text.toString(),
@@ -40,20 +42,23 @@ class ProfileEdit : Fragment() {
                         (getActivity()?.getApplicationContext() as AppServices).serverData.getUserType(
                             object : GetUserDataCallBack {
                             override fun onSuccess() {
-
+                                activity?.supportFragmentManager?.beginTransaction()
+                                    ?.replace(R.id.fragment_container, Profile())
+                                    ?.addToBackStack(null)
+                                    ?.commit()
 
                             }
 
                             override fun onError(text: String) {
-                                TODO("Not yet implemented")
+                                activity?.supportFragmentManager?.beginTransaction()
+                                    ?.replace(R.id.fragment_container, Profile())
+                                    ?.addToBackStack(null)
+                                    ?.commit()
                             }
 
 
                         })
-                        activity?.supportFragmentManager?.beginTransaction()
-                            ?.replace(R.id.fragment_container, Profile())
-                            ?.addToBackStack(null)
-                            ?.commit()
+
                     }
 
                     override fun onError(text: String) {
