@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import com.bozdi.vapehubbeta.*
 import com.bozdi.vapehubbeta.adminFragments.CitiesList
 import com.bozdi.vapehubbeta.model.OrdersData
@@ -39,32 +40,35 @@ class OrderReviewManager(private var selectOrder: OrdersData) : Fragment() {
         }
 
         res.findViewById<Button>(R.id.deleteOrderButton).setOnClickListener {
+            if(selectOrder.Status == "PEND") {
+                (activity?.applicationContext as AppServices).serverData.deleteOrder(
 
-            (getActivity()?.getApplicationContext() as AppServices).serverData.deleteOrder(
+                    selectOrder.OrderId,
 
-                selectOrder.OrderId.toString(),
+                    object : CreateOrderCallBack {
+                        override fun onSuccess() {
+                            (activity?.applicationContext as AppServices).ordersService.del(selectOrder)
+                            (activity?.applicationContext as AppServices).serverData.getOrdersList()
+                            activity?.supportFragmentManager?.beginTransaction()
+                                ?.replace(R.id.fragment_container, OrdersList())
+                                ?.addToBackStack(null)
+                                ?.commit()
+                        }
 
-                object : CreateOrderCallBack {
-                    override fun onSuccess() {
-                        (getActivity()?.getApplicationContext() as AppServices).ordersService.del(selectOrder)
-                        (getActivity()?.getApplicationContext() as AppServices).serverData.getOrdersList()
-                        activity?.supportFragmentManager?.beginTransaction()
-                            ?.replace(R.id.fragment_container, OrdersList())
-                            ?.addToBackStack(null)
-                            ?.commit()
+                        override fun onError(text: String) {
+                            (activity?.applicationContext as AppServices).ordersService.del(selectOrder)
+                            (activity?.applicationContext as AppServices).serverData.getOrdersList()
+                            activity?.supportFragmentManager?.beginTransaction()
+                                ?.replace(R.id.fragment_container, OrdersList())
+                                ?.addToBackStack(null)
+                                ?.commit()
+
+                        }
                     }
-
-                    override fun onError(text: String) {
-                        (getActivity()?.getApplicationContext() as AppServices).ordersService.del(selectOrder)
-                        (getActivity()?.getApplicationContext() as AppServices).serverData.getOrdersList()
-                        activity?.supportFragmentManager?.beginTransaction()
-                            ?.replace(R.id.fragment_container, OrdersList())
-                            ?.addToBackStack(null)
-                            ?.commit()
-
-                    }
-                }
-            )
+                )
+            } else {
+                Toast.makeText(activity,"Невозможно удалить взятый на исполнение заказ", Toast.LENGTH_SHORT).show()
+            }
         }
         return res
 

@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -63,12 +65,16 @@ class OrdersList : Fragment() {
         rv.layoutManager = LinearLayoutManager(activity)
         orderService.addListener(orderLister)
 
-        val addButton : FloatingActionButton = res.findViewById(R.id.newOrderButton)
-        addButton.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.fragment_container, OrderNew())
-                ?.addToBackStack(null)
-                ?.commit()
+        if(GlobalVars.UserType == "MNGR") {
+            val addButton : FloatingActionButton = res.findViewById(R.id.newOrderButton)
+            addButton.visibility = View.VISIBLE
+            addButton.setOnClickListener {
+                activity?.supportFragmentManager?.beginTransaction()
+                    ?.replace(R.id.fragment_container, OrderNew())
+                    ?.addToBackStack(null)
+                    ?.commit()
+        }
+
         }
 //        (getActivity()?.getApplicationContext() as AppServices).serverData.getOrdersList()
 //        Handler().postDelayed({

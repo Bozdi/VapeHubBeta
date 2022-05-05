@@ -45,6 +45,7 @@ class ManagersAdapter(private val actionListener: ManagerActionListener) : Recyc
         with(holder.binding) {
             holder.itemView.tag = manager
             managerNameTextView.text = manager.Name
+
         }
     }
 

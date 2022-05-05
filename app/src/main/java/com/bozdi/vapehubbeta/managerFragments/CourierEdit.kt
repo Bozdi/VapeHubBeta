@@ -5,14 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
+import android.widget.*
 import com.bozdi.vapehubbeta.*
 import com.bozdi.vapehubbeta.databinding.FragmentCourierEditBinding
 import com.bozdi.vapehubbeta.model.CouriersData
 
-class CourierEdit(private var selectCourier: CouriersData) : Fragment() {
+class CourierEdit(private var selectCourier: CouriersData,
+                  private var CitiesIds: Array<String>,
+                  private var  CitiesNames: Array<String>,
+                  private var StoresIds: Array<String>,
+                  private var  StoresNames: Array<String>,
+) : Fragment() {
     private lateinit var binding: FragmentCourierEditBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,24 +30,31 @@ class CourierEdit(private var selectCourier: CouriersData) : Fragment() {
         (activity as MainActivity).supportActionBar?.title = getString(R.string.CourierEdit)
         val res = inflater.inflate(R.layout.fragment_courier_edit, container, false)
 
-        res.findViewById<TextView>(R.id.editCourierNameET).setText(selectCourier.Name)
-        res.findViewById<TextView>(R.id.editCourierLoginET).setText(selectCourier.Login)
-        res.findViewById<TextView>(R.id.editCourierPhoneNumberET).setText(selectCourier.Phone)
+        val spinnerStores : Spinner = res.findViewById(R.id.spinnerStoreCourierEdit)
+
+        val storesAdapter : ArrayAdapter<CharSequence> = ArrayAdapter(res.context, R.layout.spinner_item, StoresNames)
+        storesAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
+        spinnerStores.adapter = storesAdapter
+
+        res.findViewById<TextView>(R.id.editCourierNameET).text = selectCourier.Name
+        res.findViewById<TextView>(R.id.editCourierLoginET).text = selectCourier.Login
+        res.findViewById<TextView>(R.id.editCourierPhoneNumberET).text = selectCourier.Phone
+        res.findViewById<TextView>(R.id.editCourierPasswordET).text = "1234"
 
         res.findViewById<Button>(R.id.editCourierSaveChangesButton).setOnClickListener {
 
-            (getActivity()?.getApplicationContext() as AppServices).serverData.editUser(
+            (activity?.applicationContext as AppServices).serverData.editUser(
 
                 res.findViewById<EditText>(R.id.editCourierLoginET).text.toString(),
                 res.findViewById<EditText>(R.id.editCourierPasswordET).text.toString(),
                 res.findViewById<EditText>(R.id.editCourierNameET).text.toString(),
                 res.findViewById<EditText>(R.id.editCourierPhoneNumberET).text.toString(),
-                "3",
+                StoresIds[spinnerStores.selectedItemPosition],
                 selectCourier.UserId,
 
                 object : CreateUserCallBack {
                     override fun onSuccess() {
-                        (getActivity()?.getApplicationContext() as AppServices).serverData.getCouriersList()
+                        (activity?.applicationContext as AppServices).serverData.getCouriersList()
                         activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.fragment_container, CouriersList())
                             ?.addToBackStack(null)
@@ -52,7 +62,7 @@ class CourierEdit(private var selectCourier: CouriersData) : Fragment() {
                     }
 
                     override fun onError(text: String) {
-                        (getActivity()?.getApplicationContext() as AppServices).serverData.getCouriersList()
+                        (activity?.applicationContext as AppServices).serverData.getCouriersList()
                         activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.fragment_container, CouriersList())
                             ?.addToBackStack(null)

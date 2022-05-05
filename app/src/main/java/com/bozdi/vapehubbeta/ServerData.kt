@@ -79,7 +79,7 @@ class ServerData(_context: Context) {
                         when (value.getString("Status")) {
                             "PEND" -> status = "Ожидает"
                             "ACCEPT" -> status = "В работе"
-                            "DONE" -> status = "Доставлен"
+                            "DONE" -> continue
                         }
                         (context as AppServices).ordersService.add(
                             OrdersData(
@@ -726,13 +726,13 @@ class ServerData(_context: Context) {
     }
     fun editStore(
         storeId: String,
-        CityId: String,
+        CityId: Int,
         Street: String,
         BuildingNumber: String,
         actionListener: EditCityCallback
     ) {
         val formBody: RequestBody = FormBody.Builder()
-            .add("CityId", CityId)
+            .add("CityId", CityId.toString())
             .add("Street", Street)
             .add("BuildingNumber", BuildingNumber)
             .build()
@@ -740,7 +740,7 @@ class ServerData(_context: Context) {
             .url(globVar.URL + "stores/" + storeId)
             .addHeader("Content-Type", "application/x-www-form-urlencoded")
             .addHeader("auth-token", globVar.token)
-            .post(formBody)
+            .put(formBody)
             .build()
         okHttpClient.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call?, e: IOException?) {
@@ -1007,9 +1007,13 @@ fun acceptOrder(
 }
     fun completeOrder(
         orderId: String,
+        CashPayment: Int,
+        CardPayment: Int,
         actionListener: CreateOrderCallBack
     ) {
         val formBody: RequestBody = FormBody.Builder()
+            .add("CashPayment", CashPayment.toString())
+            .add("CardPayment", CardPayment.toString())
             .build()
         val request: Request = Request.Builder()
             .url(globVar.URL + "orders/" + orderId + "/close")
@@ -1019,13 +1023,13 @@ fun acceptOrder(
             .build()
         okHttpClient.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call?, e: IOException?) {
-                Log.e("json", e.toString())
+                Log.e("json", e.toString(),)
             }
 
             override fun onResponse(call: Call?, response: Response?) {
                 Log.e("Code createCity", response?.code().toString())
                 if (response?.code() != 204) {
-                    actionListener.onError("Ошибка создания города")
+                    actionListener.onError("Ошибка завершения заказа")
                 } else {
                     actionListener.onSuccess()
                 }

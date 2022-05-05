@@ -65,16 +65,27 @@
             android:hint="Пароль"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editCourierLoginET" />
+        <Spinner
+            android:id="@+id/spinnerStoreCourierEdit"
+            style="@style/EditTextStyle17"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:minHeight="48dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editCourierPasswordET"
+            tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
 
         <Button
             android:id="@+id/editCourierSaveChangesButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="8dp"
             android:text="Сохранить изменения"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editCourierPasswordET" />
+            app:layout_constraintTop_toBottomOf="@+id/spinnerStoreCourierEdit" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

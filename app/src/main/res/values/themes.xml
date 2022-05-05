@@ -15,5 +15,24 @@
         <item name="android:windowBackground">@color/vapeHubBackground</item>
         <item name="android:colorPrimaryDark">@color/vapeHubOrange</item>
     </style>
+    <style name="EditTextStyle17">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/vapeHubText</item>
+        <item name="android:textColorHint">@color/vapeHubText</item>
+        <item name="backgroundTint">@color/vapeHubOrange</item>
+    </style>
+
+    <style name="EditTextStyle20">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/vapeHubText</item>
+        <item name="android:textColorHint">@color/vapeHubText</item>
+        <item name="backgroundTint">@color/vapeHubOrange</item>
+    </style>
+
+    <style name="ButtonStyle">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/vapeHubBackground</item>
+        <item name="backgroundTint">@color/vapeHubOrange</item>
+    </style>
 
 </resources>

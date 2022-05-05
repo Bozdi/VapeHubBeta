@@ -7,7 +7,7 @@ class CitiesListService {
     private val listeners = mutableSetOf<citiesListener>()
 
     fun getOrders(): List<CitiesData> {
-        return cities;
+        return cities
     }
 
     fun add(city: CitiesData){
@@ -18,9 +18,8 @@ class CitiesListService {
             )
             //notifyChanges()
         } else {
-            cities[index].Name = city.Name;
+            cities[index].Name = city.Name
         }
-
     }
 
     fun del(city: CitiesData) {

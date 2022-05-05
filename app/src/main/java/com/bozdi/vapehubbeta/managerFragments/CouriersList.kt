@@ -60,8 +60,8 @@ class CouriersList : Fragment() {
                 object : ActualCitiesListCallBack {
 
                     override fun onSuccess(ids: Array<String>, names: Array<String>) {
-                        var StoresIds = mutableListOf<String>();
-                        var StoresNames = mutableListOf<String>();
+                        var StoresIds = mutableListOf<String>()
+                        var StoresNames = mutableListOf<String>()
                         var stores = (getActivity()?.getApplicationContext() as AppServices).storesService.getStores()
                         stores.forEach {
                             StoresIds.add(it.StoreId.toString())
@@ -95,7 +95,7 @@ class CouriersList : Fragment() {
             adapter.notifyDataSetChanged()
             Toast.makeText(activity,"Список обновлён", Toast.LENGTH_SHORT).show()
         }, 500)
-        refresh.isRefreshing = false;
+        refresh.isRefreshing = false
     }
 
         return res

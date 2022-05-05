@@ -14,7 +14,7 @@ import com.bozdi.vapehubbeta.model.OrdersData
 import com.bozdi.vapehubbeta.model.StoresData
 
 
-class StoreReview(private var selectStore: StoresData,private var cityName: String) : Fragment() {
+class StoreReview(private var selectStore: StoresData, private var cityName: String) : Fragment() {
 
 
     override fun onCreateView(
@@ -35,19 +35,11 @@ class StoreReview(private var selectStore: StoresData,private var cityName: Stri
                 object : ActualCitiesListCallBack {
 
                     override fun onSuccess(ids: Array<String>, names: Array<String>) {
-                        val storesIds = mutableListOf<String>()
-                        val storesNames = mutableListOf<String>()
-                        val stores = (activity?.applicationContext as AppServices).storesService.getStores()
-                        stores.forEach {
-                            storesIds.add(it.StoreId.toString())
-                            storesNames.add(it.Street.toString() + " " + it.BuildingNumber.toString())
-                        }
-
                         activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.fragment_container, StoreEdit(
                                 selectStore,
                                 names,
-                                storesIds.toTypedArray()
+                                ids
                             ))
                             ?.addToBackStack(null)
                             ?.commit()

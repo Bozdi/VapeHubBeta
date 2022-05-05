@@ -28,10 +28,34 @@ class ManagerCourierReview(private var selectCourier: CouriersData, private var 
         res.findViewById<TextView>(R.id.courierReviewStoreAddressET).text = Street
 
         res.findViewById<Button>(R.id.courierReviewEditButton).setOnClickListener{
-            activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.fragment_container, CourierEdit(selectCourier))
-                ?.addToBackStack(null)
-                ?.commit()
+            (activity?.applicationContext as AppServices).serverData.getActualCitiesList(
+                object : ActualCitiesListCallBack {
+
+                    override fun onSuccess(ids: Array<String>, names: Array<String>) {
+                        var StoresIds = mutableListOf<String>()
+                        var StoresNames = mutableListOf<String>()
+                        var stores =
+                            (activity?.applicationContext as AppServices).storesService.getStores()
+                        stores.forEach {
+                            StoresIds.add(it.StoreId)
+                            StoresNames.add(it.Street.toString() + " " + it.BuildingNumber.toString())
+                        }
+                        activity?.supportFragmentManager?.beginTransaction()
+                            ?.replace(
+                                R.id.fragment_container, CourierEdit(
+                                    selectCourier,
+                                    ids,
+                                    names,
+                                    StoresIds.toTypedArray(),
+                                    StoresNames.toTypedArray()))
+                            ?.addToBackStack(null)
+                            ?.commit()
+                    }
+
+                    override fun onError(text: String) {
+                    }
+                })
+
         }
 
         res.findViewById<Button>(R.id.deleteCourierButton).setOnClickListener {

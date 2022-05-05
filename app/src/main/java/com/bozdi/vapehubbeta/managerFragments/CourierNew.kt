@@ -25,12 +25,7 @@ class CourierNew(private var CitiesIds: Array<String>,
         (activity as MainActivity).supportActionBar?.title = getString(R.string.CourierNew)
         val res = inflater.inflate(R.layout.fragment_courier_new, container, false)
 
-        val spinnerCities : Spinner = res.findViewById<Spinner>(R.id.spinnerCitiesCourier)
-        val spinnerStores : Spinner = res.findViewById<Spinner>(R.id.spinnerStoreCourier)
-
-        val citiesAdapter : ArrayAdapter<CharSequence> = ArrayAdapter(res.context, R.layout.spinner_item, CitiesNames)
-        spinnerCities.adapter = citiesAdapter
-        citiesAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
+        val spinnerStores : Spinner = res.findViewById(R.id.spinnerStoreCourier)
 
         val storesAdapter : ArrayAdapter<CharSequence> = ArrayAdapter(res.context, R.layout.spinner_item, StoresNames)
         storesAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
@@ -39,7 +34,7 @@ class CourierNew(private var CitiesIds: Array<String>,
         res.findViewById<Button>(R.id.createCourierButton).setOnClickListener {
 
             val userType = "COUR"
-            (getActivity()?.getApplicationContext() as AppServices).serverData.createCourier(
+            (activity?.applicationContext as AppServices).serverData.createCourier(
 
                 userType,
                 res.findViewById<EditText>(R.id.newCourierPhoneNumberET).text.toString(),
@@ -50,7 +45,7 @@ class CourierNew(private var CitiesIds: Array<String>,
 
                 object : CreateUserCallBack {
                     override fun onSuccess() {
-                        (getActivity()?.getApplicationContext() as AppServices).serverData.getCouriersList()
+                        (activity?.applicationContext as AppServices).serverData.getCouriersList()
                         activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.fragment_container, CouriersList())
                             ?.addToBackStack(null)
@@ -58,7 +53,7 @@ class CourierNew(private var CitiesIds: Array<String>,
                     }
 
                     override fun onError(text: String) {
-                        (getActivity()?.getApplicationContext() as AppServices).serverData.getCouriersList()
+                        (activity?.applicationContext as AppServices).serverData.getCouriersList()
                         activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.fragment_container, CouriersList())
                             ?.addToBackStack(null)

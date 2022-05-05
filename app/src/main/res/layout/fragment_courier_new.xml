@@ -54,27 +54,15 @@
             app:layout_constraintTop_toBottomOf="@+id/newCourierLoginET" />
 
         <Spinner
-            android:id="@+id/spinnerCitiesCourier"
-            style="@style/EditTextStyle17"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="16dp"
-            android:minHeight="48dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/newCourierPhoneNumberET"
-            tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
-
-        <Spinner
             android:id="@+id/spinnerStoreCourier"
             style="@style/EditTextStyle17"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="8dp"
             android:minHeight="48dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinnerCitiesCourier"
+            app:layout_constraintTop_toBottomOf="@+id/newCourierPhoneNumberET"
             tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
 
         <Button

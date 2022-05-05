@@ -42,7 +42,7 @@ class StoreEdit(private var selectStore: StoresData,
             (activity?.applicationContext as AppServices).serverData.editStore(
 
                 selectStore.StoreId,
-                CitiesIds[spinnerCitiesEditStore.selectedItemPosition],
+                CitiesIds[spinnerCitiesEditStore.selectedItemPosition].toInt(),
                 res.findViewById<EditText>(R.id.editStoreStreetET).text.toString(),
                 res.findViewById<EditText>(R.id.editStoreBuildingNumberET).text.toString(),
 
