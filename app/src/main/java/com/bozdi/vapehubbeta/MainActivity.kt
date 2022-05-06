@@ -1,9 +1,6 @@
 package com.bozdi.vapehubbeta
 
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -12,15 +9,11 @@ import com.bozdi.vapehubbeta.adminFragments.ManagersList
 import com.bozdi.vapehubbeta.adminFragments.StoresList
 import com.bozdi.vapehubbeta.courierFragments.CourierGoods
 import com.bozdi.vapehubbeta.managerFragments.CouriersList
-import com.bozdi.vapehubbeta.managerFragments.ManagerCourierReview
-import com.bozdi.vapehubbeta.model.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import okhttp3.*
 
 class MainActivity : AppCompatActivity() {
 
-    var globVar: GlobalVars = GlobalVars
-    var okHttpClient: OkHttpClient = OkHttpClient()
+    private var globVar: GlobalVars = GlobalVars
 
     private val managerOrders = OrdersList()
     private val managerCouriers = CouriersList()
@@ -64,9 +57,9 @@ class MainActivity : AppCompatActivity() {
                     }
                     true
                 }
-                (getApplicationContext() as AppServices).serverData.getManagersList()
-                (getApplicationContext() as AppServices).serverData.getStoresList()
-                (getApplicationContext() as AppServices).serverData.getCitiesList()
+                (applicationContext as AppServices).serverData.getManagersList()
+                (applicationContext as AppServices).serverData.getStoresList()
+                (applicationContext as AppServices).serverData.getCitiesList()
 
 
             }
@@ -81,10 +74,10 @@ class MainActivity : AppCompatActivity() {
                     }
                     true
                 }
-                (getApplicationContext() as AppServices).serverData.getGoodDialogList()
-                (getApplicationContext() as AppServices).serverData.getOrdersList()
-                (getApplicationContext() as AppServices).serverData.getCouriersList()
-                (getApplicationContext() as AppServices).serverData.getStoresList()
+                (applicationContext as AppServices).serverData.getGoodDialogList()
+                (applicationContext as AppServices).serverData.getOrdersList()
+                (applicationContext as AppServices).serverData.getCouriersList()
+                (applicationContext as AppServices).serverData.getStoresList()
                 (applicationContext as AppServices).serverData.getCitiesList()
             }
             else -> {
@@ -98,10 +91,10 @@ class MainActivity : AppCompatActivity() {
                     }
                     true
                 }
-                (getApplicationContext() as AppServices).serverData.getOrdersList()
-                (getApplicationContext() as AppServices).serverData.getCourierBackpackList()
-                (getApplicationContext() as AppServices).serverData.getStoresList()
-                (getApplicationContext() as AppServices).serverData.getCitiesList()
+                (applicationContext as AppServices).serverData.getOrdersList()
+                (applicationContext as AppServices).serverData.getCourierBackpackList()
+                (applicationContext as AppServices).serverData.getStoresList()
+                (applicationContext as AppServices).serverData.getCitiesList()
             }
         }
         result.isVisible = true

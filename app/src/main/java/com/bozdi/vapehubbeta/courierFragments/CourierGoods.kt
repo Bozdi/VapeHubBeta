@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bozdi.vapehubbeta.AppServices
+import com.bozdi.vapehubbeta.MainActivity
 import com.bozdi.vapehubbeta.R
 import com.bozdi.vapehubbeta.adapters.CourierGoodsAdapter
 import com.bozdi.vapehubbeta.model.CourierGoodsListService
@@ -18,12 +19,13 @@ class CourierGoods : Fragment() {
     private lateinit var adapter: CourierGoodsAdapter
 
     private val courierService: CourierGoodsListService
-        get() = (getActivity()?.getApplicationContext() as AppServices).courierGoodsService
+        get() = (activity?.applicationContext as AppServices).courierGoodsService
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
+        (activity as MainActivity).supportActionBar?.title = getString(R.string.Goods)
         val res = inflater.inflate(R.layout.fragment_courier_backpack, container, false)
-        var rv: RecyclerView = res.findViewById(R.id.Goods_List)
+        val rv: RecyclerView = res.findViewById(R.id.Goods_List)
         adapter = CourierGoodsAdapter()
         rv.adapter = adapter
         rv.layoutManager = LinearLayoutManager(activity)

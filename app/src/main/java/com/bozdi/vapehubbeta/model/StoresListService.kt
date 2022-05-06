@@ -20,6 +20,8 @@ class StoresListService {
             //notifyChanges()
         } else {
             stores[index].CityId = store.CityId
+            stores[index].Street = store.Street
+            stores[index].BuildingNumber = store.BuildingNumber
         }
     }
 

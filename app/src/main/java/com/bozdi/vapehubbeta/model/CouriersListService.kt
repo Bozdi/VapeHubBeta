@@ -23,6 +23,9 @@ class CouriersListService {
             )
         } else {
             couriers[index].Name = courier.Name
+            couriers[index].StoreId = courier.StoreId
+            couriers[index].Phone = courier.Phone
+            couriers[index].Login = courier.Login
         }
        // notifyChanges()
     }

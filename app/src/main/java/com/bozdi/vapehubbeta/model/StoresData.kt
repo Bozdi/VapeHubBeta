@@ -5,6 +5,6 @@ data class StoresData(
     var CityId: String?,
     val CityLink: String?,
     var Street: String?,
-    val BuildingNumber: String?,
+    var BuildingNumber: String?,
     val PlaceId: String?,
 )

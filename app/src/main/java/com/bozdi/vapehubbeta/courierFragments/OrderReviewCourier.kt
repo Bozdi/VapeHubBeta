@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import com.bozdi.vapehubbeta.*
-import com.bozdi.vapehubbeta.managerFragments.OrderEdit
 import com.bozdi.vapehubbeta.model.OrdersData
 
 class OrderReviewCourier(private var selectOrderCourier: OrdersData) : Fragment() {
@@ -18,6 +17,8 @@ class OrderReviewCourier(private var selectOrderCourier: OrdersData) : Fragment(
         savedInstanceState: Bundle?
     ): View? {
         val res = inflater.inflate(R.layout.fragment_order_review_courier, container, false)
+        val orderId = selectOrderCourier.OrderId.toInt()
+        (activity as MainActivity).supportActionBar?.title = "Заказ №" + selectOrderCourier.OrderId
 
         res.findViewById<TextView>(R.id.orderReviewCourierNameET).text = selectOrderCourier.ClientName
         res.findViewById<TextView>(R.id.orderReviewCourierStreetET).text = selectOrderCourier.StreetName
@@ -26,6 +27,9 @@ class OrderReviewCourier(private var selectOrderCourier: OrdersData) : Fragment(
         res.findViewById<TextView>(R.id.orderReviewCourierStatusET).text = selectOrderCourier.Status
         res.findViewById<TextView>(R.id.orderReviewCourierPhoneNumberET).text = selectOrderCourier.ClientPhone
         res.findViewById<TextView>(R.id.orderReviewCourierEntranceET).text = selectOrderCourier.EntranceNum
+        res.findViewById<TextView>(R.id.orderReviewCourierDeliveryCostET).text = selectOrderCourier.DeliveryCost
+        res.findViewById<TextView>(R.id.orderReviewCourierGoodsCostET).text = selectOrderCourier.GoodsTotalCost
+        res.findViewById<TextView>(R.id.orderReviewCourierTotalCostET).text = selectOrderCourier.TotalCost
 
 
         res.findViewById<Button>(R.id.orderReviewCourierTakeOrderButton).setOnClickListener{

@@ -1,27 +1,24 @@
 package com.bozdi.vapehubbeta
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import com.bozdi.vapehubbeta.managerFragments.CourierEdit
-import com.bozdi.vapehubbeta.model.CouriersData
+import androidx.fragment.app.Fragment
+import kotlinx.coroutines.Dispatchers.Main
 
 class Profile : Fragment() {
-
-    override fun onStart() {
-        super.onStart()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.e("test", GlobalVars.Login);
+        Log.e("test", GlobalVars.Login)
         (activity as MainActivity).supportActionBar?.title = getString(R.string.Profile)
         val res =  inflater.inflate(R.layout.fragment_profile, container, false)
 
@@ -37,7 +34,16 @@ class Profile : Fragment() {
                 ?.commit()
         }
 
-        return res;
+        res.findViewById<Button>(R.id.profileExitButton).setOnClickListener {
+            activity?.let{
+                val intent = Intent (it, LoginActivity::class.java)
+                it.startActivity(intent)
+            }
+
+        }
+
+
+        return res
     }
 
 }

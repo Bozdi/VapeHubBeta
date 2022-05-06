@@ -62,12 +62,12 @@ class ServerData(_context: Context) {
             .get()
             .build()
         okHttpClient.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call?, e: IOException?) {
+            override fun onFailure(call: Call, e: IOException) {
                 Log.e("json", e.toString())
             }
 
-            override fun onResponse(call: Call?, response: Response?) {
-                val body = response?.body()?.string().toString()
+            override fun onResponse(call: Call, response: Response) {
+                val body = response.body()?.string().toString()
                 Log.i("OrderList JSON", body)
                 val objects: JSONObject = JSONTokener(body).nextValue() as JSONObject
                 val key: JSONArray? = objects.names()
@@ -126,12 +126,12 @@ class ServerData(_context: Context) {
             .get()
             .build()
         okHttpClient.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call?, e: IOException?) {
+            override fun onFailure(call: Call, e: IOException) {
                 Log.e("json", e.toString())
             }
 
-            override fun onResponse(call: Call?, response: Response?) {
-                val body = response?.body()?.string().toString()
+            override fun onResponse(call: Call, response: Response) {
+                val body = response.body()?.string().toString()
                 Log.e("list", body)
                 val objects: JSONObject = JSONTokener(body).nextValue() as JSONObject
                 val key: JSONArray? = objects.names()
@@ -169,12 +169,12 @@ class ServerData(_context: Context) {
             .get()
             .build()
         okHttpClient.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call?, e: IOException?) {
+            override fun onFailure(call: Call, e: IOException) {
                 Log.e("json", e.toString())
             }
 
-            override fun onResponse(call: Call?, response: Response?) {
-                val body = response?.body()?.string().toString()
+            override fun onResponse(call: Call, response: Response) {
+                val body = response.body()?.string().toString()
                 Log.e("list", body)
                 val objects: JSONObject = JSONTokener(body).nextValue() as JSONObject
                 val key: JSONArray? = objects.names()
@@ -226,13 +226,13 @@ class ServerData(_context: Context) {
             .post(formBody)
             .build()
         okHttpClient.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call?, e: IOException?) {
+            override fun onFailure(call: Call, e: IOException) {
                 Log.e("json", e.toString())
             }
 
-            override fun onResponse(call: Call?, response: Response?) {
-                Log.e("Code Create Order", response?.code().toString())
-                if (response?.code() != 201) {
+            override fun onResponse(call: Call, response: Response) {
+                Log.e("Code Create Order", response.code().toString())
+                if (response.code() != 201) {
                     actionListener.onError("Ошибка добавления заказа")
                 } else {
                     actionListener.onSuccess()
@@ -271,13 +271,13 @@ class ServerData(_context: Context) {
             .post(formBody)
             .build()
         okHttpClient.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call?, e: IOException?) {
+            override fun onFailure(call: Call, e: IOException) {
                 Log.e("json", e.toString())
             }
 
-            override fun onResponse(call: Call?, response: Response?) {
-                Log.e("Code Create Order", response?.code().toString())
-                if (response?.code() != 201) {
+            override fun onResponse(call: Call, response: Response) {
+                Log.e("Code Create Order", response.code().toString())
+                if (response.code() != 201) {
                     actionListener.onError("Ошибка добавления заказа")
                 } else {
                     val body = response.body()?.string().toString()
@@ -312,13 +312,13 @@ class ServerData(_context: Context) {
             .put(formBody)
             .build()
         okHttpClient.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call?, e: IOException?) {
+            override fun onFailure(call: Call, e: IOException) {
                 Log.e("json", e.toString())
             }
 
-            override fun onResponse(call: Call?, response: Response?) {
-                Log.e("Code Create Order", response?.code().toString())
-                if (response?.code() != 201) {
+            override fun onResponse(call: Call, response: Response) {
+                Log.e("Code Create Order", response.code().toString())
+                if (response.code() != 201) {
                     actionListener.onError("Ошибка добавления заказа")
                 } else {
                     actionListener.onSuccess()
@@ -345,13 +345,13 @@ class ServerData(_context: Context) {
             .post(formBody)
             .build()
         okHttpClient.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call?, e: IOException?) {
+            override fun onFailure(call: Call, e: IOException) {
                 Log.e("json", e.toString())
             }
 
-            override fun onResponse(call: Call?, response: Response?) {
-                Log.e("Code Create Store", response?.code().toString())
-                if (response?.code() != 201) {
+            override fun onResponse(call: Call, response: Response) {
+                Log.e("Code Create Store", response.code().toString())
+                if (response.code() != 201) {
                     actionListener.onError("Ошибка добавления заказа")
                 } else {
                     actionListener.onSuccess()
@@ -384,13 +384,13 @@ class ServerData(_context: Context) {
             .post(formBody)
             .build()
         okHttpClient.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call?, e: IOException?) {
+            override fun onFailure(call: Call, e: IOException) {
                 Log.e("json", e.toString())
             }
 
-            override fun onResponse(call: Call?, response: Response?) {
-                Log.e("Code Create Order", response?.code().toString())
-                if (response?.code() != 201) {
+            override fun onResponse(call: Call, response: Response) {
+                Log.e("Code Create Order", response.code().toString())
+                if (response.code() != 201) {
                     actionListener.onError("Ошибка создания курьера")
                 } else {
                     actionListener.onSuccess()
@@ -421,13 +421,13 @@ class ServerData(_context: Context) {
             .put(formBody)
             .build()
         okHttpClient.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call?, e: IOException?) {
+            override fun onFailure(call: Call, e: IOException) {
                 Log.e("json", e.toString())
             }
 
-            override fun onResponse(call: Call?, response: Response?) {
-                Log.e("Code Create Order", response?.code().toString())
-                if (response?.code() != 201) {
+            override fun onResponse(call: Call, response: Response) {
+                Log.e("Code Create Order", response.code().toString())
+                if (response.code() != 201) {
                     actionListener.onError("Ошибка редактирования курьера")
                 } else {
                     actionListener.onSuccess()
@@ -455,13 +455,13 @@ class ServerData(_context: Context) {
             .post(formBody.build())
             .build()
         okHttpClient.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call?, e: IOException?) {
+            override fun onFailure(call: Call, e: IOException) {
                 Log.e("json", e.toString())
             }
 
-            override fun onResponse(call: Call?, response: Response?) {
-                Log.e("Add goods Order", response?.code().toString())
-                if (response?.code() != 201) {
+            override fun onResponse(call: Call, response: Response) {
+                Log.e("Add goods Order", response.code().toString())
+                if (response.code() != 201) {
                     actionListener.onError("Ошибка добавления заказа")
                 } else {
                     actionListener.onSuccess()
@@ -478,12 +478,12 @@ class ServerData(_context: Context) {
             .get()
             .build()
         okHttpClient.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call?, e: IOException?) {
+            override fun onFailure(call: Call, e: IOException) {
                 Log.e("json", e.toString())
             }
 
-            override fun onResponse(call: Call?, response: Response?) {
-                val body = response?.body()?.string().toString()
+            override fun onResponse(call: Call, response: Response) {
+                val body = response.body()?.string().toString()
                 Log.e("list", body)
                 val objects: JSONObject = JSONTokener(body).nextValue() as JSONObject
                 val key: JSONArray? = objects.names()
@@ -521,12 +521,12 @@ class ServerData(_context: Context) {
             .get()
             .build()
         okHttpClient.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call?, e: IOException?) {
+            override fun onFailure(call: Call, e: IOException) {
                 Log.e("json", e.toString())
             }
 
-            override fun onResponse(call: Call?, response: Response?) {
-                val body = response?.body()?.string().toString()
+            override fun onResponse(call: Call, response: Response) {
+                val body = response.body()?.string().toString()
                 Log.e("getStoreData", body)
                 val objects: JSONObject = JSONTokener(body).nextValue() as JSONObject
 
@@ -544,12 +544,12 @@ class ServerData(_context: Context) {
             .get()
             .build()
         okHttpClient.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call?, e: IOException?) {
+            override fun onFailure(call: Call, e: IOException) {
                 Log.e("json", e.toString())
             }
 
-            override fun onResponse(call: Call?, response: Response?) {
-                val body = response?.body()?.string().toString()
+            override fun onResponse(call: Call, response: Response) {
+                val body = response.body()?.string().toString()
                 Log.e("cities", body)
                 val objects: JSONArray = JSONTokener(body).nextValue() as JSONArray
                 for (i in 0 until objects.length()) {
@@ -580,12 +580,12 @@ class ServerData(_context: Context) {
             .get()
             .build()
         okHttpClient.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call?, e: IOException?) {
+            override fun onFailure(call: Call, e: IOException) {
                 Log.e("json", e.toString())
             }
 
-            override fun onResponse(call: Call?, response: Response?) {
-                val body = response?.body()?.string().toString()
+            override fun onResponse(call: Call, response: Response) {
+                val body = response.body()?.string().toString()
                 Log.e("cities", body)
                 val objects: JSONArray = JSONTokener(body).nextValue() as JSONArray
                 val ids = mutableListOf<String>()
@@ -617,11 +617,11 @@ class ServerData(_context: Context) {
             .get()
             .build()
         okHttpClient.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call?, e: IOException?) {
+            override fun onFailure(call: Call, e: IOException) {
                 Log.e("json", e.toString())
             }
-            override fun onResponse(call: Call?, response: Response?) {
-                val body = response?.body()?.string().toString()
+            override fun onResponse(call: Call, response: Response) {
+                val body = response.body()?.string().toString()
                 Log.e("getCityName", body)
                 val objects: JSONObject = JSONTokener(body).nextValue() as JSONObject
 
@@ -640,12 +640,12 @@ class ServerData(_context: Context) {
             .get()
             .build()
         okHttpClient.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call?, e: IOException?) {
+            override fun onFailure(call: Call, e: IOException) {
                 Log.e("json", e.toString())
             }
 
-            override fun onResponse(call: Call?, response: Response?) {
-                val body: String = response?.body()?.string().toString()
+            override fun onResponse(call: Call, response: Response) {
+                val body: String = response.body()?.string().toString()
                 Log.e("StoreId", body)
                 globVar.UserType = (JSONObject(body).getString("Type")).toString()
                 globVar.Login = (JSONObject(body).getString("Login")).toString()
@@ -710,13 +710,13 @@ class ServerData(_context: Context) {
             .post(formBody)
             .build()
         okHttpClient.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call?, e: IOException?) {
+            override fun onFailure(call: Call, e: IOException) {
                 Log.e("json", e.toString())
             }
 
-            override fun onResponse(call: Call?, response: Response?) {
-                Log.e("Code createCity", response?.code().toString())
-                if (response?.code() != 201) {
+            override fun onResponse(call: Call, response: Response) {
+                Log.e("Code createCity", response.code().toString())
+                if (response.code() != 201) {
                     actionListener.onError("Ошибка создания города")
                 } else {
                     actionListener.onSuccess()
@@ -743,13 +743,13 @@ class ServerData(_context: Context) {
             .put(formBody)
             .build()
         okHttpClient.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call?, e: IOException?) {
+            override fun onFailure(call: Call, e: IOException) {
                 Log.e("json", e.toString())
             }
 
-            override fun onResponse(call: Call?, response: Response?) {
-                Log.e("Code createCity", response?.code().toString())
-                if (response?.code() != 201) {
+            override fun onResponse(call: Call, response: Response) {
+                Log.e("Code createCity", response.code().toString())
+                if (response.code() != 201) {
                     actionListener.onError("Ошибка создания города")
                 } else {
                     actionListener.onSuccess()
@@ -771,13 +771,13 @@ class ServerData(_context: Context) {
             .delete(formBody)
             .build()
         okHttpClient.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call?, e: IOException?) {
+            override fun onFailure(call: Call, e: IOException) {
                 Log.e("json", e.toString())
             }
 
-            override fun onResponse(call: Call?, response: Response?) {
-                Log.e("Code createCity", response?.code().toString())
-                if (response?.code() != 201) {
+            override fun onResponse(call: Call, response: Response) {
+                Log.e("Code createCity", response.code().toString())
+                if (response.code() != 201) {
                     actionListener.onError("Ошибка создания города")
                 } else {
                     actionListener.onSuccess()
@@ -799,13 +799,13 @@ class ServerData(_context: Context) {
             .delete(formBody)
             .build()
         okHttpClient.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call?, e: IOException?) {
+            override fun onFailure(call: Call, e: IOException) {
                 Log.e("json", e.toString())
             }
 
-            override fun onResponse(call: Call?, response: Response?) {
-                Log.e("Code createCity", response?.code().toString())
-                if (response?.code() != 201) {
+            override fun onResponse(call: Call, response: Response) {
+                Log.e("Code createCity", response.code().toString())
+                if (response.code() != 201) {
                     actionListener.onError("Ошибка создания города")
                 } else {
                     actionListener.onSuccess()
@@ -827,13 +827,13 @@ class ServerData(_context: Context) {
             .delete(formBody)
             .build()
         okHttpClient.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call?, e: IOException?) {
+            override fun onFailure(call: Call, e: IOException) {
                 Log.e("json", e.toString())
             }
 
-            override fun onResponse(call: Call?, response: Response?) {
-                Log.e("Code createCity", response?.code().toString())
-                if (response?.code() != 204) {
+            override fun onResponse(call: Call, response: Response) {
+                Log.e("Code createCity", response.code().toString())
+                if (response.code() != 204) {
                     actionListener.onError("Ошибка создания города")
                 } else {
                     actionListener.onSuccess()
@@ -855,13 +855,13 @@ class ServerData(_context: Context) {
             .delete(formBody)
             .build()
         okHttpClient.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call?, e: IOException?) {
+            override fun onFailure(call: Call, e: IOException) {
                 Log.e("json", e.toString())
             }
 
-            override fun onResponse(call: Call?, response: Response?) {
-                Log.e("Code createCity", response?.code().toString())
-                if (response?.code() != 201) {
+            override fun onResponse(call: Call, response: Response) {
+                Log.e("Code createCity", response.code().toString())
+                if (response.code() != 201) {
                     actionListener.onError("Ошибка создания города")
                 } else {
                     actionListener.onSuccess()
@@ -884,13 +884,13 @@ class ServerData(_context: Context) {
             .post(formBody)
             .build()
         okHttpClient.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call?, e: IOException?) {
+            override fun onFailure(call: Call, e: IOException) {
                 Log.e("json", e.toString())
             }
 
-            override fun onResponse(call: Call?, response: Response?) {
-                Log.e("Code Create Order", response?.code().toString())
-                if (response?.code() != 201) {
+            override fun onResponse(call: Call, response: Response) {
+                Log.e("Code Create Order", response.code().toString())
+                if (response.code() != 201) {
                     actionListener.onError("Ошибка создания города")
                 } else {
                     actionListener.onSuccess()
@@ -907,12 +907,12 @@ class ServerData(_context: Context) {
             .get()
             .build()
         okHttpClient.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call?, e: IOException?) {
+            override fun onFailure(call: Call, e: IOException) {
                 Log.e("json", e.toString())
             }
 
-            override fun onResponse(call: Call?, response: Response?) {
-                val body = response?.body()?.string().toString()
+            override fun onResponse(call: Call, response: Response) {
+                val body = response.body()?.string().toString()
                 Log.e("list", body)
                 val objects: JSONObject = JSONTokener(body).nextValue() as JSONObject
                 val key: JSONArray? = objects.names()
@@ -946,12 +946,12 @@ class ServerData(_context: Context) {
             .get()
             .build()
         okHttpClient.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call?, e: IOException?) {
+            override fun onFailure(call: Call, e: IOException) {
                 Log.e("GoodDialog", e.toString())
             }
 
-            override fun onResponse(call: Call?, response: Response?) {
-                val body = response?.body()?.string().toString()
+            override fun onResponse(call: Call, response: Response) {
+                val body = response.body()?.string().toString()
                 Log.e("GoodDialog", body)
                 val objects: JSONObject = JSONTokener(body).nextValue() as JSONObject
                 val key: JSONArray? = objects.names()
@@ -991,13 +991,13 @@ fun acceptOrder(
         .post(formBody)
         .build()
     okHttpClient.newCall(request).enqueue(object : Callback {
-        override fun onFailure(call: Call?, e: IOException?) {
+        override fun onFailure(call: Call, e: IOException) {
             Log.e("json", e.toString())
         }
 
-        override fun onResponse(call: Call?, response: Response?) {
-            Log.e("Code createCity", response?.code().toString())
-            if (response?.code() != 204) {
+        override fun onResponse(call: Call, response: Response) {
+            Log.e("Code createCity", response.code().toString())
+            if (response.code() != 204) {
                 actionListener.onError("Ошибка создания города")
             } else {
                 actionListener.onSuccess()
@@ -1007,28 +1007,30 @@ fun acceptOrder(
 }
     fun completeOrder(
         orderId: String,
-        CashPayment: Int,
-        CardPayment: Int,
+        CashPayment: String,
+        CardPayment: String,
         actionListener: CreateOrderCallBack
     ) {
         val formBody: RequestBody = FormBody.Builder()
-            .add("CashPayment", CashPayment.toString())
-            .add("CardPayment", CardPayment.toString())
+            .add("CashPayment", CashPayment)
+            .add("CardPayment", CardPayment)
             .build()
         val request: Request = Request.Builder()
-            .url(globVar.URL + "orders/" + orderId + "/close")
+            .url(globVar.URL + "orders/" + orderId + "/close/")
             .addHeader("Content-Type", "application/x-www-form-urlencoded")
             .addHeader("auth-token", globVar.token)
             .post(formBody)
             .build()
         okHttpClient.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call?, e: IOException?) {
-                Log.e("json", e.toString(),)
+            override fun onFailure(call: Call, e: IOException) {
+                Log.e("json", e.toString())
             }
 
-            override fun onResponse(call: Call?, response: Response?) {
-                Log.e("Code createCity", response?.code().toString())
-                if (response?.code() != 204) {
+            override fun onResponse(call: Call, response: Response) {
+                val body = response.body()?.string().toString()
+                Log.e("Order Close JSON", body)
+                Log.e("Code createCity", response.code().toString())
+                if (response.code() != 204) {
                     actionListener.onError("Ошибка завершения заказа")
                 } else {
                     actionListener.onSuccess()

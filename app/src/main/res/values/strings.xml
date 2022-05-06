@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">VapeHubBeta</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="app_name">VapeHub</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="Pending">Ожидает</string>
     <string name="Orders">Заказы</string>
@@ -26,8 +25,5 @@
     <string name="StoreReview">Магазин</string>
     <string name="StoresList">Магазины</string>
     <string name="CityEdit">Редактирование города</string>
-    <!--    <string name=""></string>-->
-<!--    <string name=""></string>-->
-<!--    <string name=""></string>-->
-<!--    <string name=""></string>-->
+    <string name="Goods">Товары</string>
 </resources>

@@ -19,7 +19,7 @@ class ManagerCourierReview(private var selectCourier: CouriersData, private var 
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        (activity as MainActivity).supportActionBar?.title = getString(R.string.CourierReview)
+        (activity as MainActivity).supportActionBar?.title = "Курьер " + selectCourier.Name
         val res = inflater.inflate(R.layout.fragment_manager_courier_review, container, false)
 
         res.findViewById<TextView>(R.id.courierReviewNameET).text = selectCourier.Name

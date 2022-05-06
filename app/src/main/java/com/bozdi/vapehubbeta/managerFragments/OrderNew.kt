@@ -15,16 +15,16 @@ import com.bozdi.vapehubbeta.*
 import com.bozdi.vapehubbeta.adapters.*
 import com.bozdi.vapehubbeta.model.*
 
-class OrderNew() : Fragment() {
+class OrderNew : Fragment() {
     private lateinit var newOrderAdapter: NewOrderAdapter
     private lateinit var selectedOrderAdapter: SelectedGoodsAdapter
 
 
     private val goodDialogService: GoodsDialogService
-        get() = (getActivity()?.getApplicationContext() as AppServices).goodsDialogService
+        get() = (activity?.applicationContext as AppServices).goodsDialogService
 
     private val selectedGoodsService: SelectedGoodsService
-        get() = (getActivity()?.getApplicationContext() as AppServices).selectedGoodsService
+        get() = (activity?.applicationContext as AppServices).selectedGoodsService
 
     private var dialog: Dialog? = null
 
@@ -34,11 +34,11 @@ class OrderNew() : Fragment() {
         dialog = context?.let { Dialog(it) }
         dialog?.setTitle("Dialog")
         dialog?.setContentView(R.layout.fragment_goods_list_dialog)
-        val rv: RecyclerView? = dialog?.findViewById<RecyclerView>(R.id.Dialog_Goods_List)
+        val rv: RecyclerView? = dialog?.findViewById(R.id.Dialog_Goods_List)
         newOrderAdapter = NewOrderAdapter(object : NewOrderActionListener {
             override fun onGoodClick(good: GoodsData) {
-                (getActivity()?.getApplicationContext() as AppServices).selectedGoodsService.add(good)
-                (getActivity()?.getApplicationContext() as AppServices).goodsDialogService.del(good)
+                (activity?.applicationContext as AppServices).selectedGoodsService.add(good)
+                (activity?.applicationContext as AppServices).goodsDialogService.del(good)
                 dialog?.cancel()
             }
         })
@@ -61,14 +61,14 @@ class OrderNew() : Fragment() {
         val rv: RecyclerView = res.findViewById(R.id.selectedGoodList)
         selectedOrderAdapter = SelectedGoodsAdapter(object : SelectedGoodsActionListener {
             override fun onPlusClick(good: GoodsData) {
-                (getActivity()?.getApplicationContext() as AppServices).selectedGoodsService.add(good)
+                (activity?.applicationContext as AppServices).selectedGoodsService.add(good)
             }
 
             override fun onMinusClick(good: GoodsData) {
                 if (good.Available?.toInt() == 1) {
-                    (getActivity()?.getApplicationContext() as AppServices).goodsDialogService.add(good)
+                    (activity?.applicationContext as AppServices).goodsDialogService.add(good)
                 }
-                (getActivity()?.getApplicationContext() as AppServices).selectedGoodsService.del(
+                (activity?.applicationContext as AppServices).selectedGoodsService.del(
                     good
                 )
             }
@@ -79,33 +79,33 @@ class OrderNew() : Fragment() {
         selectedGoodsService.addListener(selectedLister)
 
         res.findViewById<Button>(R.id.addGoodButton).setOnClickListener {
-            if ((getActivity()?.getApplicationContext() as AppServices).goodsDialogService.count() > 0) {
-                dialog?.show();
-            } else{
+            if ((activity?.applicationContext as AppServices).goodsDialogService.count() > 0) {
+                dialog?.show()
+            } else {
                 Toast.makeText(activity,"Нет товаров",Toast.LENGTH_SHORT).show()
             }
         }
 
         res.findViewById<Button>(R.id.createOrderButton).setOnClickListener {
-            var apartNum = res.findViewById<EditText>(R.id.newOrderApartNumET).text.toString()
+            val apartNum = res.findViewById<EditText>(R.id.newOrderApartNumET).text.toString()
 
             var apartNumInt = 0
             if (apartNum != "") {
                 apartNumInt = apartNum.toInt()
             }
-            (getActivity()?.getApplicationContext() as AppServices).serverData.createOrder(
+            (activity?.applicationContext as AppServices).serverData.createOrder(
                 GlobalVars.StoreId,
                 res.findViewById<EditText>(R.id.newOrderStreetNameET).text.toString(),
                 res.findViewById<EditText>(R.id.newOrderBuildingNumberET).text.toString(),
                 apartNumInt,
-                (getActivity()?.getApplicationContext() as AppServices).selectedGoodsService.getOrders(),
+                (activity?.applicationContext as AppServices).selectedGoodsService.getOrders(),
                 res.findViewById<EditText>(R.id.newOrderNameET).text.toString(),
                 res.findViewById<EditText>(R.id.newOrderPhoneNumberET).text.toString(),
                 res.findViewById<EditText>(R.id.newOrderEntranceNumET).text.toString(),
                 0,
                 object : CreateOrderCallBack {
                     override fun onSuccess() {
-                        (getActivity()?.getApplicationContext() as AppServices).serverData.getOrdersList()
+                        (activity?.applicationContext as AppServices).serverData.getOrdersList()
                         activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.fragment_container, OrdersList())
                             ?.addToBackStack(null)

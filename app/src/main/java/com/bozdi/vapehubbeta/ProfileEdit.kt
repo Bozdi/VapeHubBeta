@@ -20,6 +20,8 @@ class ProfileEdit : Fragment() {
     ): View? {
         val res = inflater.inflate(R.layout.fragment_profile_edit, container, false)
 
+        (activity as MainActivity).supportActionBar?.title = getString(R.string.ProfileEdit)
+
         res.findViewById<TextView>(R.id.editProfileLoginET).text = GlobalVars.Login
         res.findViewById<TextView>(R.id.editProfileNameET).text = GlobalVars.ProfileName
         res.findViewById<TextView>(R.id.editProfilePhoneNumberET).text = GlobalVars.ProfilePhoneNumber
@@ -27,9 +29,7 @@ class ProfileEdit : Fragment() {
 
         res.findViewById<Button>(R.id.editProfileSaveChangesButton).setOnClickListener {
 
-
-
-            (activity?.getApplicationContext() as AppServices).serverData.editUser(
+            (activity?.applicationContext as AppServices).serverData.editUser(
 
                 res.findViewById<EditText>(R.id.editProfileLoginET).text.toString(),
                 "1234",
@@ -40,7 +40,7 @@ class ProfileEdit : Fragment() {
 
                 object : CreateUserCallBack {
                     override fun onSuccess() {
-                        (getActivity()?.getApplicationContext() as AppServices).serverData.getUserType(
+                        (getActivity()?.applicationContext as AppServices).serverData.getUserType(
                             object : GetUserDataCallBack {
                             override fun onSuccess() {
                                 activity?.supportFragmentManager?.beginTransaction()

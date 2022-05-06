@@ -19,7 +19,7 @@ class ManagerReview(private var selectManager: ManagersData, private var street:
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        (activity as MainActivity).supportActionBar?.title = getString(R.string.ManagerReview)
+        (activity as MainActivity).supportActionBar?.title = "Менеджер " + selectManager.Name
         val res = inflater.inflate(R.layout.fragment_manager_review, container, false)
 
         res.findViewById<TextView>(R.id.managerReviewNameET).text = selectManager.Name
@@ -30,13 +30,13 @@ class ManagerReview(private var selectManager: ManagersData, private var street:
 
         val editManagerButton : Button = res.findViewById(R.id.managerReviewEditButton)
         editManagerButton.setOnClickListener {
-            (getActivity()?.getApplicationContext() as AppServices).serverData.getActualCitiesList(
+            (activity?.applicationContext as AppServices).serverData.getActualCitiesList(
                 object : ActualCitiesListCallBack {
 
                     override fun onSuccess(ids: Array<String>, names: Array<String>) {
                         var StoresIds = mutableListOf<String>();
                         var StoresNames = mutableListOf<String>();
-                        var stores = (getActivity()?.getApplicationContext() as AppServices).storesService.getStores()
+                        var stores = (activity?.applicationContext as AppServices).storesService.getStores()
                         stores.forEach {
                             StoresIds.add(it.StoreId.toString())
                             StoresNames.add(it.Street.toString() + " " + it.BuildingNumber.toString())
@@ -60,14 +60,14 @@ class ManagerReview(private var selectManager: ManagersData, private var street:
         }
         res.findViewById<Button>(R.id.deleteManagerButton).setOnClickListener {
 
-            (getActivity()?.getApplicationContext() as AppServices).serverData.deleteUser(
+            (activity?.applicationContext as AppServices).serverData.deleteUser(
 
                 selectManager.UserId,
 
                 object : CreateOrderCallBack {
                     override fun onSuccess() {
-                        (getActivity()?.getApplicationContext() as AppServices).managersService.del(selectManager)
-                        (getActivity()?.getApplicationContext() as AppServices).serverData.getManagersList()
+                        (activity?.applicationContext as AppServices).managersService.del(selectManager)
+                        (activity?.applicationContext as AppServices).serverData.getManagersList()
                         activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.fragment_container, ManagersList())
                             ?.addToBackStack(null)
@@ -75,8 +75,8 @@ class ManagerReview(private var selectManager: ManagersData, private var street:
                         }
 
                     override fun onError(text: String) {
-                        (getActivity()?.getApplicationContext() as AppServices).managersService.del(selectManager)
-                        (getActivity()?.getApplicationContext() as AppServices).serverData.getManagersList()
+                        (activity?.applicationContext as AppServices).managersService.del(selectManager)
+                        (activity?.applicationContext as AppServices).serverData.getManagersList()
                         activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.fragment_container, ManagersList())
                             ?.addToBackStack(null)
