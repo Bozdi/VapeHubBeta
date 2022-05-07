@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import com.bozdi.vapehubbeta.AppServices
 import com.bozdi.vapehubbeta.CreateOrderCallBack
 import com.bozdi.vapehubbeta.MainActivity
@@ -19,6 +20,18 @@ import com.bozdi.vapehubbeta.model.OrdersData
 import java.util.jar.Attributes
 
 class CityReview(private var selectCity: CitiesData) : Fragment() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                activity?.supportFragmentManager?.beginTransaction()
+                    ?.replace(R.id.fragment_container, CitiesList())
+                    ?.addToBackStack(null)
+                    ?.commit()
+            }
+        })
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,31 +52,39 @@ class CityReview(private var selectCity: CitiesData) : Fragment() {
 
         res.findViewById<Button>(R.id.deleteCityButton).setOnClickListener {
 
-            (activity?.applicationContext as AppServices).serverData.deleteCity(
+            if (selectCity.CityId != "3") {
+                (activity?.applicationContext as AppServices).serverData.deleteCity(
 
-                selectCity.CityId.toString(),
+                    selectCity.CityId.toString(),
 
-                object : CreateOrderCallBack {
-                    override fun onSuccess() {
-                        (activity?.applicationContext as AppServices).citiesService.del(selectCity)
-                        (activity?.applicationContext as AppServices).serverData.getCitiesList()
-                        activity?.supportFragmentManager?.beginTransaction()
-                            ?.replace(R.id.fragment_container, CitiesList())
-                            ?.addToBackStack(null)
-                            ?.commit()
-                       }
+                    object : CreateOrderCallBack {
+                        override fun onSuccess() {
+                            (activity?.applicationContext as AppServices).citiesService.del(
+                                selectCity
+                            )
+                            (activity?.applicationContext as AppServices).serverData.getCitiesList()
+                            activity?.supportFragmentManager?.beginTransaction()
+                                ?.replace(R.id.fragment_container, CitiesList())
+                                ?.addToBackStack(null)
+                                ?.commit()
+                        }
 
-                    override fun onError(text: String) {
-                        (activity?.applicationContext as AppServices).citiesService.del(selectCity)
-                        (activity?.applicationContext as AppServices).serverData.getCitiesList()
-                        activity?.supportFragmentManager?.beginTransaction()
-                            ?.replace(R.id.fragment_container, CitiesList())
-                            ?.addToBackStack(null)
-                            ?.commit()
+                        override fun onError(text: String) {
+                            (activity?.applicationContext as AppServices).citiesService.del(
+                                selectCity
+                            )
+                            (activity?.applicationContext as AppServices).serverData.getCitiesList()
+                            activity?.supportFragmentManager?.beginTransaction()
+                                ?.replace(R.id.fragment_container, CitiesList())
+                                ?.addToBackStack(null)
+                                ?.commit()
 
+                        }
                     }
-                }
-            )
+                )
+            } else {
+                Toast.makeText(activity,"Невозможно удалить данный город", Toast.LENGTH_SHORT).show()
+            }
         }
 
         return res

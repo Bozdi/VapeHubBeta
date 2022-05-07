@@ -5,24 +5,29 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import com.bozdi.vapehubbeta.managerFragments.ManagerCourierReview
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
 
 class LoginActivity : AppCompatActivity() {
     var globVar: GlobalVars = GlobalVars
-    var okHttpClient: OkHttpClient = OkHttpClient()
+    private var okHttpClient: OkHttpClient = OkHttpClient()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+
+            }
+        })
+
         val login: EditText = findViewById(R.id.editTextLogin)
         val password: EditText = findViewById(R.id.editTextPassword)
-        login.setText("Courier")
-        password.setText("1234")
+      //  login.setText("Courier")
+      //  password.setText("Courier")
         val button: Button = findViewById(R.id.loginButton)
         button.setOnClickListener {
 
@@ -36,13 +41,13 @@ class LoginActivity : AppCompatActivity() {
                 .post(formBody)
                 .build()
             okHttpClient.newCall(request).enqueue(object : Callback {
-                override fun onFailure(call: Call?, e: IOException?) {
-                    Log.e("json", e.toString())
+                override fun onFailure(call: Call, e: IOException) {
+                    Log.e("Login json", e.toString())
                 }
 
-                override fun onResponse(call: Call?, response: Response?) {
-                    var body: String = response?.body()?.string().toString()
-                    if (response?.code().toString() != "200") {
+                override fun onResponse(call: Call, response: Response) {
+                    val body: String = response.body()?.string().toString()
+                    if (response.code().toString() != "200") {
                         Log.e("HTTP", "Error Auth")
 
                     } else {

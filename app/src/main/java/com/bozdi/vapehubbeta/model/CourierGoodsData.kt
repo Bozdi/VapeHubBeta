@@ -1,5 +1,6 @@
 package com.bozdi.vapehubbeta.model
 
+@kotlinx.serialization.Serializable
 data class CourierGoodsData(
     val GoodId: String?,
     val GoodLink: String?,

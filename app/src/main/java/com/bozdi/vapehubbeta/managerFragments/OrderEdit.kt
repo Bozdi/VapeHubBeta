@@ -32,16 +32,16 @@ class OrderEdit(private var selectOrder: OrdersData) : Fragment() {
         (activity as MainActivity).supportActionBar?.title = getString(R.string.OrderEdit)
         val res = inflater.inflate(R.layout.fragment_order_edit, container, false)
 
-        res.findViewById<TextView>(R.id.editOrderNameET).setText(selectOrder.ClientName)
-        res.findViewById<TextView>(R.id.editOrderPhoneNumberET).setText(selectOrder.ClientPhone)
-        res.findViewById<TextView>(R.id.editOrderBuildingNumberET).setText(selectOrder.BuildingNum)
-        res.findViewById<TextView>(R.id.editOrderStreetNameET).setText(selectOrder.StreetName)
-        res.findViewById<TextView>(R.id.editOrderApartNumET).setText(selectOrder.ApartNum)
-        res.findViewById<TextView>(R.id.editOrderEntranceNumET).setText(selectOrder.EntranceNum)
+        res.findViewById<TextView>(R.id.editOrderNameET).text = selectOrder.ClientName
+        res.findViewById<TextView>(R.id.editOrderPhoneNumberET).text = selectOrder.ClientPhone
+        res.findViewById<TextView>(R.id.editOrderBuildingNumberET).text = selectOrder.BuildingNum
+        res.findViewById<TextView>(R.id.editOrderStreetNameET).text = selectOrder.StreetName
+        res.findViewById<TextView>(R.id.editOrderApartNumET).text = selectOrder.ApartNum
+        res.findViewById<TextView>(R.id.editOrderEntranceNumET).text = selectOrder.EntranceNum
 
         res.findViewById<Button>(R.id.editOrderSaveChangesButton).setOnClickListener {
 
-            (getActivity()?.getApplicationContext() as AppServices).serverData.editOrder(
+            (activity?.applicationContext as AppServices).serverData.editOrder(
 
                 res.findViewById<EditText>(R.id.editOrderNameET).text.toString(),
                 res.findViewById<EditText>(R.id.editOrderPhoneNumberET).text.toString(),
@@ -53,7 +53,7 @@ class OrderEdit(private var selectOrder: OrdersData) : Fragment() {
 
                 object : CreateOrderCallBack {
                     override fun onSuccess() {
-                        (getActivity()?.getApplicationContext() as AppServices).serverData.getOrdersList()
+                        (activity?.applicationContext as AppServices).serverData.getOrdersList()
                         activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.fragment_container, OrdersList())
                             ?.addToBackStack(null)
@@ -61,7 +61,7 @@ class OrderEdit(private var selectOrder: OrdersData) : Fragment() {
                     }
 
                     override fun onError(text: String) {
-                        (getActivity()?.getApplicationContext() as AppServices).serverData.getOrdersList()
+                        (activity?.applicationContext as AppServices).serverData.getOrdersList()
                         activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.fragment_container, OrdersList())
                             ?.addToBackStack(null)

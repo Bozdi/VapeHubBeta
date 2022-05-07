@@ -8,12 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.bozdi.vapehubbeta.*
 import com.bozdi.vapehubbeta.model.CouriersData
 
-
-class ManagerCourierReview(private var selectCourier: CouriersData, private var Street: String) : Fragment() {
+class ManagerCourierReview(private var selectCourier: CouriersData,private var Street: String ) : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,14 +60,14 @@ class ManagerCourierReview(private var selectCourier: CouriersData, private var 
 
         res.findViewById<Button>(R.id.deleteCourierButton).setOnClickListener {
 
-            (getActivity()?.getApplicationContext() as AppServices).serverData.deleteUser(
+            (activity?.applicationContext as AppServices).serverData.deleteUser(
 
                 selectCourier.UserId,
 
                 object : CreateOrderCallBack {
                     override fun onSuccess() {
-                        (getActivity()?.getApplicationContext() as AppServices).couriersService.del(selectCourier)
-                        (getActivity()?.getApplicationContext() as AppServices).serverData.getCouriersList()
+                        (activity?.applicationContext as AppServices).couriersService.del(selectCourier)
+                        (activity?.applicationContext as AppServices).serverData.getCouriersList()
                         activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.fragment_container, CouriersList())
                             ?.addToBackStack(null)
@@ -75,7 +75,7 @@ class ManagerCourierReview(private var selectCourier: CouriersData, private var 
                       }
 
                     override fun onError(text: String) {
-                        (getActivity()?.getApplicationContext() as AppServices).serverData.getCouriersList()
+                        (activity?.applicationContext as AppServices).serverData.getCouriersList()
                         activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.fragment_container, CouriersList())
                             ?.addToBackStack(null)

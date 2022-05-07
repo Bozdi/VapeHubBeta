@@ -17,6 +17,8 @@
         app:srcCompat="@drawable/vape_hub_logo" />
 
     <EditText
+        android:hint="Логин"
+        style="@style/EditTextStyle17"
         android:id="@+id/editTextLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,6 +33,8 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
     <EditText
+        style="@style/EditTextStyle17"
+        android:hint="Пароль"
         android:id="@+id/editTextPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

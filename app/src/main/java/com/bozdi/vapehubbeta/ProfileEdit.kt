@@ -32,7 +32,7 @@ class ProfileEdit : Fragment() {
             (activity?.applicationContext as AppServices).serverData.editUser(
 
                 res.findViewById<EditText>(R.id.editProfileLoginET).text.toString(),
-                "1234",
+                res.findViewById<EditText>(R.id.editProfilePasswordET).text.toString(),
                 res.findViewById<EditText>(R.id.editProfileNameET).text.toString(),
                 res.findViewById<EditText>(R.id.editProfilePhoneNumberET).text.toString(),
                 GlobalVars.StoreId.toString(),
@@ -40,14 +40,13 @@ class ProfileEdit : Fragment() {
 
                 object : CreateUserCallBack {
                     override fun onSuccess() {
-                        (getActivity()?.applicationContext as AppServices).serverData.getUserType(
+                        (activity?.applicationContext as AppServices).serverData.getUserType(
                             object : GetUserDataCallBack {
                             override fun onSuccess() {
                                 activity?.supportFragmentManager?.beginTransaction()
                                     ?.replace(R.id.fragment_container, Profile())
                                     ?.addToBackStack(null)
                                     ?.commit()
-
                             }
 
                             override fun onError(text: String) {
@@ -56,8 +55,6 @@ class ProfileEdit : Fragment() {
                                     ?.addToBackStack(null)
                                     ?.commit()
                             }
-
-
                         })
 
                     }

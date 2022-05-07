@@ -7,13 +7,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import com.bozdi.vapehubbeta.*
-import com.bozdi.vapehubbeta.managerFragments.OrderEdit
 import com.bozdi.vapehubbeta.model.*
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class ManagerReview(private var selectManager: ManagersData, private var street: String) : Fragment() {
+class ManagerReview(private var selectManager: ManagersData,private var street: String ) : Fragment() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                activity?.supportFragmentManager?.beginTransaction()
+                    ?.replace(R.id.fragment_container, ManagersList())
+                    ?.addToBackStack(null)
+                    ?.commit()
+            }
+        })
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,20 +44,20 @@ class ManagerReview(private var selectManager: ManagersData, private var street:
                 object : ActualCitiesListCallBack {
 
                     override fun onSuccess(ids: Array<String>, names: Array<String>) {
-                        var StoresIds = mutableListOf<String>();
-                        var StoresNames = mutableListOf<String>();
-                        var stores = (activity?.applicationContext as AppServices).storesService.getStores()
+                        val storesIds = mutableListOf<String>()
+                        val storesNames = mutableListOf<String>()
+                        val stores = (activity?.applicationContext as AppServices).storesService.getStores()
                         stores.forEach {
-                            StoresIds.add(it.StoreId.toString())
-                            StoresNames.add(it.Street.toString() + " " + it.BuildingNumber.toString())
+                            storesIds.add(it.StoreId)
+                            storesNames.add(it.Street.toString() + " " + it.BuildingNumber.toString())
                         }
 
                         activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.fragment_container, ManagerEdit(
                                 ids,
                                 names,
-                                StoresIds.toTypedArray(),
-                                StoresNames.toTypedArray(),
+                                storesIds.toTypedArray(),
+                                storesNames.toTypedArray(),
                                 selectManager
                             ))
                             ?.addToBackStack(null)

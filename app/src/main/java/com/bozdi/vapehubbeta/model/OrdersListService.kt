@@ -19,7 +19,13 @@ class OrderListService {
                 order
             )
         } else {
-            orders[index].StreetName = order.StreetName;
+            orders[index].StreetName = order.StreetName
+            orders[index].ClientName = order.ClientName
+            orders[index].BuildingNum = order.BuildingNum
+            orders[index].ApartNum = order.ApartNum
+            orders[index].EntranceNum = order.EntranceNum
+            orders[index].ClientPhone = order.ClientPhone
+            orders[index].Status = order.Status
         }
         //notifyChanges()
     }

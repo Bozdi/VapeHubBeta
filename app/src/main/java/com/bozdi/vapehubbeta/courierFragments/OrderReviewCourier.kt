@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import com.bozdi.vapehubbeta.*
 import com.bozdi.vapehubbeta.model.OrdersData
 
@@ -17,7 +18,7 @@ class OrderReviewCourier(private var selectOrderCourier: OrdersData) : Fragment(
         savedInstanceState: Bundle?
     ): View? {
         val res = inflater.inflate(R.layout.fragment_order_review_courier, container, false)
-        val orderId = selectOrderCourier.OrderId.toInt()
+
         (activity as MainActivity).supportActionBar?.title = "Заказ №" + selectOrderCourier.OrderId
 
         res.findViewById<TextView>(R.id.orderReviewCourierNameET).text = selectOrderCourier.ClientName

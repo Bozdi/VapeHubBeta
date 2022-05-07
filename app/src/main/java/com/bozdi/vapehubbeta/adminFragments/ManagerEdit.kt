@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.activity.OnBackPressedCallback
 import com.bozdi.vapehubbeta.*
 import com.bozdi.vapehubbeta.databinding.FragmentManagerEditBinding
 import com.bozdi.vapehubbeta.model.ManagersData
@@ -19,6 +20,7 @@ class ManagerEdit(private var CitiesIds: Array<String>,
     private lateinit var binding: FragmentManagerEditBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         binding = FragmentManagerEditBinding.inflate(layoutInflater)
 
@@ -41,6 +43,7 @@ class ManagerEdit(private var CitiesIds: Array<String>,
         res.findViewById<TextView>(R.id.editManagerNameET).text = selectManager.Name
         res.findViewById<TextView>(R.id.editManagerLoginET).text = selectManager.Login
         res.findViewById<TextView>(R.id.editManagerPhoneNumberET).text = selectManager.Phone
+       // res.findViewById<TextView>(R.id.editManagerPasswordET).text = "1234"
 
         res.findViewById<Button>(R.id.editManagerSaveChangesButton).setOnClickListener {
 
@@ -58,7 +61,7 @@ class ManagerEdit(private var CitiesIds: Array<String>,
                         (activity?.applicationContext as AppServices).serverData.getManagersList()
                         activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.fragment_container, ManagersList())
-                            ?.addToBackStack(null)
+                            ?.disallowAddToBackStack()
                             ?.commit()
                     }
 
@@ -66,7 +69,7 @@ class ManagerEdit(private var CitiesIds: Array<String>,
                         (activity?.applicationContext as AppServices).serverData.getManagersList()
                         activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.fragment_container, ManagersList())
-                            ?.addToBackStack(null)
+                            ?.disallowAddToBackStack()
                             ?.commit()
                     }
                 }

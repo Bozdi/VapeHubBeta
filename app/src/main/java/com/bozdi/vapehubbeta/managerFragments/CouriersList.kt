@@ -7,12 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bozdi.vapehubbeta.*
 import com.bozdi.vapehubbeta.adapters.CouriersAdapter
 import com.bozdi.vapehubbeta.adapters.CouriersActionListener
+import com.bozdi.vapehubbeta.adminFragments.ManagerReview
 import com.bozdi.vapehubbeta.model.CouriersData
 import com.bozdi.vapehubbeta.model.CouriersListService
 import com.bozdi.vapehubbeta.model.couriersListener
@@ -22,7 +24,16 @@ class CouriersList : Fragment() {
     private lateinit var adapter: CouriersAdapter
 
     private val courierService: CouriersListService
-        get() = (getActivity()?.getApplicationContext() as AppServices).couriersService
+        get() = (activity?.applicationContext as AppServices).couriersService
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+
+            }
+        })
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
@@ -33,6 +44,7 @@ class CouriersList : Fragment() {
 
         adapter = CouriersAdapter(object : CouriersActionListener {
             override fun onCourierClick(courier: CouriersData) {
+
                 (activity?.applicationContext as AppServices).serverData.getStoreData(courier.StoreId,
                     object : StorageDateListCallBack {
                         override fun onSuccess(Street: String) {
@@ -56,13 +68,13 @@ class CouriersList : Fragment() {
 
         val addCourierButton : FloatingActionButton = res.findViewById(R.id.newCourierButton)
         addCourierButton.setOnClickListener {
-            (getActivity()?.getApplicationContext() as AppServices).serverData.getActualCitiesList(
+            (activity?.applicationContext as AppServices).serverData.getActualCitiesList(
                 object : ActualCitiesListCallBack {
 
                     override fun onSuccess(ids: Array<String>, names: Array<String>) {
                         var StoresIds = mutableListOf<String>()
                         var StoresNames = mutableListOf<String>()
-                        var stores = (getActivity()?.getApplicationContext() as AppServices).storesService.getStores()
+                        var stores = (activity?.applicationContext as AppServices).storesService.getStores()
                         stores.forEach {
                             StoresIds.add(it.StoreId.toString())
                             StoresNames.add(it.Street.toString() + " " + it.BuildingNumber.toString())
@@ -82,7 +94,7 @@ class CouriersList : Fragment() {
                     }
             })
     }
-        (getActivity()?.getApplicationContext() as AppServices).serverData.getCouriersList()
+        (activity?.applicationContext as AppServices).serverData.getCouriersList()
         Handler().postDelayed({
             adapter.notifyDataSetChanged()
         }, 500)
@@ -90,7 +102,7 @@ class CouriersList : Fragment() {
     val refresh = res.findViewById<SwipeRefreshLayout>(R.id.refreshCouriersList)
 
     refresh.setOnRefreshListener {
-        (getActivity()?.getApplicationContext() as AppServices).serverData.getCouriersList()
+        (activity?.applicationContext as AppServices).serverData.getCouriersList()
         Handler().postDelayed({
             adapter.notifyDataSetChanged()
             Toast.makeText(activity,"Список обновлён", Toast.LENGTH_SHORT).show()

@@ -22,7 +22,6 @@ class ManagersListService {
             //notifyChanges()
         } else {
             managers[index].Name = manager.Name
-            managers[index].Name = manager.Name
             managers[index].StoreId = manager.StoreId
             managers[index].Phone = manager.Phone
             managers[index].Login = manager.Login

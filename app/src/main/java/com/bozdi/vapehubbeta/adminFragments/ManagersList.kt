@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +21,15 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class ManagersList : Fragment() {
     private lateinit var adapter: ManagersAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+
+            }
+        })
+    }
 
     private val managersListService: ManagersListService
         get() = (activity?.applicationContext as AppServices).managersService
@@ -104,6 +114,8 @@ class ManagersList : Fragment() {
         super.onDestroy()
         managersListService.removeListener(managersListener)
     }
+
+
 
     private val managersListener: managersListener ={
         adapter.managersData = it

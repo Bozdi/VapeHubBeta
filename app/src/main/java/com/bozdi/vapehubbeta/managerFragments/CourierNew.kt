@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
+import androidx.activity.OnBackPressedCallback
 import com.bozdi.vapehubbeta.*
 import com.bozdi.vapehubbeta.adminFragments.CitiesList
 
@@ -17,6 +18,11 @@ class CourierNew(private var CitiesIds: Array<String>,
                  private var StoresIds: Array<String>,
                  private var  StoresNames: Array<String>,
 ) : Fragment() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

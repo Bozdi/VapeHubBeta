@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import com.bozdi.vapehubbeta.*
 import com.bozdi.vapehubbeta.managerFragments.OrderEdit
 import com.bozdi.vapehubbeta.model.OrdersData
@@ -16,6 +17,17 @@ import com.bozdi.vapehubbeta.model.StoresData
 
 class StoreReview(private var selectStore: StoresData, private var cityName: String) : Fragment() {
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                activity?.supportFragmentManager?.beginTransaction()
+                    ?.replace(R.id.fragment_container, StoresList())
+                    ?.addToBackStack(null)
+                    ?.commit()
+            }
+        })
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,35 +62,36 @@ class StoreReview(private var selectStore: StoresData, private var cityName: Str
                 })
         }
         res.findViewById<Button>(R.id.deleteStoreButton).setOnClickListener {
+            if (selectStore.StoreId != "22") {
+                (activity?.applicationContext as AppServices).serverData.deleteStore(
 
-            (getActivity()?.getApplicationContext() as AppServices).serverData.deleteStore(
+                    selectStore.StoreId,
 
-                selectStore.StoreId.toString(),
+                    object : CreateOrderCallBack {
+                        override fun onSuccess() {
+                            (activity?.applicationContext as AppServices).storesService.del(selectStore)
+                            (activity?.applicationContext as AppServices).serverData.getStoresList()
+                            activity?.supportFragmentManager?.beginTransaction()
+                                ?.replace(R.id.fragment_container, StoresList())
+                                ?.addToBackStack(null)
+                                ?.commit()
+                        }
 
-                object : CreateOrderCallBack {
-                    override fun onSuccess() {
-                        (getActivity()?.getApplicationContext() as AppServices).storesService.del(selectStore)
-                        (getActivity()?.getApplicationContext() as AppServices).serverData.getStoresList()
-                        activity?.supportFragmentManager?.beginTransaction()
-                            ?.replace(R.id.fragment_container, StoresList())
-                            ?.addToBackStack(null)
-                            ?.commit()
-                       }
+                        override fun onError(text: String) {
+                            (activity?.applicationContext as AppServices).storesService.del(selectStore)
+                            (activity?.applicationContext as AppServices).serverData.getStoresList()
+                            activity?.supportFragmentManager?.beginTransaction()
+                                ?.replace(R.id.fragment_container, StoresList())
+                                ?.addToBackStack(null)
+                                ?.commit()
 
-                    override fun onError(text: String) {
-                        (getActivity()?.getApplicationContext() as AppServices).storesService.del(selectStore)
-                        (getActivity()?.getApplicationContext() as AppServices).serverData.getStoresList()
-                        activity?.supportFragmentManager?.beginTransaction()
-                            ?.replace(R.id.fragment_container, StoresList())
-                            ?.addToBackStack(null)
-                            ?.commit()
-
+                        }
                     }
-                }
-            )
+                )
+            } else {
+                Toast.makeText(activity,"Невозможно удалить данный магазин", Toast.LENGTH_SHORT).show()
+            }
         }
-
         return res
-
     }
 }

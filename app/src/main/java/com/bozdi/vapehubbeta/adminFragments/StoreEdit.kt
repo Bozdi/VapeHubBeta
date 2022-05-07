@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.activity.OnBackPressedCallback
 import com.bozdi.vapehubbeta.*
 import com.bozdi.vapehubbeta.databinding.FragmentStoreEditBinding
 
@@ -22,6 +23,7 @@ class StoreEdit(private var selectStore: StoresData,
         binding = FragmentStoreEditBinding.inflate(layoutInflater)
 
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

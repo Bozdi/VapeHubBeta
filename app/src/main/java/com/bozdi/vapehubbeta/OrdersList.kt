@@ -6,8 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.isInvisible
-import androidx.core.view.isVisible
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,9 +25,21 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 class OrdersList : Fragment() {
     private lateinit var adapter: OrdersAdapter
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+
+            }
+        })
+        (activity?.applicationContext as AppServices).serverData.getOrdersList()
+        Handler().postDelayed({
+            adapter.notifyDataSetChanged()
+        }, 10000)
+    }
 
     private val orderService: OrderListService
-        get() = (getActivity()?.getApplicationContext() as AppServices).ordersService
+        get() = (activity?.applicationContext as AppServices).ordersService
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
@@ -43,16 +54,25 @@ class OrdersList : Fragment() {
                         ?.addToBackStack(null)
                         ?.commit()
                 } else {
-                    if(order.Status == "Ожидает") {
-                        activity?.supportFragmentManager?.beginTransaction()
-                            ?.replace(R.id.fragment_container, OrderReviewCourier(order))
-                            ?.addToBackStack(null)
-                            ?.commit()
-                    } else {
-                        activity?.supportFragmentManager?.beginTransaction()
-                            ?.replace(R.id.fragment_container, OrderTaken(order))
-                            ?.addToBackStack(null)
-                            ?.commit()
+                    when (order.Status) {
+                        "Ожидает" -> {
+                            activity?.supportFragmentManager?.beginTransaction()
+                                ?.replace(R.id.fragment_container, OrderReviewCourier(order))
+                                ?.addToBackStack(null)
+                                ?.commit()
+                        }
+                        "Завершён" -> {
+                            activity?.supportFragmentManager?.beginTransaction()
+                                ?.replace(R.id.fragment_container, CompletedOrder(order))
+                                ?.addToBackStack(null)
+                                ?.commit()
+                        }
+                        else -> {
+                            activity?.supportFragmentManager?.beginTransaction()
+                                ?.replace(R.id.fragment_container, OrderTaken(order))
+                                ?.addToBackStack(null)
+                                ?.commit()
+                        }
                     }
 
                 }
@@ -76,15 +96,11 @@ class OrdersList : Fragment() {
         }
 
         }
-//        (getActivity()?.getApplicationContext() as AppServices).serverData.getOrdersList()
-//        Handler().postDelayed({
-//            adapter.notifyDataSetChanged()
-//        }, 10000)
 
         val refresh = res.findViewById<SwipeRefreshLayout>(R.id.refresh_Order_List)
 
         refresh.setOnRefreshListener {
-            (getActivity()?.getApplicationContext() as AppServices).serverData.getOrdersList()
+            (activity?.applicationContext as AppServices).serverData.getOrdersList()
             Handler().postDelayed({
                 adapter.notifyDataSetChanged()
                 Toast.makeText(activity,"Список обновлён", Toast.LENGTH_SHORT).show()

@@ -79,7 +79,7 @@ class ServerData(_context: Context) {
                         when (value.getString("Status")) {
                             "PEND" -> status = "Ожидает"
                             "ACCEPT" -> status = "В работе"
-                            "DONE" -> continue
+                            "DONE" -> status = "Завершён"
                         }
                         (context as AppServices).ordersService.add(
                             OrdersData(
@@ -435,6 +435,43 @@ class ServerData(_context: Context) {
             }
         })
     }
+    fun editUserWithoutPassword(
+        Login: String,
+        // Password: String,
+        Name: String,
+        Phone: String,
+        StoreId: String,
+        userId: String,
+        actionListener: CreateUserCallBack
+    ) {
+        val formBody: RequestBody = FormBody.Builder()
+            .add("Login", Login)
+            //   .add("Password", Password)
+            .add("Name", Name)
+            .add("Phone", Phone)
+            .add("StoreId", StoreId)
+            .build()
+        val request: Request = Request.Builder()
+            .url(globVar.URL + "users/" + userId)
+            .addHeader("Content-Type", "application/x-www-form-urlencoded")
+            .addHeader("auth-token", globVar.token)
+            .put(formBody)
+            .build()
+        okHttpClient.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                Log.e("json", e.toString())
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                Log.e("Code Create Order", response.code().toString())
+                if (response.code() != 201) {
+                    actionListener.onError("Ошибка редактирования курьера")
+                } else {
+                    actionListener.onSuccess()
+                }
+            }
+        })
+    }
 
 
     fun addGoodsOrder(
@@ -672,23 +709,24 @@ class ServerData(_context: Context) {
 
                         }
                     )
-                } else {
-                    getStoreData("3",
-                        object : StorageDateListCallBack {
-                            override fun onSuccess(Street: String) {
 
-                                globVar.ProfileStoreName = Street
-                                action.onSuccess()
-                            }
-
-                            override fun onError(text: String) {
-                                action.onError(text)
-                                TODO("Not yet implemented")
-                            }
-
-
-                        }
-                    )
+                } else { action.onSuccess()
+//                    getStoreData("17",
+//                        object : StorageDateListCallBack {
+//                            override fun onSuccess(Street: String) {
+//
+//                                globVar.ProfileStoreName = Street
+//                                action.onSuccess()
+//                            }
+//
+//                            override fun onError(text: String) {
+//                                action.onError(text)
+//                                TODO("Not yet implemented")
+//                            }
+//
+//
+//                        }
+//                    )
                 }
 
             }

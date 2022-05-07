@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -26,7 +27,16 @@ class CitiesList : Fragment() {
     private lateinit var adapter: CitiesAdapter
 
     private val citiesListService: CitiesListService
-        get() = (getActivity()?.getApplicationContext() as AppServices).citiesService
+
+        get() = (activity?.applicationContext as AppServices).citiesService
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+            }
+        })
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
@@ -54,7 +64,7 @@ class CitiesList : Fragment() {
                 ?.addToBackStack(null)
                 ?.commit()
         }
-        (getActivity()?.getApplicationContext() as AppServices).serverData.getCitiesList()
+        (activity?.applicationContext as AppServices).serverData.getCitiesList()
         Handler().postDelayed({
             adapter.notifyDataSetChanged()
         }, 500)
@@ -62,7 +72,7 @@ class CitiesList : Fragment() {
         val refresh = res.findViewById<SwipeRefreshLayout>(R.id.refreshCitiesList)
 
         refresh.setOnRefreshListener {
-            (getActivity()?.getApplicationContext() as AppServices).serverData.getCitiesList()
+            (activity?.applicationContext as AppServices).serverData.getCitiesList()
             Handler().postDelayed({
                 adapter.notifyDataSetChanged()
                 Toast.makeText(activity,"Список обновлён", Toast.LENGTH_SHORT).show()

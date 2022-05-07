@@ -1,19 +1,20 @@
 package com.bozdi.vapehubbeta.model
 
+@kotlinx.serialization.Serializable
 data class OrdersData (
     var OrderId: String,
     val OrderLink: String?,
-    val ClientName: String?,
-    val StoreId: String?,
+    var ClientName: String?,
+    val StoreId: String,
     val StoreLink: String?,
     val UserId: String?,
     var ClientPhone: String?,
     var StreetName: String?,
-    val BuildingNum: String?,
-    val ApartNum: String?,
-    val EntranceNum: String?,
+    var BuildingNum: String?,
+    var ApartNum: String?,
+    var EntranceNum: String?,
     val TargetTime: String?,
-    val Status: String?,
+    var Status: String?,
     val GMapPlaceID: String?,
     val Lat: String?,
     val Lng: String?,

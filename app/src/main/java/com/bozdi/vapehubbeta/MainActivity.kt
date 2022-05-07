@@ -1,6 +1,9 @@
 package com.bozdi.vapehubbeta
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -35,6 +38,21 @@ class MainActivity : AppCompatActivity() {
         setBottomNavigation(GlobalVars.UserType)
 
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        if(GlobalVars.UserType == "ADMN") {
+            menuInflater.inflate(R.menu.admin_logout_menu, menu)
+        }
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.adminLogout) {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
+        return true
     }
 
     private fun replaceFragment(fragment: Fragment) {
@@ -74,8 +92,8 @@ class MainActivity : AppCompatActivity() {
                     }
                     true
                 }
-                (applicationContext as AppServices).serverData.getGoodDialogList()
                 (applicationContext as AppServices).serverData.getOrdersList()
+                (applicationContext as AppServices).serverData.getGoodDialogList()
                 (applicationContext as AppServices).serverData.getCouriersList()
                 (applicationContext as AppServices).serverData.getStoresList()
                 (applicationContext as AppServices).serverData.getCitiesList()

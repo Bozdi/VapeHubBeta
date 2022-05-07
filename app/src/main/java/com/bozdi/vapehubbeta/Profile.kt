@@ -9,10 +9,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import kotlinx.coroutines.Dispatchers.Main
 
 class Profile : Fragment() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+
+            }
+        })
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,7 +45,7 @@ class Profile : Fragment() {
         }
 
         res.findViewById<Button>(R.id.profileExitButton).setOnClickListener {
-            activity?.let{
+            activity?.let {
                 val intent = Intent (it, LoginActivity::class.java)
                 it.startActivity(intent)
             }

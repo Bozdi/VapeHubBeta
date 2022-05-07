@@ -7,11 +7,24 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.bozdi.vapehubbeta.*
 import com.bozdi.vapehubbeta.model.OrdersData
 
 class OrderReviewManager(private var selectOrder: OrdersData) : Fragment() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                activity?.supportFragmentManager?.beginTransaction()
+                    ?.replace(R.id.fragment_container, OrdersList())
+                    ?.addToBackStack(null)
+                    ?.commit()
+            }
+        })
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,9 +44,6 @@ class OrderReviewManager(private var selectOrder: OrdersData) : Fragment() {
         res.findViewById<TextView>(R.id.orderReviewGoodsCostET).text = selectOrder.GoodsTotalCost
         res.findViewById<TextView>(R.id.orderReviewTotalCostET).text = selectOrder.TotalCost
 
-
-
-
         res.findViewById<Button>(R.id.orderReviewEditButton).setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()
                 ?.replace(R.id.fragment_container, OrderEdit(selectOrder))
@@ -42,7 +52,7 @@ class OrderReviewManager(private var selectOrder: OrdersData) : Fragment() {
         }
 
         res.findViewById<Button>(R.id.deleteOrderButton).setOnClickListener {
-            if(selectOrder.Status == "PEND") {
+           // if(selectOrder.Status == "PEND") {
                 (activity?.applicationContext as AppServices).serverData.deleteOrder(
 
                     selectOrder.OrderId,
@@ -68,10 +78,10 @@ class OrderReviewManager(private var selectOrder: OrdersData) : Fragment() {
                         }
                     }
                 )
-            } else {
-                Toast.makeText(activity,"Невозможно удалить взятый на исполнение заказ", Toast.LENGTH_SHORT).show()
+           // } else {
+               // Toast.makeText(activity,"Невозможно удалить взятый на исполнение заказ", Toast.LENGTH_SHORT).show()
             }
-        }
+
         return res
 
     }

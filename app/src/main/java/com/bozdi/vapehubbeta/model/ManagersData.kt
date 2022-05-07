@@ -1,5 +1,6 @@
 package com.bozdi.vapehubbeta.model
 
+@kotlinx.serialization.Serializable
 data class ManagersData(
     val UserId: String,
     var Login: String,
